@@ -1,18 +1,16 @@
 import React from "react";
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Login({ setIsAuth }) {
-  if (auth.currentUser) {
-    <Redirect to={"/user/" + auth.currentUser.uid} />;
-  }
-
+  let navigate = useNavigate();
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        const user = result.user;
         setIsAuth(true);
         localStorage.setItem("IsAuth", true);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);

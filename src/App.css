@@ -14,10 +14,10 @@
         height: 80px;
         background-color: black;
         display: flex;
-        justify-content: center;
         align-items: center;
         color: white;
         text-decoration: none;
+        flex-direction: row;
     }
     
     a {
@@ -192,4 +192,29 @@
         width: 100%;
         overflow: hidden;
         overflow-y: auto;
+    }
+    
+    .defaultNav {
+        display: flex;
+    }
+    
+    .left {
+        display: flex;
+        flex: 50%;
+        justify-content: flex-end;
+    }
+    
+    label {
+        font-size: 20px;
+        padding: 10px;
+    }
+    
+    select {
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 5px;
+        font-size: 20px;
+        font-family: 'Roboto', sans-serif;
     }
