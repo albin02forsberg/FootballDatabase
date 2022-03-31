@@ -2,12 +2,7 @@ import React, { useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import {
-  getDownloadURL,
-  uploadBytes,
-  uploadBytesResumable,
-  ref,
-} from "firebase/storage";
+import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 
 export default function CreateDrill() {
   let navigate = useNavigate();
@@ -19,7 +14,6 @@ export default function CreateDrill() {
   const [org, setOrg] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const [img, setImg] = React.useState("");
-  const [imgLink, setImgLink] = React.useState("no-img");
 
   const drillCollectionRef = collection(db, "drills");
 
@@ -34,7 +28,6 @@ export default function CreateDrill() {
 
     uploadBytes(storageRef, img).then((snapshot) => {
       getDownloadURL(storageRef).then((url) => {
-        setImgLink(url);
         console.log(url);
         addDoc(drillCollectionRef, {
           name,

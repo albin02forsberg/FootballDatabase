@@ -30,7 +30,7 @@ export default function CreateSession() {
       type,
       desc,
       drills: selectedDrills,
-      name: auth.currentUser.displayName,
+      uname: auth.currentUser.displayName,
       uid: auth.currentUser.uid,
       created: new Date(),
     };
@@ -110,6 +110,18 @@ export default function CreateSession() {
             <option value="9 mot 9">9 mot 9</option>
             <option value="11 mot 11">11 mot 11</option>
           </select>
+        </div>
+        <div className="md-3">
+          <label class="form-label">Beskrivning</label>
+          <textarea
+            class="form-control"
+            rows="5"
+            aria-label="With textarea"
+            placeholder="Regler, förutsättningar och kort övningsbeskrivning. Var är uppgiften?"
+            onChange={(e) => {
+              setDesc(e.target.value);
+            }}
+          ></textarea>
         </div>
       </div>
       <div className="row">

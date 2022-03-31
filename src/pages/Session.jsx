@@ -18,7 +18,7 @@ export default function Session() {
       .catch((error) => {
         console.log(error);
       });
-  }, [id]);
+  }, [id, sessionRef]);
 
   return (
     <div className="container">
@@ -63,7 +63,11 @@ export default function Session() {
               <p>{drill.desc}</p>
             </div>
             <div className="col-md-6">
-              <img src={drill.imgLink} className="img-thumbnail" />
+              <img
+                src={drill.imgLink}
+                className="img-thumbnail"
+                alt={drill.name}
+              />
             </div>
             <hr />
           </div>

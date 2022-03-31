@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  query,
-  collection,
-  doc,
-  where,
-  getDocs,
-  getDoc,
-} from "firebase/firestore";
+import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 
 export default function Drill() {
@@ -27,7 +20,7 @@ export default function Drill() {
       .catch((error) => {
         console.log(error);
       });
-  }, [id]);
+  }, [id, drillRef]);
 
   return (
     <div className="container">
@@ -52,7 +45,11 @@ export default function Drill() {
         </div>
         {drill && (
           <div className="col-md-6">
-            <img src={drill.data().imgLink} className="img-thumbnail" />
+            <img
+              src={drill.data().imgLink}
+              className="img-thumbnail"
+              alt={drill.data().name}
+            />
           </div>
         )}
       </div>

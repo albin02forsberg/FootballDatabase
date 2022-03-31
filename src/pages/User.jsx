@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { auth, db } from "../firebase-config";
+import { db } from "../firebase-config";
 
 import {
   query,
@@ -52,7 +52,7 @@ export default function User() {
     getDocs(sessionQ).then((docs) => {
       setSessions(docs.docs);
     });
-  }, [uid]);
+  }, [uid, userRef]);
 
   return (
     <div className="container">
