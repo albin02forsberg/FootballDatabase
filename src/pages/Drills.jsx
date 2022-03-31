@@ -25,7 +25,7 @@ export default function Drills() {
             <th scope="col">Namn</th>
             <th scope="col">Typ</th>
             <th scope="col">Nivå</th>
-            <td scope="col">Skapad av:</td>
+            <th scope="col">Skapad av:</th>
           </tr>
         </thead>
         <tbody>
