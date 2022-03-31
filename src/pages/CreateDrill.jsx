@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { db, auth, storage, storageRef } from "../firebase-config";
+import { db, auth, storage } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import {
   getDownloadURL,
@@ -23,22 +23,34 @@ export default function CreateDrill() {
 
   const drillCollectionRef = collection(db, "drills");
 
+  useEffect(() => {
+    if (!auth.currentUser) {
+      navigate("/");
+    }
+  });
+
   const createDrill = async () => {
-    await addDoc(drillCollectionRef, {
-      name,
-      type,
-      difficulty,
-      why,
-      how,
-      org,
-      desc,
-      imgLink,
-      user: { name: auth.currentUser.displayName, uid: auth.currentUser.uid },
-      date: new Date(),
-    }).then((res) => {
-      // Uploade image to storage
-      uploadBytesResumable(storage, img, res.id).then((res) => {
-        console.log(res);
+    const storageRef = ref(storage, "drills/" + Date.now() + img.name);
+
+    uploadBytes(storageRef, img).then((snapshot) => {
+      getDownloadURL(storageRef).then((url) => {
+        setImgLink(url);
+        console.log(url);
+        addDoc(drillCollectionRef, {
+          name,
+          type,
+          difficulty,
+          why,
+          how,
+          org,
+          desc,
+          imgLink: url,
+          uname: auth.currentUser.displayName,
+          uid: auth.currentUser.uid,
+          created: new Date(),
+        }).then((doc) => {
+          navigate("/drill/" + doc.id);
+        });
       });
     });
   };

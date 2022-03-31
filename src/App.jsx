@@ -7,6 +7,10 @@ import Login from "./pages/Login";
 import User from "./pages/User";
 import Drills from "./pages/Drills";
 import CreateDrill from "./pages/CreateDrill";
+import Drill from "./pages/drill";
+import Session from "./pages/Session";
+import Sessions from "./pages/Sessions";
+import CreateSession from "./pages/CreateSession";
 import { auth } from "./firebase-config";
 
 function App() {
@@ -43,6 +47,7 @@ function App() {
         <div className="defaultNav">
           <Link to="/">Home</Link>
           <Link to="/drills">Övningar</Link>
+          <Link to="/sessions">Träningspass</Link>
           <Link to="/about">Om</Link>
         </div>
         {!isAuth ? (
@@ -65,7 +70,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
         <Route path="/drills" element={<Drills />} />
+        <Route path="/sessions" element={<Sessions />} />
         <Route path="/createDrill" element={<CreateDrill />} />
+        <Route path="/createSession" element={<CreateSession />} />
+        <Route path="/drill/:id" element={<Drill />} />
+        <Route path="/session/:id" element={<Session />} />
         <Route path="/user/:uid" element={<User />} />
         <Route path="*" element={<div>Not found</div>} />
       </Routes>

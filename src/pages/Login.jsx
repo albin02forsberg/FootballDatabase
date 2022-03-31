@@ -2,6 +2,8 @@ import React from "react";
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { db } from "../firebase-config";
+import { addDoc, collection, setDoc, doc } from "firebase/firestore";
 
 export default function Login({ setIsAuth }) {
   let navigate = useNavigate();
@@ -10,6 +12,17 @@ export default function Login({ setIsAuth }) {
       .then((result) => {
         setIsAuth(true);
         localStorage.setItem("IsAuth", true);
+        const userCollectionRef = doc(db, "users", result.user.uid);
+        // Add user to database
+        setDoc(userCollectionRef, {
+          name: result.user.displayName,
+          uid: result.user.uid,
+          email: result.user.email,
+          photo: result.user.photoURL,
+          joined: result.user.metadata.creationTime,
+          lastLogin: new Date(),
+        });
+
         navigate("/");
       })
       .catch((error) => {
