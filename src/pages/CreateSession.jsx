@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import { auth, db } from "../firebase-config";
-import { getDocs, collection, where, addDoc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  where,
+  addDoc,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateSession() {
@@ -14,10 +21,15 @@ export default function CreateSession() {
   const [selectedDrills, setSelectedDrills] = React.useState([]);
 
   useEffect(() => {
-    getDocs(
+    if (!auth.currentUser) {
+      navigate("/");
+    }
+    const drillQ = query(
       collection(db, "drills"),
-      where("creator.uid", "==", auth.currentUser.uid)
-    ).then((docs) => {
+      orderBy("created", "desc"),
+      where("uid", "==", auth.currentUser.uid)
+    );
+    getDocs(drillQ).then((docs) => {
       setDrills(docs.docs);
     });
   }, []);
@@ -147,18 +159,17 @@ export default function CreateSession() {
                       onClick={(e) => {
                         e.preventDefault();
                         console.log(e.target.value);
-                        if (!selectedDrills.includes(drill.data())) {
-                          setSelectedDrills([...selectedDrills, drill.data()]);
-                          e.target.innerText = "Ta bort";
-                          e.target.className = "btn btn-danger";
-                        } else {
-                          // remove drill from selectedDrills
+                        if (selectedDrills.includes(drill.data())) {
                           setSelectedDrills(
                             selectedDrills.filter((d) => d !== drill.data())
                           );
-                          // change button text to add
-                          e.target.innerText = "Välj";
+                          e.target.innerText = "Lägg till";
                           e.target.className = "btn btn-success";
+                        } else {
+                          setSelectedDrills([...selectedDrills, drill.data()]);
+
+                          e.target.innerText = "Ta bort";
+                          e.target.className = "btn btn-danger";
                         }
                       }}
                     >
