@@ -67,64 +67,68 @@ export default function User() {
           )}
         </div>
         <div className="col-md-6">
-          {user && <h2>{user.data().name + "s övningar"}</h2>}
-          {drills && (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">Namn</th>
-                  <th scope="col">Typ</th>
-                  <th scope="col">Nivå</th>
-                </tr>
-              </thead>
-              <tbody>
-                {drills &&
-                  // If drills is not null
-                  // Loop through drills and create a table row for each drill
-                  drills.map((drill) => (
-                    <tr key={drill.id}>
-                      <td>
-                        <Link to={"/drill/" + drill.id}>
-                          {drill.data().name}
-                        </Link>
-                      </td>
-                      <td>{drill.data().type}</td>
-                      <td>{drill.data().difficulty}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
+          <div className="table-responsive">
+            {user && <h2>{user.data().name + "s övningar"}</h2>}
+            {drills && (
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Namn</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Nivå</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {drills &&
+                    // If drills is not null
+                    // Loop through drills and create a table row for each drill
+                    drills.map((drill) => (
+                      <tr key={drill.id}>
+                        <td>
+                          <Link to={"/drill/" + drill.id}>
+                            {drill.data().name}
+                          </Link>
+                        </td>
+                        <td>{drill.data().type}</td>
+                        <td>{drill.data().difficulty}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
         <div className="col-md-6">
-          {user && <h2>{user.data().name + "s träningspass"}</h2>}
-          {sessions && (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">Namn</th>
-                  <th scope="col">Typ</th>
-                  <th scope="col">Nivå</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sessions &&
-                  // If drills is not null
-                  // Loop through drills and create a table row for each drill
-                  sessions.map((session) => (
-                    <tr key={session.id}>
-                      <td>
-                        <Link to={"/session/" + session.id}>
-                          {session.data().name}
-                        </Link>
-                      </td>
-                      <td>{session.data().type}</td>
-                      <td>{session.data().difficulty}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
+          <div className="table-responsive">
+            {user && <h2>{user.data().name + "s träningspass"}</h2>}
+            {sessions && (
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Namn</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Nivå</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sessions &&
+                    // If drills is not null
+                    // Loop through drills and create a table row for each drill
+                    sessions.map((session) => (
+                      <tr key={session.id}>
+                        <td>
+                          <Link to={"/session/" + session.id}>
+                            {session.data().name}
+                          </Link>
+                        </td>
+                        <td>{session.data().type}</td>
+                        <td>{session.data().difficulty}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       </div>
     </div>

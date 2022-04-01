@@ -19,35 +19,37 @@ export default function Drills() {
       <Link to="/createDrill" className="pageLink">
         <button className="btn btn-primary">Skapa övning</button>
       </Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Namn</th>
-            <th scope="col">Typ</th>
-            <th scope="col">Nivå</th>
-            <th scope="col">Skapad av:</th>
-          </tr>
-        </thead>
-        <tbody>
-          {drills && // If drills is not null
-            // Loop through drills and create a table row for each drill
-            drills.map((drill) => (
-              <tr key={drill.id}>
-                <td>
-                  <Link to={"/drill/" + drill.id}>{drill.data().name}</Link>
-                </td>
-                <td>{drill.data().type}</td>
-                <td>{drill.data().difficulty}</td>
-                <td>
-                  <Link to={"/user/" + drill.data().uid}>
-                    {" "}
-                    {drill.data().uname}
-                  </Link>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <div className="table-responsive">
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Namn</th>
+              <th scope="col">Typ</th>
+              <th scope="col">Nivå</th>
+              <th scope="col">Skapad av:</th>
+            </tr>
+          </thead>
+          <tbody>
+            {drills && // If drills is not null
+              // Loop through drills and create a table row for each drill
+              drills.map((drill) => (
+                <tr key={drill.id}>
+                  <td>
+                    <Link to={"/drill/" + drill.id}>{drill.data().name}</Link>
+                  </td>
+                  <td>{drill.data().type}</td>
+                  <td>{drill.data().difficulty}</td>
+                  <td>
+                    <Link to={"/user/" + drill.data().uid}>
+                      {" "}
+                      {drill.data().uname}
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
