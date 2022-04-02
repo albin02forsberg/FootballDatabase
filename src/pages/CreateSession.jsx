@@ -144,7 +144,7 @@ export default function CreateSession() {
           {drills &&
             drills.map((drill) => {
               return (
-                <div className="card mb-2">
+                <div className="card mb-2" key={drill.data().imgLink}>
                   <div className="card-body">
                     <h5 className="card-title">{drill.data().name}</h5>
                     <p className="card-text">{drill.data().description}</p>
@@ -155,19 +155,21 @@ export default function CreateSession() {
                     </p>
                     <button
                       className="btn btn-success"
-                      value={drill.data()}
+                      value={drill}
                       onClick={(e) => {
-                        e.preventDefault();
-                        console.log(e.target.value);
-                        if (selectedDrills.includes(drill.data())) {
+                        if (selectedDrills.includes(drill.data().imgLink)) {
                           setSelectedDrills(
-                            selectedDrills.filter((d) => d !== drill.data())
+                            selectedDrills.filter(
+                              (d) => d !== drill.data().imgLink
+                            )
                           );
-                          e.target.innerText = "Lägg till";
+                          e.target.innerText = "Välj";
                           e.target.className = "btn btn-success";
                         } else {
-                          setSelectedDrills([...selectedDrills, drill.data()]);
-
+                          setSelectedDrills([
+                            ...selectedDrills,
+                            drill.data().imgLink,
+                          ]);
                           e.target.innerText = "Ta bort";
                           e.target.className = "btn btn-danger";
                         }
