@@ -32,7 +32,7 @@ export default function CreateSession() {
     getDocs(drillQ).then((docs) => {
       setDrills(docs.docs);
     });
-  }, []);
+  }, [navigate]);
 
   const createSession = async () => {
     const sessionCollectionRef = collection(db, "sessions");
