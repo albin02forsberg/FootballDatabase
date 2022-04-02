@@ -32,7 +32,7 @@ export default function Session() {
         setDrills(docs.docs);
       });
     });
-  }, [id]);
+  }, [id, sessionRef]);
 
   return (
     <div className="container">
