@@ -7,8 +7,9 @@ import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 export default function CreateDrill() {
   let navigate = useNavigate();
   const [name, setName] = React.useState("");
-  const [type, setType] = React.useState("");
-  const [difficulty, setDifficulty] = React.useState("");
+  const [type, setType] = React.useState("Spelövning");
+  const [what, setWhat] = React.useState("Aktivering");
+  const [difficulty, setDifficulty] = React.useState("3 mot 3");
   const [why, setWhy] = React.useState("");
   const [how, setHow] = React.useState("");
   const [org, setOrg] = React.useState("");
@@ -33,6 +34,7 @@ export default function CreateDrill() {
           name,
           type,
           difficulty,
+          what,
           why,
           how,
           org,
@@ -100,7 +102,7 @@ export default function CreateDrill() {
         <select
           className="form-control"
           onChange={(e) => {
-            setType(e.target.value);
+            setWhat(e.target.value);
           }}
         >
           <optgroup label="Fotbollsuppvärmning - förberedelseträning">
@@ -167,8 +169,8 @@ export default function CreateDrill() {
           }}
         />
       </div>
-      <div className="mb-3 input-group">
-        <span class="input-group-text">Organisation</span>
+      <div className="mb-3">
+        <span class="form-label">Organisation</span>
         <textarea
           class="form-control"
           rows="5"
@@ -178,7 +180,9 @@ export default function CreateDrill() {
             setOrg(e.target.value);
           }}
         ></textarea>
-        <span class="input-group-text">Anvisningar</span>
+      </div>
+      <div className="mb-3">
+        <span class="form-label">Anvisningar</span>
         <textarea
           class="form-control"
           rows="5"

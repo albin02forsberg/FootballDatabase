@@ -31,7 +31,9 @@ export default function Drill() {
               <h1>{drill.data().name}</h1>
               <hr></hr>
               <h2>Vad?</h2>
-              <p>{drill.data().type}</p>
+              <p>
+                {drill.data().type} - {drill.data().what}
+              </p>
               <h2>Varför?</h2>
               <p>{drill.data().why}</p>
               <h2>Hur?</h2>
