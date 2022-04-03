@@ -25,7 +25,7 @@ export default function CreateSession() {
       if (!auth.currentUser) {
         navigate("/");
       }
-    }, []);
+    }, [navigate]);
 
     useEffect(() => {
       const drillQ = query(

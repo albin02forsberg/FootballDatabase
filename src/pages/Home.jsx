@@ -35,7 +35,7 @@ export default function Home() {
     getDocs(discussionsQ).then((docs) => {
       setDiscussions(docs.docs);
     });
-  }, []);
+  }, [newsRef]);
 
   return (
     <div className="container">

@@ -22,7 +22,7 @@ export default function CreateDrill() {
     if (!auth.currentUser) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   const createDrill = async () => {
     const storageRef = ref(storage, "drills/" + Date.now() + img.name);
