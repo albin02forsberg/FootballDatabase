@@ -11,6 +11,8 @@ import Drill from "./pages/drill";
 import Session from "./pages/Session";
 import Sessions from "./pages/Sessions";
 import CreateSession from "./pages/CreateSession";
+import CreateNews from "./pages/CreateNews";
+import News from "./pages/News";
 import { auth } from "./firebase-config";
 
 function App() {
@@ -69,6 +71,11 @@ function App() {
               <li class="nav-item">
                 <Link class="nav-link" to="/sessions">
                   Träningspass
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" to="/createNews">
+                  Skriv inlägg
                 </Link>
               </li>
               <li class="nav-item">
@@ -132,9 +139,11 @@ function App() {
         <Route path="/sessions" element={<Sessions />} />
         <Route path="/createDrill" element={<CreateDrill />} />
         <Route path="/createSession" element={<CreateSession />} />
+        <Route path="/createNews" element={<CreateNews />} />
         <Route path="/drill/:id" element={<Drill />} />
         <Route path="/session/:id" element={<Session />} />
         <Route path="/user/:uid" element={<User />} />
+        <Route path="/news/:id" element={<News />} />
         <Route path="*" element={<div>Not found</div>} />
       </Routes>
     </Router>

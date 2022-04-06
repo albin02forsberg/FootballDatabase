@@ -18,21 +18,25 @@ export default function CreateSession() {
   const [type, setType] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const [drills, setDrills] = React.useState([]);
-  const [selectedDrills, setSelectedDrills] = React.useState([]);
+    const [selectedDrills, setSelectedDrills] = React.useState([]);
 
-  useEffect(() => {
-    if (!auth.currentUser) {
-      navigate("/");
-    }
-    const drillQ = query(
-      collection(db, "drills"),
-      orderBy("created", "desc"),
-      where("uid", "==", auth.currentUser.uid)
-    );
-    getDocs(drillQ).then((docs) => {
-      setDrills(docs.docs);
-    });
-  }, [navigate]);
+    // Go to home page if user is not logged in
+    useEffect(() => {
+      if (!auth.currentUser) {
+        navigate("/");
+      }
+    }, [navigate]);
+
+    useEffect(() => {
+      const drillQ = query(
+        collection(db, "drills"),
+        orderBy("created", "desc"),
+        where("uid", "==", auth.currentUser.uid)
+      );
+      getDocs(drillQ).then((docs) => {
+        setDrills(docs.docs);
+      });
+    }, [navigate]);
 
   const createSession = async () => {
     const sessionCollectionRef = collection(db, "sessions");
