@@ -279,7 +279,9 @@ export default function Canvas({ setImage }) {
 
   return (
     <div className="canvas">
-      <button onClick={undo}>Undo</button>
+      <button onClick={undo} className="btn btn-primary">
+        Undo
+      </button>
       <canvas
         id="canvas"
         width={500}
@@ -360,7 +362,7 @@ export default function Canvas({ setImage }) {
           autocomplete="off"
           onChange={() => setTool("playerWithBall")}
         />
-        <label class="btn btn-outline-primary" for="btnradio7">
+        <label class="btn btn-outline-danger disabled" for="btnradio7">
           Spelarens väg med boll
         </label>
         <input
