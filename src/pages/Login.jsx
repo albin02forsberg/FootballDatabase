@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +29,10 @@ export default function Login({ setIsAuth }) {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    document.title = "Logga in";
+  });
 
   return (
     <div className="loginPage">

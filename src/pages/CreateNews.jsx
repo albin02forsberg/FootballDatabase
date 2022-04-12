@@ -9,6 +9,7 @@ export default function CreateNews() {
   const [content, setContent] = React.useState("");
 
   useEffect(() => {
+    document.title = "Skapa nyhet";
     if (!auth.currentUser) {
       navigate("/");
     }

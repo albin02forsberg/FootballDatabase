@@ -7,6 +7,9 @@ export default function Drill() {
   const { id } = useParams();
   const [drill, setDrill] = React.useState(null);
 
+  const canvasRef = React.useRef(null);
+  const ctxRef = React.useRef(null);
+
   // Get drill from firestore and set state to drill
   const drillCollectionRef = collection(db, "drills");
   const drillRef = doc(drillCollectionRef, id);
@@ -16,6 +19,13 @@ export default function Drill() {
     getDoc(drillRef)
       .then((drill) => {
         setDrill(drill);
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        let imageForeground = new Image();
+        imageForeground.src = drill.data().imgLink;
+        ctx.drawImage(imageForeground, 0, 0, canvas.width, canvas.height);
+        ctxRef.current = ctx;
+        document.title = drill.data().name;
       })
       .catch((error) => {
         console.log(error);
@@ -47,11 +57,12 @@ export default function Drill() {
         </div>
         {drill && (
           <div className="col-md-6">
-            <img
-              src={drill.data().imgLink}
-              className="img-thumbnail"
-              alt={drill.data().name}
-            />
+            <canvas
+              width={500}
+              height={750}
+              ref={canvasRef}
+              className="img img-thumbnail"
+            ></canvas>
           </div>
         )}
       </div>

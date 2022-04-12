@@ -26,6 +26,7 @@ export default function User() {
     getDoc(userRef)
       .then((u) => {
         setUser(u);
+        document.title = u.data().name;
       })
       .catch((error) => {
         console.log(error);

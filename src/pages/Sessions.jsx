@@ -7,6 +7,7 @@ export default function Sessions() {
   const [sessions, setSessions] = React.useState(null);
 
   useEffect(() => {
+    document.title = "Träningspass";
     const sessionQ = query(
       collection(db, "sessions"),
       orderBy("created", "desc")

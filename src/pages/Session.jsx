@@ -5,7 +5,6 @@ import {
   query,
   where,
   getDocs,
-  orderBy,
 } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -24,13 +23,11 @@ export default function Session() {
     // Get session data from firebase and get drills from firebase with
     // the drills imgLink
     getDoc(sessionRef).then((doc) => {
+      document.title = doc.data().name;
       setSession(doc.data());
       const drillQ = query(
         collection(db, "drills"),
-        where("imgLink", "in", doc.data().drills),
-        orderBy("type"),
-        orderBy("difficulty"),
-        orderBy("created")
+        where("__name__", "in", doc.data().drills)
       );
       getDocs(drillQ).then((docs) => {
         setDrills(docs.docs);

@@ -7,6 +7,7 @@ export default function Drills() {
   const [drills, setDrills] = React.useState();
 
   useEffect(() => {
+    document.title = "Övningar";
     const drillQ = query(collection(db, "drills"), orderBy("created", "desc"));
     getDocs(drillQ).then((docs) => {
       setDrills(docs.docs);

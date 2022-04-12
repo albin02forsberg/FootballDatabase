@@ -16,6 +16,7 @@ export default function Home() {
   const newsRef = collection(db, "news");
 
   useEffect(() => {
+    document.title = "Hem";
     const newsQ = query(
       newsRef,
       orderBy("created", "desc"),
@@ -24,7 +25,6 @@ export default function Home() {
     );
     getDocs(newsQ).then((docs) => {
       setNews(docs.docs);
-      console.log(docs.docs);
     });
     const discussionsQ = query(
       newsRef,

@@ -205,3 +205,11 @@
         page-break-inside: auto;
         page-break-after: always;
     }
+    
+    canvas {
+        background-color: rgb(250, 250, 250);
+        border: 2px solid rgba(0, 0, 0, 0.568);
+        margin: 20px;
+        border-radius: 15px;
+        background-color: gray;
+    }

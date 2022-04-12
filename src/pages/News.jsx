@@ -25,6 +25,7 @@ export default function News() {
 
   // Get article from firestore and set state to article
   useEffect(() => {
+    document.title = "Nyheter";
     getDoc(articleRef)
       .then((article) => {
         setArticle(article);

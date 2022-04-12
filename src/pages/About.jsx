@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from "react";
 
-function About () {
+function About() {
+  useEffect(() => {
+    document.title = "Om";
+  }, []);
   return (
     <div className="container">
-      <h1>About</h1>
+      <h1>Om</h1>
     </div>
   );
 }
