@@ -19,10 +19,10 @@ export default function User() {
   const [drills, setDrills] = React.useState(null);
   const [sessions, setSessions] = React.useState(null);
 
-  const userCollectionRef = collection(db, "users");
-  const userRef = doc(userCollectionRef, uid);
 
   useEffect(() => {
+    const userCollectionRef = collection(db, "users");
+    const userRef = doc(userCollectionRef, uid);
     getDoc(userRef)
       .then((u) => {
         setUser(u);
@@ -53,7 +53,7 @@ export default function User() {
     getDocs(sessionQ).then((docs) => {
       setSessions(docs.docs);
     });
-  }, [uid, userRef]);
+  }, [uid]);
 
   return (
     <div className="container">
