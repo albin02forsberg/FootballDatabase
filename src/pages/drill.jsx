@@ -11,11 +11,11 @@ export default function Drill() {
   const ctxRef = React.useRef(null);
 
   // Get drill from firestore and set state to drill
-  const drillCollectionRef = collection(db, "drills");
-  const drillRef = doc(drillCollectionRef, id);
 
   // Get drill from firestore and set state to drill
   useEffect(() => {
+    const drillCollectionRef = collection(db, "drills");
+    const drillRef = doc(drillCollectionRef, id);
     getDoc(drillRef)
       .then((drill) => {
         setDrill(drill);
@@ -30,7 +30,7 @@ export default function Drill() {
       .catch((error) => {
         console.log(error);
       });
-  }, [id, drillRef]);
+  }, [id]);
 
   return (
     <div className="container">

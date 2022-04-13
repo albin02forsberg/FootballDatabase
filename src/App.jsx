@@ -4,6 +4,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import React from "react";
 import { auth } from "./firebase-config";
 import Loading from "./modules/Loading";
+import Footer from "./modules/Footer";
 
 const Home = lazy(() => {
   return Promise.all([
@@ -229,6 +230,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </Router>
   );
 }

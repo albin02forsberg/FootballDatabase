@@ -7,7 +7,7 @@ export function Nav({ isAuth, signOut }) {
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <Link class="navbar-brand" to="/">
-          Fotbollens databas
+          Fotbollsövningar.se
         </Link>
         <button
           class="navbar-toggler"

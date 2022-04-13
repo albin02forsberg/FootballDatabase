@@ -20,12 +20,12 @@ export default function News() {
   const [comment, setComment] = React.useState("");
 
   // Get article from firestore and set state to article
-  const articleCollectionRef = collection(db, "news");
-  const articleRef = doc(articleCollectionRef, id);
 
   // Get article from firestore and set state to article
   useEffect(() => {
     document.title = "Nyheter";
+    const articleCollectionRef = collection(db, "news");
+    const articleRef = doc(articleCollectionRef, id);
     getDoc(articleRef)
       .then((article) => {
         setArticle(article);
@@ -47,7 +47,7 @@ export default function News() {
       .catch((error) => {
         console.log(error);
       });
-  }, [id, articleRef]);
+  }, [id]);
 
   const postComment = async () => {
     console.log("postComment");

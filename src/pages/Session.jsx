@@ -30,13 +30,13 @@ export default function Session() {
   const [session, setSession] = React.useState();
   const [drills, setDrills] = React.useState();
 
-  const sessionCollectionRef = collection(db, "sessions");
-  const sessionRef = doc(sessionCollectionRef, id);
 
   // Get session data and drills from firebase
   useEffect(() => {
     // Get session data from firebase and get drills from firebase with
     // the drills imgLink
+    const sessionCollectionRef = collection(db, "sessions");
+    const sessionRef = doc(sessionCollectionRef, id);
     getDoc(sessionRef).then((doc) => {
       document.title = doc.data().name;
       setSession(doc.data());
@@ -48,7 +48,7 @@ export default function Session() {
         setDrills(docs.docs);
       });
     });
-  }, [id, sessionRef]);
+  }, [id]);
 
   return (
     <div className="container">
