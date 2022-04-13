@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import Canvas from "../modules/Canvas";
+
+const Canvas = lazy(() => import("../modules/Canvas"));
 
 export default function CreateDrill() {
   let navigate = useNavigate();
@@ -211,7 +212,9 @@ export default function CreateDrill() {
           </div>
         </div>
         <div className="col-md-6">
-          <Canvas setImage={setImg} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Canvas setImage={setImg} />
+          </Suspense>
         </div>
       </div>
     </div>

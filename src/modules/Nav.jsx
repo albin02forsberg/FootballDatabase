@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase-config";
+
 export function Nav({ isAuth, signOut }) {
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

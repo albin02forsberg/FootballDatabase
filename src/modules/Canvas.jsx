@@ -192,43 +192,66 @@ export default function Canvas({ setImage }) {
         Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)
       );
 
-      // // Draw 10 archs with a length of lenght/10
-      // for (let i = 0; i < 10; i++) {
-      //   if (i % 2 === 0) {
-      //     ctxRef.current.bezierCurveTo(
-      //       startX + ((endX - startX) / 10) * i + 20,
-      //       startY + ((endY - startY) / 10) * i + 20,
-      //       startX + ((endX - startX) / 10) * i,
-      //       startY + ((endY - startY) / 10) * i,
-      //       startX + ((endX - startX) / 10) * i,
-      //       startY + ((endY - startY) / 10) * i
+      // Draw sinus curve with a lenght of lenght from x = 0 to x = length
+      // with frequency of 4 and amplitude of 20
+      // console.log(startX);
+      // console.log(startY);
+      // let frequence = 4;
+      // let amplitude = 10;
+      // if (startX < endX) {
+      //   console.log(length);
+      //   for (let i = 0; i < length; i++) {
+      //     ctxRef.current.lineTo(
+      //       startX + i,
+      //       startY + amplitude * Math.sin(i / frequence)
       //     );
-      //   } else {
-      //     ctxRef.current.bezierCurveTo(
-      //       startX + ((endX - startX) / 10) * i - 20,
-      //       startY + ((endY - startY) / 10) * i - 20,
-      //       startX + ((endX - startX) / 10) * i,
-      //       startY + ((endY - startY) / 10) * i,
-      //       startX + ((endX - startX) / 10) * i,
-      //       startY + ((endY - startY) / 10) * i
+      //   }
+      // } else if (startX > endX) {
+      //   for (let i = 0; i < length; i++) {
+      //     ctxRef.current.lineTo(
+      //       startX - i,
+      //       startY + amplitude * Math.sin(i / frequence)
+      //     );
+      //   }
+      // } else if (startY < endY) {
+      //   for (let i = 0; i < length; i++) {
+      //     ctxRef.current.lineTo(
+      //       startX + amplitude * Math.sin(i / frequence),
+      //       startY + i
+      //     );
+      //   }
+      // } else if (startY > endY) {
+      //   for (let i = 0; i < length; i++) {
+      //     ctxRef.current.lineTo(
+      //       startX + amplitude * Math.sin(i / frequence),
+      //       startY - i
       //     );
       //   }
       // }
 
-      // Draw sinus wave with length of length and pointing in the degree of the arrow
-      for (let i = 0; i < length; i++) {
-        ctxRef.current.lineTo(
-          startX +
-            ((endX - startX) / length) * i +
-            20 * Math.sin((i / length) * Math.PI * 2),
-          startY +
-            ((endY - startY) / length) * i +
-            20 * Math.cos((i / length) * Math.PI * 2)
-        );
-      }
+      let img = new Image();
+      img.src = "./arrow.svg";
+      // Draw the image at the point (startX, startY) with a size of 20x20
+      // And rotate the image towards (endX, endY)
+      ctxRef.current.drawImage(
+        img,
+        startX,
+        startY,
+        length,
+        20,
+        endX,
+        endY,
+        length,
+        20
+      );
+
+      const angle = Math.atan2(endY - startY, endX - startX);
+
+      ctxRef.current.stroke();
+
+      ctxRef.current.stroke();
 
       // Draw arrow head pointing in the degree of the arrow
-      const angle = Math.atan2(endY - startY, endX - startX);
       ctxRef.current.beginPath();
       ctxRef.current.moveTo(endX, endY);
       ctxRef.current.lineTo(
@@ -362,7 +385,7 @@ export default function Canvas({ setImage }) {
           autocomplete="off"
           onChange={() => setTool("playerWithBall")}
         />
-        <label class="btn btn-outline-danger disabled" for="btnradio7">
+        <label class="btn btn-outline-danger" for="btnradio7">
           Spelarens väg med boll
         </label>
         <input

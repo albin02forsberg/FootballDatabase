@@ -1,20 +1,21 @@
 import { Nav } from "./modules/Nav";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import React from "react";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Login from "./pages/Login";
-import User from "./pages/User";
-import Drills from "./pages/Drills";
-import CreateDrill from "./pages/CreateDrill";
-import Drill from "./pages/drill";
-import Session from "./pages/Session";
-import Sessions from "./pages/Sessions";
-import CreateSession from "./pages/CreateSession";
-import CreateNews from "./pages/CreateNews";
-import News from "./pages/News";
 import { auth } from "./firebase-config";
+
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const Login = lazy(() => import("./pages/Login"));
+const Drills = lazy(() => import("./pages/Drills"));
+const Sessions = lazy(() => import("./pages/Sessions"));
+const CreateDrill = lazy(() => import("./pages/CreateDrill"));
+const CreateSession = lazy(() => import("./pages/CreateSession"));
+const CreateNews = lazy(() => import("./pages/CreateNews"));
+const News = lazy(() => import("./pages/News"));
+const Drill = lazy(() => import("./pages/drill"));
+const Session = lazy(() => import("./pages/Session"));
+const User = lazy(() => import("./pages/User"));
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -48,18 +49,96 @@ function App() {
     <Router>
       <Nav isAuth={isAuth} signOut={signOut} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
-        <Route path="/drills" element={<Drills />} />
-        <Route path="/sessions" element={<Sessions />} />
-        <Route path="/createDrill" element={<CreateDrill />} />
-        <Route path="/createSession" element={<CreateSession />} />
-        <Route path="/createNews" element={<CreateNews />} />
-        <Route path="/drill/:id" element={<Drill />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <About />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Login setIsAuth={setIsAuth} />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/drills"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Drills />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/sessions"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Sessions />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/createDrill"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CreateDrill />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/createSession"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CreateSession />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/createNews"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CreateNews />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/drill/:id"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Drill />
+            </Suspense>
+          }
+        />
         <Route path="/session/:id" element={<Session />} />
-        <Route path="/user/:uid" element={<User />} />
-        <Route path="/news/:id" element={<News />} />
+        <Route
+          path="/user/:uid"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <User />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/news/:id"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <News />
+            </Suspense>
+          }
+        />
         <Route path="*" element={<div>Not found</div>} />
       </Routes>
     </Router>
