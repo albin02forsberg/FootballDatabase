@@ -3,19 +3,90 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect, lazy, Suspense } from "react";
 import React from "react";
 import { auth } from "./firebase-config";
+import Loading from "./modules/Loading";
 
-const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
-const Login = lazy(() => import("./pages/Login"));
-const Drills = lazy(() => import("./pages/Drills"));
-const Sessions = lazy(() => import("./pages/Sessions"));
-const CreateDrill = lazy(() => import("./pages/CreateDrill"));
-const CreateSession = lazy(() => import("./pages/CreateSession"));
-const CreateNews = lazy(() => import("./pages/CreateNews"));
-const News = lazy(() => import("./pages/News"));
-const Drill = lazy(() => import("./pages/drill"));
-const Session = lazy(() => import("./pages/Session"));
-const User = lazy(() => import("./pages/User"));
+const Home = lazy(() => {
+  return Promise.all([
+    import("./pages/Home"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+const About = lazy(() => {
+  return Promise.all([
+    import("./pages/About"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Login = lazy(() => {
+  return Promise.all([
+    import("./pages/Login"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Drills = lazy(() => {
+  return Promise.all([
+    import("./pages/Drills"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Sessions = lazy(() => {
+  return Promise.all([
+    import("./pages/Sessions"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const CreateDrill = lazy(() => {
+  return Promise.all([
+    import("./pages/CreateDrill"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const CreateSession = lazy(() => {
+  return Promise.all([
+    import("./pages/CreateSession"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const CreateNews = lazy(() => {
+  return Promise.all([
+    import("./pages/CreateNews"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const News = lazy(() => {
+  return Promise.all([
+    import("./pages/News"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Drill = lazy(() => {
+  return Promise.all([
+    import("./pages/drill"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Session = lazy(() => {
+  return Promise.all([
+    import("./pages/Session"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const User = lazy(() => {
+  return Promise.all([
+    import("./pages/User"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -52,7 +123,7 @@ function App() {
         <Route
           path="/"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <Home />
             </Suspense>
           }
@@ -60,7 +131,7 @@ function App() {
         <Route
           path="/about"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <About />
             </Suspense>
           }
@@ -68,7 +139,7 @@ function App() {
         <Route
           path="/login"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <Login setIsAuth={setIsAuth} />
             </Suspense>
           }
@@ -77,7 +148,7 @@ function App() {
         <Route
           path="/drills"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <Drills />
             </Suspense>
           }
@@ -85,7 +156,7 @@ function App() {
         <Route
           path="/sessions"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <Sessions />
             </Suspense>
           }
@@ -93,7 +164,7 @@ function App() {
         <Route
           path="/createDrill"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <CreateDrill />
             </Suspense>
           }
@@ -101,7 +172,7 @@ function App() {
         <Route
           path="/createSession"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <CreateSession />
             </Suspense>
           }
@@ -109,7 +180,7 @@ function App() {
         <Route
           path="/createNews"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <CreateNews />
             </Suspense>
           }
@@ -117,16 +188,23 @@ function App() {
         <Route
           path="/drill/:id"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <Drill />
             </Suspense>
           }
         />
-        <Route path="/session/:id" element={<Session />} />
+        <Route
+          path="/session/:id"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Session />
+            </Suspense>
+          }
+        />
         <Route
           path="/user/:uid"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <User />
             </Suspense>
           }
@@ -134,12 +212,22 @@ function App() {
         <Route
           path="/news/:id"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <News />
             </Suspense>
           }
         />
-        <Route path="*" element={<div>Not found</div>} />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<Loading />}>
+              <div className="container">
+                <h1>404</h1>
+                <p>Page not found</p>
+              </div>
+            </Suspense>
+          }
+        />
       </Routes>
     </Router>
   );

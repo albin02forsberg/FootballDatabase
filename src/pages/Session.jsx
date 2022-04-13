@@ -6,9 +6,24 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase-config";
+import Loading from "../modules/Loading";
+
+const DrillCard = lazy(() => {
+  return Promise.all([
+    import("../modules/DrillCard"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const SessionDrill = lazy(() => {
+  return Promise.all([
+    import("../modules/SessionDrill"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 export default function Session() {
   const { id } = useParams();
@@ -50,14 +65,9 @@ export default function Session() {
           <h2>Passets övningar</h2>
           {drills &&
             drills.map((drill) => (
-              <div className="card mb-3">
-                <div className="card-body">
-                  <h5 className="card-title">{drill.data().name}</h5>
-                  <p className="card-text">
-                    {drill.data().type} - {drill.data().difficulty}
-                  </p>
-                </div>
-              </div>
+              <Suspense fallback={<Loading />}>
+                <DrillCard drill={drill} />
+              </Suspense>
             ))}
           {session && <p>Antal övningar: {session.drills.length}</p>}
           <hr />
@@ -65,29 +75,9 @@ export default function Session() {
       </div>
       {drills &&
         drills.map((drill) => (
-          <div className="row">
-            <div className="col-md-6">
-              <h2>{drill.data().name}</h2>
-              <h3>Vad?</h3>
-              <p>{drill.data().type}</p>
-              <h3>Varför?</h3>
-              <p>{drill.data().why}</p>
-              <h3>Hur?</h3>
-              <p>{drill.data().how}</p>
-              <h3>Organisation</h3>
-              <p>{drill.data().org}</p>
-              <h3>Anvisningar</h3>
-              <p>{drill.data().desc}</p>
-            </div>
-            <div className="col-md-6">
-              <img
-                src={drill.data().imgLink}
-                className="img-thumbnail"
-                alt={drill.data().name}
-              />
-            </div>
-            <hr />
-          </div>
+          <Suspense fallback={<Loading />}>
+            <SessionDrill key={drill.id} drill={drill} session={session} />
+          </Suspense>
         ))}
     </div>
   );

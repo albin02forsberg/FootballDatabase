@@ -13,10 +13,10 @@ import { Link } from "react-router-dom";
 export default function Home() {
   const [news, setNews] = React.useState([]);
   const [discussions, setDiscussions] = React.useState([]);
-  const newsRef = collection(db, "news");
 
   useEffect(() => {
     document.title = "Hem";
+    const newsRef = collection(db, "news");
     const newsQ = query(
       newsRef,
       orderBy("created", "desc"),
@@ -35,7 +35,7 @@ export default function Home() {
     getDocs(discussionsQ).then((docs) => {
       setDiscussions(docs.docs);
     });
-  }, [newsRef]);
+  }, []);
 
   return (
     <div className="container">
