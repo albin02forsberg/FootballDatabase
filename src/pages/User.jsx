@@ -76,6 +76,7 @@ export default function User() {
                   <tr>
                     <th scope="col">Namn</th>
                     <th scope="col">Typ</th>
+                    <th scope="col">Moment</th>
                     <th scope="col">Nivå</th>
                   </tr>
                 </thead>
@@ -91,6 +92,7 @@ export default function User() {
                           </Link>
                         </td>
                         <td>{drill.data().type}</td>
+                        <td>{drill.data().what}</td>
                         <td>{drill.data().difficulty}</td>
                       </tr>
                     ))}

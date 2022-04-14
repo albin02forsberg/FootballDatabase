@@ -20,7 +20,7 @@ export default function Home() {
     const newsQ = query(
       newsRef,
       orderBy("created", "desc"),
-      where("isUpdate", "==", false),
+      where("isUpdate", "==", true),
       limit(3)
     );
     getDocs(newsQ).then((docs) => {
@@ -29,7 +29,7 @@ export default function Home() {
     const discussionsQ = query(
       newsRef,
       orderBy("created", "desc"),
-      where("isUpdate", "==", true),
+      where("isUpdate", "==", false),
       limit(3)
     );
     getDocs(discussionsQ).then((docs) => {

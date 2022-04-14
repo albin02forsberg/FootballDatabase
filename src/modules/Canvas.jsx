@@ -249,9 +249,8 @@ export default function Canvas({ setImage }) {
 
   return (
     <div className="canvas">
-      <button onClick={undo} className="btn btn-primary">
-        Undo
-      </button>
+      <h2>Skissa din övning</h2>
+      <hr />
       <canvas
         id="canvas"
         width={500}
@@ -263,7 +262,7 @@ export default function Canvas({ setImage }) {
         className="canvas"
       />
       <div
-        class="btn-group"
+        className="btn-group"
         role="group"
         aria-label="Basic radio toggle button group"
       >
@@ -278,7 +277,6 @@ export default function Canvas({ setImage }) {
         <label class="btn btn-outline-primary" for="btnradio1">
           Anfallare med boll
         </label>
-
         <input
           type="radio"
           class="btn-check"
@@ -290,7 +288,6 @@ export default function Canvas({ setImage }) {
         <label class="btn btn-outline-primary" for="btnradio2">
           Anfallare utan boll
         </label>
-
         <input
           type="radio"
           class="btn-check"
@@ -302,28 +299,13 @@ export default function Canvas({ setImage }) {
         <label class="btn btn-outline-primary" for="btnradio3">
           Försvarare
         </label>
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio4"
-          autocomplete="off"
-          onChange={() => setTool("ball")}
-        />
-        <label class="btn btn-outline-primary" for="btnradio4">
-          Boll
-        </label>
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          id="btnradio8"
-          autocomplete="off"
-          onChange={() => setTool("cone")}
-        />
-        <label class="btn btn-outline-primary" for="btnradio8">
-          Kona
-        </label>
+      </div>
+      <hr />
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
         <input
           type="radio"
           class="btn-check"
@@ -358,6 +340,39 @@ export default function Canvas({ setImage }) {
           Bollens bana
         </label>
       </div>
+      <hr />
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio4"
+          autocomplete="off"
+          onChange={() => setTool("ball")}
+        />
+        <label class="btn btn-outline-primary" for="btnradio4">
+          Boll
+        </label>
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio8"
+          autocomplete="off"
+          onChange={() => setTool("cone")}
+        />
+        <label class="btn btn-outline-primary" for="btnradio8">
+          Kona
+        </label>
+      </div>
+      <hr />
+      <button onClick={undo} className="btn btn-danger">
+        Undo
+      </button>
     </div>
   );
 }

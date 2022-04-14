@@ -9,7 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { auth, db } from "../firebase-config";
 
 export default function News() {
@@ -61,6 +61,7 @@ export default function News() {
     addDoc(commentsCollectionRef, data).then((doc) => {
       setComment("");
       console.log(doc);
+      window.location.reload();
     });
   };
 
@@ -74,7 +75,12 @@ export default function News() {
               <hr></hr>
               <p>{article.data().content}</p>
 
-              <p>Skrivet av: {article.data().uname}</p>
+              <p>
+                Skrivet av:{" "}
+                <Link to={"/user/" + article.data().uid}>
+                  {article.data().uname}
+                </Link>{" "}
+              </p>
               <hr />
             </div>
           )}

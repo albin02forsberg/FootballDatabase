@@ -26,8 +26,9 @@ export default function Drills() {
             <tr>
               <th scope="col">Namn</th>
               <th scope="col">Typ</th>
+              <th scope="col">Moment</th>
               <th scope="col">Nivå</th>
-              <th scope="col">Skapad av:</th>
+              <th scope="col">Skapad av</th>
             </tr>
           </thead>
           <tbody>
@@ -39,6 +40,7 @@ export default function Drills() {
                     <Link to={"/drill/" + drill.id}>{drill.data().name}</Link>
                   </td>
                   <td>{drill.data().type}</td>
+                  <td>{drill.data().what}</td>
                   <td>{drill.data().difficulty}</td>
                   <td>
                     <Link to={"/user/" + drill.data().uid}>

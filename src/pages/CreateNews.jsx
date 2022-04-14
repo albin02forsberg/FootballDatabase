@@ -23,7 +23,7 @@ export default function CreateNews() {
       uname: auth.currentUser.displayName,
       uid: auth.currentUser.uid,
       created: new Date(),
-      isUpdate: true,
+      isUpdate: false,
     };
     addDoc(newsCollectionRef, news).then((doc) => {
       // Create subcollection comments for news
