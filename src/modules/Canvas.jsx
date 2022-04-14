@@ -121,13 +121,20 @@ export default function Canvas({ setImage }) {
       ctxRef.current.lineTo(offsetX - 7, offsetY + 7);
       ctxRef.current.stroke();
     } else if (tool === "ball") {
-      // Draw circle and fill with black
-      ctxRef.current.beginPath();
-      ctxRef.current.moveTo(offsetX, offsetY);
-      ctxRef.current.lineWidth = 2;
-      ctxRef.current.beginPath();
-      ctxRef.current.arc(offsetX, offsetY, 5, 0, Math.PI * 2, true);
-      ctxRef.current.fill();
+      let ball = new Image();
+      ball.src = "./ball.svg";
+      ball.onload = () => {
+        ctxRef.current.drawImage(ball, offsetX, offsetY, 20, 20);
+      };
+    } else if (tool === "cone") {
+      let cone = new Image();
+      cone.src = "./cone.svg";
+      cone.onload = () => {
+        ctxRef.current.drawImage(cone, offsetX, offsetY, 20, 20);
+      };
+    } else if (tool === "text") {
+      ctxRef.current.font = "20px Arial";
+      ctxRef.current.fillText("Hello World", offsetX, offsetY);
     } else {
       setStartX(offsetX);
       setStartY(offsetY);
@@ -192,79 +199,19 @@ export default function Canvas({ setImage }) {
         Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)
       );
 
-      // Draw sinus curve with a lenght of lenght from x = 0 to x = length
-      // with frequency of 4 and amplitude of 20
-      // console.log(startX);
-      // console.log(startY);
-      // let frequence = 4;
-      // let amplitude = 10;
-      // if (startX < endX) {
-      //   console.log(length);
-      //   for (let i = 0; i < length; i++) {
-      //     ctxRef.current.lineTo(
-      //       startX + i,
-      //       startY + amplitude * Math.sin(i / frequence)
-      //     );
-      //   }
-      // } else if (startX > endX) {
-      //   for (let i = 0; i < length; i++) {
-      //     ctxRef.current.lineTo(
-      //       startX - i,
-      //       startY + amplitude * Math.sin(i / frequence)
-      //     );
-      //   }
-      // } else if (startY < endY) {
-      //   for (let i = 0; i < length; i++) {
-      //     ctxRef.current.lineTo(
-      //       startX + amplitude * Math.sin(i / frequence),
-      //       startY + i
-      //     );
-      //   }
-      // } else if (startY > endY) {
-      //   for (let i = 0; i < length; i++) {
-      //     ctxRef.current.lineTo(
-      //       startX + amplitude * Math.sin(i / frequence),
-      //       startY - i
-      //     );
-      //   }
-      // }
-
       let img = new Image();
-      img.src = "./arrow.svg";
-      // Draw the image at the point (startX, startY) with a size of 20x20
-      // And rotate the image towards (endX, endY)
-      ctxRef.current.drawImage(
-        img,
-        startX,
-        startY,
-        length,
-        20,
-        endX,
-        endY,
-        length,
-        20
-      );
+      img.src = "./playerwayball.svg";
+      img.onload = () => {
+        // Draw the image rotated towards end
+        ctxRef.current.translate(startX, startY);
+        ctxRef.current.rotate(angle);
+        ctxRef.current.drawImage(img, 0, 0, length, 25);
+        ctxRef.current.rotate(-angle);
+        ctxRef.current.translate(-startX, -startY);
+      };
 
       const angle = Math.atan2(endY - startY, endX - startX);
-
-      ctxRef.current.stroke();
-
-      ctxRef.current.stroke();
-
-      // Draw arrow head pointing in the degree of the arrow
-      ctxRef.current.beginPath();
-      ctxRef.current.moveTo(endX, endY);
-      ctxRef.current.lineTo(
-        endX - 10 * Math.cos(angle - Math.PI / 6),
-        endY - 10 * Math.sin(angle - Math.PI / 6)
-      );
-      ctxRef.current.moveTo(endX, endY);
-      ctxRef.current.lineTo(
-        endX - 10 * Math.cos(angle + Math.PI / 6),
-        endY - 10 * Math.sin(angle + Math.PI / 6)
-      );
     }
-
     ctxRef.current.stroke();
     ctxRef.current.closePath();
 
@@ -370,6 +317,17 @@ export default function Canvas({ setImage }) {
           type="radio"
           class="btn-check"
           name="btnradio"
+          id="btnradio8"
+          autocomplete="off"
+          onChange={() => setTool("cone")}
+        />
+        <label class="btn btn-outline-primary" for="btnradio8">
+          Kona
+        </label>
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
           id="btnradio5"
           autocomplete="off"
           onChange={() => setTool("player")}
@@ -385,7 +343,7 @@ export default function Canvas({ setImage }) {
           autocomplete="off"
           onChange={() => setTool("playerWithBall")}
         />
-        <label class="btn btn-outline-danger" for="btnradio7">
+        <label class="btn btn-outline-primary" for="btnradio7">
           Spelarens väg med boll
         </label>
         <input

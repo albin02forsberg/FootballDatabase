@@ -57,12 +57,11 @@ export default function Drill() {
         </div>
         {drill && (
           <div className="col-md-6">
-            <canvas
-              width={500}
-              height={750}
-              ref={canvasRef}
+            <img
               className="img img-thumbnail"
-            ></canvas>
+              src={drill.data().imgLink}
+              alt={drill.id}
+            />
           </div>
         )}
       </div>

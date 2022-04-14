@@ -4,11 +4,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <span className="text-muted">
-          <a href="" className="text-muted">
-            <i className="fab fa-github"></i>
-          </a>
-        </span>
+        <span className="text-muted"></span>
       </div>
     </footer>
   );

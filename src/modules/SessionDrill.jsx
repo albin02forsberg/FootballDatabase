@@ -21,7 +21,7 @@ export default function SessionDrill({ drill }) {
       <div className="col-md-6">
         <img
           src={drill.data().imgLink}
-          className="img-thumbnail"
+          className="img img-thumbnail"
           alt={drill.data().name}
         />
       </div>
