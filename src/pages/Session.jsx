@@ -62,13 +62,17 @@ export default function Session() {
       )}
       <div className="row">
         <div className="col-md-12">
-          <h2>Passets övningar</h2>
-          {drills &&
-            drills.map((drill) => (
-              <Suspense fallback={<Loading />}>
-                <DrillCard drill={drill} />
-              </Suspense>
-            ))}
+          <div className="card">
+            <div className="card-header">Passets övningar</div>
+            <ul className="list-group list-group-flush">
+              {drills &&
+                drills.map((drill) => (
+                  <Suspense fallback={<Loading />}>
+                    <DrillCard drill={drill} />
+                  </Suspense>
+                ))}
+            </ul>
+          </div>
           {session && <p>Antal övningar: {session.drills.length}</p>}
           <hr />
         </div>

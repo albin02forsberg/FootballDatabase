@@ -42,6 +42,25 @@ export default function Home() {
       <div className="row">
         <div className="col-md-12">
           <h1>Välkommen</h1>
+          <div className="alert alert-info">
+            <h5>Hemsidan är under utveckling</h5>
+            <p>
+              Denna hemsidan är under ständig utveckling. Saker kommer att
+              ändras, tas bort och läggas till.
+            </p>
+            <p>
+              Om du anser dig ha förbättringar, kommentarer eller funderingar.
+              Hör av dig till{" "}
+              <a href="mailto:albin02forsberg@gmail.com">
+                albin02forsberg@gmail.com
+              </a>
+              .
+            </p>
+            <hr />
+            <p>
+              Läs mer <Link to="/About">här</Link>.
+            </p>
+          </div>
         </div>
       </div>
       <div className="row">

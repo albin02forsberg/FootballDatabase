@@ -9,8 +9,23 @@ export default function Canvas({ setImage }) {
   const [endX, setEndX] = React.useState(0);
   const [endY, setEndY] = React.useState(0);
   const [history, setHistory] = React.useState([]);
+  const [canvasWidth, setCanvasWidth] = React.useState(0);
+  const [canvasHeight, setCanvasHeight] = React.useState(0);
+  const [fieldType, setFieldType] = React.useState("full");
+
+  const drawGreen = (ctx) => {
+    ctx.beginPath();
+
+    // Draw green stripes
+    ctx.fillStyle = "green";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    ctx.stroke();
+  };
 
   const drawFull = (ctx) => {
+    setCanvasHeight(750);
+    setCanvasWidth(500);
     ctx.beginPath();
 
     // Draw green stripes
@@ -72,9 +87,17 @@ export default function Canvas({ setImage }) {
     // Adding penalty box arcs
     ctx.moveTo(250, 150);
     ctx.arc(250, 150, 60, 0, Math.PI);
-
+    // Draw inverted penalty box arcs
     ctx.moveTo(250, 600);
-    ctx.arc(250, 600, 60, 180, Math.Pi);
+    ctx.arc(250, 600, 60, 0, Math.PI, true);
+    ctx.stroke();
+    ctx.beginPath();
+
+    // Draw penalty spots
+    ctx.arc(250, 100, 2, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(250, 650, 2, 0, 2 * Math.PI);
 
     ctx.stroke();
   };
@@ -132,14 +155,17 @@ export default function Canvas({ setImage }) {
       cone.onload = () => {
         ctxRef.current.drawImage(cone, offsetX, offsetY, 20, 20);
       };
-    } else if (tool === "text") {
+    } else if (tool === "mv") {
+      // Write mv text
       ctxRef.current.font = "20px Arial";
-      ctxRef.current.fillText("Hello World", offsetX, offsetY);
+      ctxRef.current.fillStyle = "white";
+      ctxRef.current.fillText("MV", offsetX, offsetY);
+      ctxRef.current.stroke();
     } else {
       setStartX(offsetX);
       setStartY(offsetY);
     }
-    setImage(canvasRef.current.toDataURL("image/png"), 0.001);
+    setImage(canvasRef.current.toDataURL("image/png"));
   };
 
   const stopDrawing = ({ nativeEvent }) => {
@@ -242,19 +268,83 @@ export default function Canvas({ setImage }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
+    if (fieldType === "full") {
+      drawFull(ctx);
+    } else if (fieldType === "half") {
+      drawFull(ctx);
+      setCanvasHeight(750 / 2);
+      setCanvasWidth(500);
+    } else if (fieldType === "halfgreen") {
+      setCanvasHeight(750 / 2);
+      setCanvasWidth(500);
+      drawGreen(ctx);
+    } else if (fieldType === "fullgreen") {
+      setCanvasHeight(750);
+      setCanvasWidth(500);
+      drawGreen(ctx);
+    }
     ctxRef.current = ctx;
-    drawFull(ctx);
     setHistory([canvas.toDataURL("image/png")]);
-  }, []);
+  }, [canvasHeight, canvasWidth, fieldType]);
 
   return (
     <div className="canvas">
       <h2>Skissa din övning</h2>
       <hr />
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="field1"
+          autocomplete="off"
+          onChange={() => setFieldType("full")}
+        />
+        <label class="btn btn-outline-primary" for="field1">
+          Helplan
+        </label>
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="field3"
+          autocomplete="off"
+          onChange={() => setFieldType("fullgreen")}
+        />
+        <label class="btn btn-outline-primary" for="field3">
+          Helplan grön
+        </label>
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="field2"
+          autocomplete="off"
+          onChange={() => setFieldType("half")}
+        />
+        <label class="btn btn-outline-primary" for="field2">
+          halvplan
+        </label>
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="field4"
+          autocomplete="off"
+          onChange={() => setFieldType("halfgreen")}
+        />
+        <label class="btn btn-outline-primary" for="field4">
+          halvplan grön
+        </label>
+      </div>
       <canvas
         id="canvas"
-        width={500}
-        height={750}
+        width={canvasWidth + "px"}
+        height={canvasHeight + "px"}
         ref={canvasRef}
         onMouseDown={startDrawing}
         onMouseUp={stopDrawing}
@@ -298,6 +388,17 @@ export default function Canvas({ setImage }) {
         />
         <label class="btn btn-outline-primary" for="btnradio3">
           Försvarare
+        </label>
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio10"
+          autocomplete="off"
+          onChange={() => setTool("mv")}
+        />
+        <label class="btn btn-outline-primary" for="btnradio10">
+          Målvakt
         </label>
       </div>
       <hr />

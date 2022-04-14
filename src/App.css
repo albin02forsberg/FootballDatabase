@@ -1,7 +1,3 @@
-    .App {
-        text-align: center;
-    }
-    
     body {
         padding: 0%;
         margin: 0%;
@@ -10,68 +6,6 @@
     
     p {
         white-space: pre-line;
-    }
-    
-    .createPostPage {
-        width: 100%;
-        height: calc(100vh - 80px);
-        display: grid;
-        place-items: center;
-    }
-    
-    .cpContainer {
-        width: 500px;
-        height: auto;
-        padding: 20px;
-        background-color: black;
-        border-radius: 12px;
-        color: white;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .cpContainer h1 {
-        text-align: center;
-    }
-    
-    .cpContainer label {
-        font-size: 25px;
-    }
-    
-    .cpContainer .inputGp {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .inputGp input,
-    .inputGp textarea {
-        font-size: 18px;
-        border: none;
-        border-radius: 2px;
-        padding: 5px;
-    }
-    
-    .inputGp input {
-        height: 40px;
-    }
-    
-    .inputGp textarea {
-        height: 150px;
-    }
-    
-    .cpContainer button {
-        margin-top: 20px;
-        height: 40px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 18px;
-    }
-    
-    input,
-    textarea {
-        margin-top: 5px;
     }
     
     .loginPage {
@@ -125,84 +59,7 @@
         cursor: not-allowed;
     }
     
-    .homePage {
-        width: 100%;
-        min-height: calc(100vh - 80px);
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 20px;
-    }
-    
-    .homePage .post {
-        width: 600px;
-        height: auto;
-        max-height: 600px;
-        background-color: rgb(250, 250, 250);
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        margin: 20px;
-        padding: 20px;
-        border-radius: 15px;
-    }
-    
-    .post .postHeader {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-    
-    .postHeader .title {
-        flex: 50%;
-    }
-    
-    .postHeader .deletePost {
-        flex: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-    }
-    
-    .deletePost button {
-        border: none;
-        background: none;
-        font-size: 30px;
-        cursor: pointer;
-    }
-    
-    .post .postTextContainer {
-        word-wrap: break-word;
-        height: auto;
-        max-height: 400px;
-        width: 100%;
-        overflow: hidden;
-        overflow-y: auto;
-    }
-    
-    .left {
-        display: flex;
-        flex: 50%;
-        justify-content: flex-end;
-    }
-    
-    label {
-        font-size: 20px;
-        padding: 10px;
-    }
-    
-    select {
-        width: 100%;
-        height: 40px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        padding: 5px;
-        font-size: 20px;
-        font-family: 'Roboto', sans-serif;
-    }
-    
     hr {
-        page-break-before: always;
-        page-break-inside: auto;
         page-break-after: always;
     }
     
@@ -242,4 +99,11 @@
         animation-fill-mode: forwards;
         -webkit-animation-duration: 0.5s;
         animation-duration: 0.5s;
+    }
+    
+    .card-img-top {
+        width: 50%;
+        height: auto;
+        max-height: 300px;
+        margin-right: 10pt;
     }

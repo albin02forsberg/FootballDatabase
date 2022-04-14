@@ -156,6 +156,11 @@ export default function CreateSession() {
                       <h5 className="card-title">{drill.data().name}</h5>
                       <p className="card-text">{drill.data().description}</p>
                       <p className="card-text">
+                        <img
+                          src={drill.data().imgLink}
+                          alt={drill.data().name}
+                          className="card-img-top"
+                        />
                         <small className="text-muted">
                           {drill.data().difficulty} - {drill.data().type}
                         </small>

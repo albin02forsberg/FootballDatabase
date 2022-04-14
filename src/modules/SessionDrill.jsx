@@ -5,7 +5,7 @@ export default function SessionDrill({ drill }) {
   return (
     <div className="row">
       <div className="col-md-6">
-        <h2>{drill.data().name}</h2>
+        <h2 id={drill.id}>{drill.data().name}</h2>
         <hr></hr>
         <h3>Vad?</h3>
         <p>{drill.data().type}</p>

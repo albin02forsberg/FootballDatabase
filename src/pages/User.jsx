@@ -63,7 +63,7 @@ export default function User() {
             <div>
               <h1>{user.data().name}</h1>
               Gick med: {user.data().joined}
-              <hr></hr>
+              <hr />
             </div>
           )}
         </div>
