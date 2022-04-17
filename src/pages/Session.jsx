@@ -13,7 +13,7 @@ import Loading from "../modules/Loading";
 
 const DrillCard = lazy(() => {
   return Promise.all([
-    import("../modules/DrillCard"),
+    import("../modules/SessionDrillCard"),
     new Promise((resolve) => setTimeout(resolve, 500)),
   ]).then(([moduleExports]) => moduleExports);
 });

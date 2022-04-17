@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { useParams, Link } from "react-router-dom";
 import { db } from "../firebase-config";
+import Loading from "../modules/Loading";
 
 import {
   query,
@@ -12,13 +13,19 @@ import {
   orderBy,
 } from "firebase/firestore";
 
+const DrillCard = lazy(() => {
+  return Promise.all([
+    import("../modules/DrillCard"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 export default function User() {
   // get another users data
   const { uid } = useParams();
   const [user, setUser] = React.useState(null);
   const [drills, setDrills] = React.useState(null);
   const [sessions, setSessions] = React.useState(null);
-
 
   useEffect(() => {
     const userCollectionRef = collection(db, "users");
@@ -67,7 +74,13 @@ export default function User() {
             </div>
           )}
         </div>
-        <div className="col-md-6">
+        <div className="col-md-12">
+          {user && <h2>{user.data().name + "s övningar"}</h2>}
+          <div className="row row-cols-1 row-cols-md-5 g-10">
+            <Suspense fallback={<Loading />}>
+              {drills && drills.map((drill) => <DrillCard drill={drill} />)}
+            </Suspense>
+          </div>
           <div className="table-responsive">
             {user && <h2>{user.data().name + "s övningar"}</h2>}
             {drills && (
@@ -101,7 +114,7 @@ export default function User() {
             )}
           </div>
         </div>
-        <div className="col-md-6">
+        {/* <div className="col-md-6">
           <div className="table-responsive">
             {user && <h2>{user.data().name + "s träningspass"}</h2>}
             {sessions && (
@@ -132,7 +145,7 @@ export default function User() {
               </table>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -12,13 +12,18 @@ export default function Canvas({ setImage }) {
   const [canvasWidth, setCanvasWidth] = React.useState(0);
   const [canvasHeight, setCanvasHeight] = React.useState(0);
   const [fieldType, setFieldType] = React.useState("full");
+  const [text, setText] = React.useState("");
 
   const drawGreen = (ctx) => {
     ctx.beginPath();
 
     // Draw green stripes
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = "2";
     ctx.fillStyle = "green";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.fillStyle = "white";
+    // Set stroke color to white
 
     ctx.stroke();
   };
@@ -104,6 +109,9 @@ export default function Canvas({ setImage }) {
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
+    console.log(ctxRef.current.strokeStyle);
+    ctxRef.current.strokeStyle = "white";
+    ctxRef.current.fillStyle = "white";
     if (tool === "circle") {
       ctxRef.current.beginPath();
       ctxRef.current.moveTo(offsetX, offsetY);
@@ -161,6 +169,12 @@ export default function Canvas({ setImage }) {
       ctxRef.current.fillStyle = "white";
       ctxRef.current.fillText("MV", offsetX, offsetY);
       ctxRef.current.stroke();
+    } else if (tool === "text") {
+      // Write text
+      ctxRef.current.font = "20px Arial";
+      ctxRef.current.fillStyle = "white";
+      ctxRef.current.fillText(text, offsetX, offsetY);
+      ctxRef.current.stroke();
     } else {
       setStartX(offsetX);
       setStartY(offsetY);
@@ -170,6 +184,9 @@ export default function Canvas({ setImage }) {
 
   const stopDrawing = ({ nativeEvent }) => {
     // const { offsetX, offsetY } = nativeEvent;
+    // Set stroke color to white
+    ctxRef.current.strokeStyle = "white";
+    ctxRef.current.fillStyle = "white";
     if (tool === "player") {
       // Draw dashed arrow from start to end
       ctxRef.current.beginPath();
@@ -268,6 +285,9 @@ export default function Canvas({ setImage }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
+    // Set line color to white
+    ctx.strokeStyle = "white";
+
     if (fieldType === "full") {
       drawFull(ctx);
     } else if (fieldType === "half") {
@@ -469,6 +489,37 @@ export default function Canvas({ setImage }) {
         <label class="btn btn-outline-primary" for="btnradio8">
           Kona
         </label>
+      </div>
+      <hr />
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio12"
+          autocomplete="off"
+          onChange={() => setTool("text")}
+        />
+        <label class="btn btn-outline-primary" for="btnradio12">
+          Text
+        </label>
+        <input
+          type="input"
+          name="btnradio"
+          id="btnradio12"
+          placeholder="Text"
+          autocomplete="off"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <label class="btn btn-outline-danger" for="btnradio12">
+          Rensa text
+        </label>
+        <input type="radio" name="n" id="n" autocomplete="off" />
       </div>
       <hr />
       <button onClick={undo} className="btn btn-danger">
