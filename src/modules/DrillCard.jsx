@@ -1,6 +1,5 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import Loading from "./Loading";
 
 export default function DrillCard({ drill, showCreator }) {
   return (
