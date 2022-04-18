@@ -214,7 +214,7 @@ export default function CreateDrill() {
         </div>
         <div className="mb-3">
           <button className="btn btn-primary" onClick={createDrill}>
-            Spara
+            Skapa övning
           </button>
         </div>
       </div>

@@ -20,10 +20,14 @@ export default function Canvas({ setImage }) {
     // Draw green stripes
     ctx.strokeStyle = "white";
     ctx.lineWidth = "2";
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "#74CB8B";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.fillStyle = "white";
-    // Set stroke color to white
+
+    for (let y = 0; y < ctx.canvas.height; y += 50) {
+      ctx.fillStyle = "#75C181";
+      ctx.fillRect(0, y, ctx.canvas.width, 25);
+    }
 
     ctx.stroke();
   };
@@ -34,8 +38,12 @@ export default function Canvas({ setImage }) {
     ctx.beginPath();
 
     // Draw green stripes
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "#74CB8B";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    for (let y = 0; y < ctx.canvas.height; y += 50) {
+      ctx.fillStyle = "#75C181";
+      ctx.fillRect(0, y, ctx.canvas.width, 25);
+    }
 
     ctx.strokeStyle = "white";
     ctx.lineWidth = "2";
