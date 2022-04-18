@@ -76,45 +76,18 @@ export default function User() {
         </div>
         <div className="col-md-12">
           {user && <h2>{user.data().name + "s övningar"}</h2>}
-          <div className="row row-cols-1 row-cols-md-5 g-10">
-            <Suspense fallback={<Loading />}>
-              {drills && drills.map((drill) => <DrillCard drill={drill} />)}
-            </Suspense>
-          </div>
-          <div className="table-responsive">
-            {user && <h2>{user.data().name + "s övningar"}</h2>}
-            {drills && (
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Namn</th>
-                    <th scope="col">Typ</th>
-                    <th scope="col">Moment</th>
-                    <th scope="col">Nivå</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {drills &&
-                    // If drills is not null
-                    // Loop through drills and create a table row for each drill
-                    drills.map((drill) => (
-                      <tr key={drill.id}>
-                        <td>
-                          <Link to={"/drill/" + drill.id}>
-                            {drill.data().name}
-                          </Link>
-                        </td>
-                        <td>{drill.data().type}</td>
-                        <td>{drill.data().what}</td>
-                        <td>{drill.data().difficulty}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            )}
+          <div className="row row-cols-1 row-cols-md-6 g-10">
+            {drills &&
+              drills.map((drill) => {
+                return (
+                  <Suspense fallback={<Loading />}>
+                    <DrillCard drill={drill} />
+                  </Suspense>
+                );
+              })}
           </div>
         </div>
-        {/* <div className="col-md-6">
+        <div className="col-md-6">
           <div className="table-responsive">
             {user && <h2>{user.data().name + "s träningspass"}</h2>}
             {sessions && (
@@ -145,7 +118,7 @@ export default function User() {
               </table>
             )}
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

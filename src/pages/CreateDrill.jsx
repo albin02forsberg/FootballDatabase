@@ -48,9 +48,9 @@ export default function CreateDrill() {
 
   return (
     <div className="container">
-      <h1>Skapa övning</h1>
       <div className="row">
-        <div className="col-md-6">
+        <h1>Skapa övning</h1>
+        <div className="col-md-8">
           <div className="mb-3">
             <label class="form-label">Övningens namn</label>
             <input
@@ -206,16 +206,16 @@ export default function CreateDrill() {
               }}
             ></input>
           </div> */}
-          <div className="mb-3">
-            <button className="btn btn-primary" onClick={createDrill}>
-              Spara
-            </button>
-          </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-12">
           <Suspense fallback={<Loading />}>
             <Canvas setImage={setImg} />
           </Suspense>
+        </div>
+        <div className="mb-3">
+          <button className="btn btn-primary" onClick={createDrill}>
+            Spara
+          </button>
         </div>
       </div>
     </div>

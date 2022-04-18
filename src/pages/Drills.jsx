@@ -1,7 +1,15 @@
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
+import Loading from "../modules/Loading";
+
+const DrillCard = lazy(() => {
+  return Promise.all([
+    import("../modules/DrillCard"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 export default function Drills() {
   const [drills, setDrills] = React.useState();
@@ -20,38 +28,16 @@ export default function Drills() {
       <Link to="/createDrill" className="pageLink">
         <button className="btn btn-primary">Skapa övning</button>
       </Link>
-      <div className="table-responsive">
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Namn</th>
-              <th scope="col">Typ</th>
-              <th scope="col">Moment</th>
-              <th scope="col">Nivå</th>
-              <th scope="col">Skapad av</th>
-            </tr>
-          </thead>
-          <tbody>
-            {drills && // If drills is not null
-              // Loop through drills and create a table row for each drill
-              drills.map((drill) => (
-                <tr key={drill.id}>
-                  <td>
-                    <Link to={"/drill/" + drill.id}>{drill.data().name}</Link>
-                  </td>
-                  <td>{drill.data().type}</td>
-                  <td>{drill.data().what}</td>
-                  <td>{drill.data().difficulty}</td>
-                  <td>
-                    <Link to={"/user/" + drill.data().uid}>
-                      {" "}
-                      {drill.data().uname}
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+      <hr />
+      <div className="row row-cols-1 row-cols-md-6 g-10">
+        {drills &&
+          drills.map((drill) => {
+            return (
+              <Suspense fallback={<Loading />}>
+                <DrillCard drill={drill} showCreator={true} />
+              </Suspense>
+            );
+          })}
       </div>
     </div>
   );
