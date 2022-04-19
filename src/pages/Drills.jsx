@@ -29,7 +29,7 @@ export default function Drills() {
         <button className="btn btn-primary">Skapa övning</button>
       </Link>
       <hr />
-      <div className="row row-cols-1 row-cols-md-6 g-10">
+      <div className="row row-cols-1 row-cols-md-4 mx-auto">
         {drills &&
           drills.map((drill) => {
             return (
