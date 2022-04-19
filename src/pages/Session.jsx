@@ -30,7 +30,6 @@ export default function Session() {
   const [session, setSession] = React.useState();
   const [drills, setDrills] = React.useState();
 
-
   // Get session data and drills from firebase
   useEffect(() => {
     // Get session data from firebase and get drills from firebase with
@@ -58,6 +57,11 @@ export default function Session() {
           <p>
             {session.difficulty} - {session.type}
           </p>
+          <button className="btn btn-primary disabled">
+            Exportera till pdf
+          </button>
+
+          <hr />
         </div>
       )}
       <div className="row">

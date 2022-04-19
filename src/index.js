@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from "react";
-
 import "./App.css";
 import reportWebVitals from "./reportWebVitals";
 import ReactDOM from "react-dom";
