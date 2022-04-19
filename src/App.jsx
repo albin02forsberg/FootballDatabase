@@ -82,6 +82,14 @@ const Session = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const Privacy = lazy(() => {
+  return Promise.all([
+    import("./pages/Privacy"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+
 const User = lazy(() => {
   return Promise.all([
     import("./pages/User"),
@@ -183,6 +191,14 @@ function App() {
           element={
             <Suspense fallback={<Loading />}>
               <CreateNews />
+            </Suspense>
+          }
+        />
+        <Route
+          path="privacy"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Privacy />
             </Suspense>
           }
         />
