@@ -2,6 +2,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
+import Loading from "../modules/Loading";
 
 export default function Sessions() {
   const [sessions, setSessions] = React.useState(null);
@@ -16,6 +17,10 @@ export default function Sessions() {
       setSessions(docs.docs);
     });
   }, []);
+
+  if (!sessions) {
+    return <Loading />;
+  }
 
   return (
     <div className="container">

@@ -49,6 +49,10 @@ export default function Session() {
     });
   }, [id]);
 
+  if (!session) {
+    return <Loading />;
+  }
+
   return (
     <div className="container">
       {session && (

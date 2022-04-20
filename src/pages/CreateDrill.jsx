@@ -4,7 +4,12 @@ import { db, auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import Loading from "../modules/Loading";
 
-const Canvas = lazy(() => import("../modules/Canvas"));
+const Canvas = lazy(() => {
+  return Promise.all([
+    import("../modules/Canvas"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 export default function CreateDrill() {
   let navigate = useNavigate();

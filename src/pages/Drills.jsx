@@ -1,4 +1,11 @@
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+} from "firebase/firestore";
 import React, { Suspense, useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
@@ -12,16 +19,36 @@ const DrillCard = lazy(() => {
 });
 
 export default function Drills() {
-  const [drills, setDrills] = React.useState();
+  const [drills, setDrills] = React.useState([]);
 
   useEffect(() => {
     document.title = "Övningar";
-    const drillQ = query(collection(db, "drills"), orderBy("created", "desc"));
+    const drillQ = query(
+      collection(db, "drills"),
+      orderBy("created", "desc"),
+      limit(8)
+    );
     getDocs(drillQ).then((docs) => {
       setDrills(docs.docs);
     });
   }, []);
 
+  const fetchMore = () => {
+    const drillQ = query(
+      collection(db, "drills"),
+      orderBy("created", "desc"),
+      limit(8),
+      startAfter(drills[drills.length - 1])
+    );
+    getDocs(drillQ).then((docs) => {
+      setDrills([...drills, ...docs.docs]);
+      console.log(drills);
+    });
+  };
+
+  if (drills.length === 0) {
+    return <Loading />;
+  }
   return (
     <div className="container">
       <h1>Övningar</h1>
@@ -31,13 +58,18 @@ export default function Drills() {
       <hr />
       <div className="row row-cols-1 row-cols-md-4 mx-auto">
         {drills &&
-          drills.map((drill) => {
+          drills.map((drill, index) => {
             return (
               <Suspense fallback={<Loading />}>
-                <DrillCard drill={drill} showCreator={true} />
+                <DrillCard drill={drill} index={index} showCreator={true} />
               </Suspense>
             );
           })}
+      </div>
+      <div className="d-grid">
+        <button className="btn btn-primary" onClick={fetchMore}>
+          Visa fler
+        </button>
       </div>
     </div>
   );

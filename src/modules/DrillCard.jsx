@@ -16,7 +16,9 @@ export default function DrillCard({ drill, showCreator }) {
           <Link to={`/drill/${drill.id}`}>
             <h5 className="card-title">{drill.data().name}</h5>
           </Link>
-          <p className="card-text">{drill.data().description}</p>
+          <p className="card-text cut-text" id="drillDescription">
+            {drill.data().description}
+          </p>
           <p className="card-text">
             <small className="text-muted">
               {drill.data().difficulty} - {drill.data().type}

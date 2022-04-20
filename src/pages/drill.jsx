@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
+import Loading from "../modules/Loading";
 
 export default function Drill() {
   const { id } = useParams();
@@ -18,6 +19,7 @@ export default function Drill() {
     const drillRef = doc(drillCollectionRef, id);
     getDoc(drillRef)
       .then((drill) => {
+        document.title = drill.data().name;
         setDrill(drill);
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
@@ -25,12 +27,15 @@ export default function Drill() {
         imageForeground.src = drill.data().imgLink;
         ctx.drawImage(imageForeground, 0, 0, canvas.width, canvas.height);
         ctxRef.current = ctx;
-        document.title = drill.data().name;
       })
       .catch((error) => {
         console.log(error);
       });
   }, [id]);
+
+  if (!drill) {
+    return <Loading />;
+  }
 
   return (
     <div className="container">

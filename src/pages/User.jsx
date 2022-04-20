@@ -62,18 +62,25 @@ export default function User() {
     });
   }, [uid]);
 
+  if (!user) {
+    return <Loading />;
+  }
+
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-12">
-          {user && (
-            <div>
-              <h1>{user.data().name}</h1>
-              Gick med: {user.data().joined}
-              <hr />
+        {user && (
+          <>
+            <div className="col-md-1">
+              <img src={user.data().photo} alt="profile" />
             </div>
-          )}
-        </div>
+            <div className="col-md-11">
+              <h1>{user.data().name}</h1>
+              <p>Gick med: {user.data().joined}</p>
+            </div>
+            <hr />
+          </>
+        )}
         <div className="col-md-12">
           {user && <h2>{user.data().name + "s övningar"}</h2>}
           <div className="row row-cols-1 row-cols-md-3 g-10">

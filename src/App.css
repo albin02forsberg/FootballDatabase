@@ -92,10 +92,32 @@
         animation-duration: 0.5s;
     }
     
+    .card {
+        opacity: 0;
+        -webkit-animation: fadeIn ease-in 1;
+        animation: fadeIn ease-in 1;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+    }
+    
     canvas {
         background-color: rgb(250, 250, 250);
         border: 2px solid rgba(0, 0, 0, 0.568);
         margin: 20px;
         border-radius: 15px;
         background-color: gray;
+    }
+    
+    .cut-text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 10%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }

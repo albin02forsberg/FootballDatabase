@@ -97,6 +97,13 @@ const User = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const EditDrill = lazy(() => {
+  return Promise.all([
+    import("./pages/EditDrill"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
 
@@ -231,6 +238,14 @@ function App() {
           element={
             <Suspense fallback={<Loading />}>
               <News />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/drill/:id/edit"
+          element={
+            <Suspense fallback={<Loading />}>
+              <EditDrill />
             </Suspense>
           }
         />
