@@ -6,7 +6,7 @@ function About() {
   }, []);
   return (
     <div className="container">
-      <h1>Om Fotbollsövningar.se</h1>
+      <h1>Om fotbollsträning.se</h1>
       <hr />
       <div className="row">
         <div className="col-md-6">
@@ -14,9 +14,8 @@ function About() {
             <div className="card-body">
               <h5 className="card-title">Varför?</h5>
               <p className="card-text">
-                Fotbollsövningar.se skapades för att göra det lättare för
-                tränare och spelare att hitta och dela fotbollsövningar med
-                varandra.
+                fotbollsträning.se skapades för att göra det lättare för tränare
+                och spelare att hitta och dela fotbollsträning med varandra.
               </p>
             </div>
           </div>
@@ -26,7 +25,7 @@ function About() {
             <div className="card-body">
               <h5 className="card-title">Öppen källkod</h5>
               <p className="card-text">
-                Fotbollsövningar.se är öppen källkod. Du kan se koden, och
+                fotbollsträning.se är öppen källkod. Du kan se koden, och
                 tillföra till projektet på github.{" "}
               </p>
               <a
@@ -43,7 +42,7 @@ function About() {
             <div className="card-body">
               <h5 className="card-title">Teknologier som håller sidan igång</h5>
               <p className="card-text">
-                Fotbollsövningar.se använder sig först och främst av open source
+                fotbollsträning.se använder sig först och främst av open source
                 teknologier. Bland annat:
               </p>
               <ul className="list-group list-group-flush ">

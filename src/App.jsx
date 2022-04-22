@@ -118,6 +118,13 @@ const Users = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const AdminDrills = lazy(() => {
+  return Promise.all([
+    import("./pages/admin/Drills"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
@@ -250,6 +257,15 @@ function App() {
             </Suspense>
           }
         />
+        <Route
+          path="/admin/drills"
+          element={
+            <Suspense fallback={<Loading />}>
+              <AdminDrills />
+            </Suspense>
+          }
+        />
+
         <Route
           path="/drill/:id"
           element={

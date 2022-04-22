@@ -55,9 +55,9 @@ export default function Admin() {
         <Link to="/admin/drills">
           <div className="card mb-3">
             <div className="card-body">
-              <h5 className="card-title">Träningspass</h5>
+              <h5 className="card-title">Övningar</h5>
               <p className="card-text">
-                Här kan du se alla träningspass och redigera dem.
+                Här kan du se alla övningar och redigera dem.
               </p>
             </div>
           </div>

@@ -7,7 +7,13 @@ export function Nav({ isAuth, signOut, user }) {
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <Link class="navbar-brand" to="/">
-          Fotbollsövningar.se
+          <img
+            src="./logo-trans.png"
+            alt="logo"
+            width={60}
+            height={52}
+            className="d-inline-block align-text-top"
+          />
         </Link>
         <button
           class="navbar-toggler"
@@ -42,6 +48,11 @@ export function Nav({ isAuth, signOut, user }) {
                 Om
               </Link>
             </li>
+            <li class="nav-item">
+              <Link class="nav-link" to="/privacy">
+                Privacy
+              </Link>
+            </li>
           </ul>
           <form class="d-flex">
             {isAuth ? (
@@ -49,7 +60,10 @@ export function Nav({ isAuth, signOut, user }) {
                 {/* if user exsist and the user role == admin 
                   show Link to /admin */}
                 {user && user.role === "admin" && (
-                  <Link to="/admin" className="btn btn-outline-primary">
+                  <Link
+                    to="/admin"
+                    className="btn btn-outline-primary my-2 my-sm-0"
+                  >
                     Admin
                   </Link>
                 )}

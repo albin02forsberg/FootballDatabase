@@ -41,7 +41,11 @@ export default function Home() {
     <div className="container">
       <div className="row">
         <div className="col-md-12">
-          <h1>Välkommen</h1>
+          <div class="mt-4 p-5 bg-secondary text-white rounded">
+            <h1>Välkommen till fotbollsträning.se</h1>
+          </div>
+        </div>
+        <div className="col-md-12">
           <div className="alert alert-info">
             <h5>Hemsidan är under utveckling</h5>
             <p>
