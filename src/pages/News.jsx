@@ -8,9 +8,16 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { auth, db } from "../firebase-config";
+
+const Comment = lazy(() => {
+  return Promise.all([
+    import("../modules/Comment"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 export default function News() {
   const { id } = useParams();
@@ -109,14 +116,7 @@ export default function News() {
         {comments &&
           comments.map((comment) => (
             <div className="col-md-12">
-              <div className="card mb-3">
-                <div className="card-body">
-                  <p className="card-text">{comment.data().content}</p>
-                </div>
-                <div className="card-footer">
-                  <small className="text-muted">{comment.data().uname}</small>
-                </div>
-              </div>
+              <Comment comment={comment} />
             </div>
           ))}
       </div>

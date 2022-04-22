@@ -2,9 +2,10 @@ import { Nav } from "./modules/Nav";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect, lazy, Suspense } from "react";
 import React from "react";
-import { auth } from "./firebase-config";
+import { auth, db } from "./firebase-config";
 import Loading from "./modules/Loading";
 import Footer from "./modules/Footer";
+import { collection, doc, getDoc } from "firebase/firestore";
 
 const Home = lazy(() => {
   return Promise.all([
@@ -89,7 +90,6 @@ const Privacy = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-
 const User = lazy(() => {
   return Promise.all([
     import("./pages/User"),
@@ -104,8 +104,23 @@ const EditDrill = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const Admin = lazy(() => {
+  return Promise.all([
+    import("./pages/admin/Admin"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Users = lazy(() => {
+  return Promise.all([
+    import("./pages/admin/Users"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState(null);
 
   const signOut = () => {
     auth
@@ -125,6 +140,16 @@ function App() {
       if (user) {
         setIsAuth(true);
         localStorage.setItem("IsAuth", true);
+        // Get user from db
+        const userCollectionRef = collection(db, "users");
+        const userRef = doc(userCollectionRef, user.uid);
+        getDoc(userRef)
+          .then((u) => {
+            setUser(u.data());
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         setIsAuth(false);
         localStorage.clear();
@@ -134,7 +159,7 @@ function App() {
 
   return (
     <Router>
-      <Nav isAuth={isAuth} signOut={signOut} />
+      <Nav isAuth={isAuth} signOut={signOut} user={user} />
       <Routes>
         <Route
           path="/"
@@ -202,10 +227,26 @@ function App() {
           }
         />
         <Route
-          path="privacy"
+          path="/privacy"
           element={
             <Suspense fallback={<Loading />}>
               <Privacy />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Admin />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Users />
             </Suspense>
           }
         />

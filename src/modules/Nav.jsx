@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase-config";
 
-export function Nav({ isAuth, signOut }) {
+export function Nav({ isAuth, signOut, user }) {
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
@@ -45,7 +45,15 @@ export function Nav({ isAuth, signOut }) {
           </ul>
           <form class="d-flex">
             {isAuth ? (
-              <div>
+              <div className="btn-group">
+                {/* if user exsist and the user role == admin 
+                  show Link to /admin */}
+                {user && user.role === "admin" && (
+                  <Link to="/admin" className="btn btn-outline-primary">
+                    Admin
+                  </Link>
+                )}
+
                 <Link
                   class="btn btn-outline-success my-2 my-sm-0"
                   to={"/user/" + auth.currentUser.uid}

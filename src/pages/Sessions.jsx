@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
 import Loading from "../modules/Loading";
+import calculateTime from "../scripts/calculateTime";
 
 export default function Sessions() {
   const [sessions, setSessions] = React.useState(null);
@@ -37,6 +38,7 @@ export default function Sessions() {
               <th scope="col">Nivå</th>
               <th scope="col">Antal övningar</th>
               <th scope="col">Skapad av</th>
+              <th scope="col">Skapad</th>
             </tr>
           </thead>
           <tbody>
@@ -58,6 +60,7 @@ export default function Sessions() {
                       {session.data().uname}
                     </Link>
                   </td>
+                  <td>{calculateTime(session.data().created.seconds)}</td>
                 </tr>
               ))}
           </tbody>

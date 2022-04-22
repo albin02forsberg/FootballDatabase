@@ -20,7 +20,12 @@ export default function Login({ setIsAuth }) {
           email: result.user.email,
           photo: result.user.photoURL,
           joined: result.user.metadata.creationTime,
-          lastLogin: new Date(),
+          lastSignInTime: result.user.metadata.lastSignInTime,
+          // if user is admin set role to admin
+          role:
+            result.user.email === "albin02forsberg@gmail.com"
+              ? "admin"
+              : "user",
         });
 
         navigate("/");

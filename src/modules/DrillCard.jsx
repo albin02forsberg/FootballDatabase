@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import calculateTime from "../scripts/calculateTime";
 
 export default function DrillCard({ drill, showCreator }) {
   return (
@@ -32,8 +33,8 @@ export default function DrillCard({ drill, showCreator }) {
         {showCreator && (
           <div className="card-footer">
             <p className="card-text">
-              Skapad av:{" "}
               <Link to={"/user/" + drill.data().uid}>{drill.data().uname}</Link>{" "}
+              - {calculateTime(drill.data().created.seconds)}
             </p>
           </div>
         )}
