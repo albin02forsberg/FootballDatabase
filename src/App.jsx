@@ -4,7 +4,6 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import React from "react";
 import { auth, db } from "./firebase-config";
 import Loading from "./modules/Loading";
-import Footer from "./modules/Footer";
 import { collection, doc, getDoc } from "firebase/firestore";
 
 const Home = lazy(() => {
@@ -124,6 +123,13 @@ const AdminDrills = lazy(() => {
     new Promise((resolve) => setTimeout(resolve, 500)),
   ]).then(([moduleExports]) => moduleExports);
 });
+
+// const MobileNav = lazy(() => {
+//   return Promise.all([
+//     import("./modules/MobileNav"),
+//     new Promise((resolve) => setTimeout(resolve, 500)),
+//   ]).then(([moduleExports]) => moduleExports);
+// });
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -318,7 +324,7 @@ function App() {
           }
         />
       </Routes>
-      <Footer />
+      {/* <MobileNav isAuth={isAuth} user={user} /> */}
     </Router>
   );
 }

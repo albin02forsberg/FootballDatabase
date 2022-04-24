@@ -121,3 +121,47 @@
         justify-content: center;
         align-items: center;
     }
+    /* Mobile nav  */
+    
+    .bottom-nav {
+        background-color: pink;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 10px 20px;
+    }
+    
+    .nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    
+    .nav-item {
+        padding: 6px 20px;
+        position: relative;
+    }
+    
+    .nav-content {
+        z-index: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-item.active .nav-content {
+        color: hsl(348.8, 59.2%, 62.5%);
+    }
+    
+    .highlight {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        border-radius: 4px;
+        background-color: hsl(349.2, 48.8%, 75.5%);
+    }
