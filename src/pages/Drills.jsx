@@ -55,22 +55,21 @@ export default function Drills() {
       <Link to="/createDrill" className="pageLink">
         <button className="btn btn-primary">Skapa övning</button>
       </Link>
-      <hr />
-      <div className="row row-cols-1 row-cols-md-4 mx-auto">
-        {drills &&
-          drills.map((drill, index) => {
-            return (
-              <Suspense fallback={<Loading />}>
-                <DrillCard drill={drill} index={index} showCreator={true} />
-              </Suspense>
-            );
-          })}
+      <div className="row">
+        <div className="grid">
+          {drills &&
+            drills.map((drill, index) => {
+              return (
+                <Suspense fallback={<Loading />}>
+                  <DrillCard drill={drill} index={index} showCreator={true} />
+                </Suspense>
+              );
+            })}
+        </div>
       </div>
-      <div className="d-grid">
-        <button className="btn btn-primary" onClick={fetchMore}>
-          Visa fler
-        </button>
-      </div>
+      <button className="btn btn-primary" onClick={fetchMore}>
+        Visa fler
+      </button>
     </div>
   );
 }

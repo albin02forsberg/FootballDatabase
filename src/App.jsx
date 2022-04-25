@@ -132,6 +132,13 @@ const Header = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const Footer = lazy(() => {
+  return Promise.all([
+    import("./modules/Footer"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
@@ -328,6 +335,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
       <MobileNav isAuth={isAuth} signOut={signOut} user={user} />
     </Router>
   );

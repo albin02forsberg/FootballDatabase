@@ -75,29 +75,25 @@ export default function News() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-12">
-          {article && (
-            <div>
-              <h1>{article.data().title}</h1>
-              <hr></hr>
-              <p>{article.data().content}</p>
+        {article && (
+          <div>
+            <h1>{article.data().title}</h1>
+            <hr></hr>
+            <p>{article.data().content}</p>
 
-              <p>
-                Skrivet av:{" "}
-                <Link to={"/user/" + article.data().uid}>
-                  {article.data().uname}
-                </Link>{" "}
-              </p>
-              <hr />
-            </div>
-          )}
-        </div>
+            <p>
+              Skrivet av:{" "}
+              <Link to={"/user/" + article.data().uid}>
+                {article.data().uname}
+              </Link>{" "}
+            </p>
+            <hr />
+          </div>
+        )}
       </div>
       <div className="row">
         <div className="col-md-6">
-          <h3>Skriv kommentar</h3>
-
-          <div className="mb-3">
+          <div className="form">
             <label htmlFor="comment">Kommentar</label>
             <textarea
               className="form-control"

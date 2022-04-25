@@ -5,7 +5,7 @@ import calculateTime from "../scripts/calculateTime";
 export default function DrillCard({ drill, showCreator }) {
   return (
     <div className="col mx-auto">
-      <div className="card mb-3">
+      <div className="card mb">
         <Link to={`/drill/${drill.id}`}>
           <img
             src={drill.data().imgLink}
@@ -29,12 +29,20 @@ export default function DrillCard({ drill, showCreator }) {
             <small className="text-muted">{drill.data().why}</small>
           </p>
         </div>
-
-        {showCreator && (
+        <hr />
+        {(showCreator && (
           <div className="card-footer">
             <p className="card-text">
               <Link to={"/user/" + drill.data().uid}>{drill.data().uname}</Link>{" "}
               - {calculateTime(drill.data().created.seconds)}
+            </p>
+          </div>
+        )) || (
+          <div className="card-footer">
+            <p className="card-text">
+              <small className="text-muted">
+                {calculateTime(drill.data().created.seconds)}
+              </small>
             </p>
           </div>
         )}

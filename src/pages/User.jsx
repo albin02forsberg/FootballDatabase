@@ -20,6 +20,13 @@ const DrillCard = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const UserHeader = lazy(() => {
+  return Promise.all([
+    import("../modules/UserHeader"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 export default function User() {
   // get another users data
   const { uid } = useParams();
@@ -70,61 +77,54 @@ export default function User() {
     <div className="container">
       <div className="row">
         {user && (
-          <>
-            <div className="col-md-1">
-              <img src={user.data().photo} alt="profile" />
-            </div>
-            <div className="col-md-11">
-              <h1>{user.data().name}</h1>
-              <p>Gick med: {user.data().joined}</p>
-            </div>
-            <hr />
-          </>
+          <Suspense fallback={<Loading />}>
+            <UserHeader user={user} />
+          </Suspense>
         )}
-        <div className="col-md-12">
-          {user && <h2>{user.data().name + "s övningar"}</h2>}
-          <div className="row row-cols-1 row-cols-md-3 g-10">
-            {drills &&
-              drills.map((drill) => {
-                return (
-                  <Suspense fallback={<Loading />}>
-                    <DrillCard drill={drill} showCreator={false} />
-                  </Suspense>
-                );
-              })}
-          </div>
+      </div>
+      <div className="row">
+        {user && <h2>{user.data().name + "s övningar"}</h2>}
+        <div className="grid">
+          {drills &&
+            drills.map((drill) => {
+              return (
+                <Suspense fallback={<Loading />}>
+                  <DrillCard drill={drill} showCreator={false} />
+                </Suspense>
+              );
+            })}
         </div>
-        <div className="col-md-6">
-          <div className="table-responsive">
-            {user && <h2>{user.data().name + "s träningspass"}</h2>}
-            {sessions && (
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Namn</th>
-                    <th scope="col">Typ</th>
-                    <th scope="col">Nivå</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sessions &&
-                    // If drills is not null
-                    // Loop through drills and create a table row for each drill
-                    sessions.map((session) => (
-                      <tr key={session.id}>
-                        <td>
-                          <Link to={"/session/" + session.id}>
-                            {session.data().name}
-                          </Link>
-                        </td>
-                        <td>{session.data().type}</td>
-                        <td>{session.data().difficulty}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+      </div>
+      <div className="row">
+        <div className="table-responsive">
+          {user && <h2>{user.data().name + "s träningspass"}</h2>}
+          {sessions && (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Namn</th>
+                  <th scope="col">Typ</th>
+                  <th scope="col">Nivå</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sessions &&
+                  // If drills is not null
+                  // Loop through drills and create a table row for each drill
+                  sessions.map((session) => (
+                    <tr key={session.id}>
+                      <td>
+                        <Link to={"/session/" + session.id}>
+                          {session.data().name}
+                        </Link>
+                      </td>
+                      <td>{session.data().type}</td>
+                      <td>{session.data().difficulty}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

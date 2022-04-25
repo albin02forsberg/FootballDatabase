@@ -42,19 +42,26 @@ export default function Home() {
     <div className="container">
       <div className="row">
         <div className="content">
-          <h2>Diskussioner</h2>
           <div className="row">
+            <h2>Diskussioner</h2>
             {discussions.map((discussion) => (
               <div className="card" key={discussion.id}>
                 <div className="card-header">
-                  <Link to={`/discussion/${discussion.id}`}>
+                  <Link to={`/news/${discussion.id}`}>
                     {discussion.data().title}
                   </Link>
-                  <hr />
+                </div>
+                <div className="card-body">
+                  <p className="cut-text card-text">
+                    {discussion.data().content}
+                  </p>
                 </div>
                 <div className="card-footer">
                   <small>
-                    {calculateTime(discussion.data().created.seconds)}
+                    {calculateTime(discussion.data().created.seconds)} -{" "}
+                    <Link to={`/user/${discussion.data().uid}`}>
+                      {discussion.data().uname}
+                    </Link>
                   </small>
                 </div>
               </div>
@@ -62,15 +69,21 @@ export default function Home() {
           </div>
         </div>
         <div className="content">
-          <h2>Senaste uppdateringarna</h2>
           <div className="row">
+            <h2>Senaste uppdateringarna</h2>
             {news.map((news) => (
               <div className="card" key={news.id}>
                 <div className="card-header">
                   <Link to={`/news/${news.id}`}>{news.data().title}</Link>
                 </div>
+                <div className="card-body">
+                  <p className="cut-text">{news.data().content}</p>
+                </div>
                 <div className="card-footer">
                   <small>{calculateTime(news.data().created.seconds)}</small>{" "}
+                  <Link to={`/user/${news.data().uid}`}>
+                    {news.data().uname}
+                  </Link>
                 </div>
               </div>
             ))}
