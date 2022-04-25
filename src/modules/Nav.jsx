@@ -53,6 +53,7 @@ export function Nav({ isAuth, signOut, user }) {
                 Privacy
               </Link>
             </li>
+
           </ul>
           <form class="d-flex">
             {isAuth ? (

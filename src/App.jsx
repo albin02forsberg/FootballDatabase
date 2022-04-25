@@ -1,4 +1,4 @@
-import { Nav } from "./modules/Nav";
+// import { Nav } from "./modules/Nav";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect, lazy, Suspense } from "react";
 import React from "react";
@@ -124,12 +124,12 @@ const AdminDrills = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-// const MobileNav = lazy(() => {
-//   return Promise.all([
-//     import("./modules/MobileNav"),
-//     new Promise((resolve) => setTimeout(resolve, 500)),
-//   ]).then(([moduleExports]) => moduleExports);
-// });
+const MobileNav = lazy(() => {
+  return Promise.all([
+    import("./modules/MobileNav"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -172,7 +172,7 @@ function App() {
 
   return (
     <Router>
-      <Nav isAuth={isAuth} signOut={signOut} user={user} />
+      {/* <Nav isAuth={isAuth} signOut={signOut} user={user} /> */}
       <Routes>
         <Route
           path="/"
@@ -324,7 +324,9 @@ function App() {
           }
         />
       </Routes>
-      {/* <MobileNav isAuth={isAuth} user={user} /> */}
+      <Suspense fallback={<Loading />}>
+        <MobileNav isAuth={isAuth} signOut={signOut} user={user} />
+      </Suspense>
     </Router>
   );
 }
