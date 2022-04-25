@@ -3,15 +3,15 @@
 :root {
     --primary-color: #5A4AE3;
     --secondary-color: #4AE3A6;
+    --tertiary-color: #D3E34A;
+    --tertiary-color2: #E34A87;
+    --accent-color: #E3A64A;
+    --dark-color: #2F2F2F;
+    --light-color: #F2F2F2;
 }
 
 * {
-    padding: 0;
-    margin: 0;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
 }
 
 p {
@@ -76,14 +76,65 @@ p {
     }
 }
 
+body {
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    margin: 0;
+    padding: 0;
+    /* Hide scrollbar */
+}
+
 .container {
-    opacity: 0;
     -webkit-animation: fadeIn ease-in 1;
     animation: fadeIn ease-in 1;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
     -webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
+}
+
+.header {
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    height: 10vh;
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Shadow  */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.content {
+    padding: 20px;
+    width: auto;
+    margin: 0 auto;
+}
+
+
+/* mobile friendly */
+
+@media screen and (max-width: 600px) {
+    .header {
+        flex-direction: column;
+    }
+    .row {
+        flex-direction: column;
+    }
 }
 
 .card {
@@ -94,6 +145,24 @@ p {
     animation-fill-mode: forwards;
     -webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 500px;
+    width: 100%;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header a {
+    text-decoration: none;
 }
 
 canvas {

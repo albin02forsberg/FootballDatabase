@@ -30,6 +30,8 @@ export default function MobileNav({ user, isAuth }) {
       navigate("/about");
     } else if (state === 6) {
       navigate("/user/" + user.uid);
+    } else if (state === 7) {
+      navigate("/login");
     }
   }, [state, user]);
 
@@ -77,16 +79,6 @@ export default function MobileNav({ user, isAuth }) {
               <motion.div className="highlight" layoutId="highlight" />
             )}
           </motion.li>
-          <motion.li className="nav-item" onClick={() => setState(5)}>
-            <motion.div animate className="nav-content">
-              <Link to="/about">
-                <FontAwesomeIcon icon={faInfo} />
-              </Link>
-            </motion.div>
-            {state === 5 && (
-              <motion.div className="highlight" layoutId="highlight" />
-            )}
-          </motion.li>
           {isAuth ? (
             <motion.li className="nav-item" onClick={() => setState(6)}>
               <motion.div animate className="nav-content">
@@ -99,13 +91,13 @@ export default function MobileNav({ user, isAuth }) {
               )}
             </motion.li>
           ) : (
-            <motion.li className="nav-item" onClick={() => setState(6)}>
+            <motion.li className="nav-item" onClick={() => setState(7)}>
               <motion.div animate className="nav-content">
                 <Link to={"/login"}>
                   <FontAwesomeIcon icon={faUser} />
                 </Link>
               </motion.div>
-              {state === 6 && (
+              {state === 7 && (
                 <motion.div className="highlight" layoutId="highlight" />
               )}
             </motion.li>
