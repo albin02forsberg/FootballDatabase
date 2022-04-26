@@ -586,6 +586,14 @@ canvas {
     margin-right: auto;
 }
 
+
+/* Make image responsive */
+
+.img-thumbnail {
+    max-width: 90%;
+    height: auto;
+}
+
 @media screen and (max-width: 1000px) {
     .grid-2 {
         grid-template-columns: 1fr;
