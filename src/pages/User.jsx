@@ -27,7 +27,7 @@ const UserHeader = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-export default function User() {
+export default function User({ signOut }) {
   // get another users data
   const { uid } = useParams();
   const [user, setUser] = React.useState(null);
@@ -78,7 +78,7 @@ export default function User() {
       <div className="row">
         {user && (
           <Suspense fallback={<Loading />}>
-            <UserHeader user={user} />
+            <UserHeader user={user} signOut={signOut} />
           </Suspense>
         )}
       </div>

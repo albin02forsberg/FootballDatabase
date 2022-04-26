@@ -51,11 +51,11 @@ export default function Drills() {
   }
   return (
     <div className="container">
-      <h1>Övningar</h1>
-      <Link to="/createDrill" className="pageLink">
-        <button className="btn btn-primary">Skapa övning</button>
-      </Link>
       <div className="row">
+        <h1>Övningar</h1>
+        <Link to="/createDrill" className="pageLink">
+          <button className="btn btn-primary">Skapa övning</button>
+        </Link>
         <div className="grid">
           {drills &&
             drills.map((drill, index) => {
@@ -67,6 +67,7 @@ export default function Drills() {
             })}
         </div>
       </div>
+      {drills && <p>Antal övningar som visas: {drills.length}</p>}
       <button className="btn btn-primary" onClick={fetchMore}>
         Visa fler
       </button>

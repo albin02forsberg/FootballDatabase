@@ -10,6 +10,7 @@ import {
   faPersonRunning,
   faPlus,
   faPager,
+  faHammer,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MobileNav({ user, isAuth }) {
@@ -78,6 +79,18 @@ export default function MobileNav({ user, isAuth }) {
                 </Link>
               </motion.div>
               {state === 7 && (
+                <motion.div className="highlight" layoutId="highlight" />
+              )}
+            </motion.li>
+          )}
+          {isAuth && user && user.role === "admin" && (
+            <motion.li className="nav-item" onClick={() => setState(5)}>
+              <motion.div animate className="nav-content">
+                <Link to="/admin">
+                  <FontAwesomeIcon icon={faHammer} />
+                </Link>
+              </motion.div>
+              {state === 5 && (
                 <motion.div className="highlight" layoutId="highlight" />
               )}
             </motion.li>

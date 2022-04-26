@@ -90,6 +90,12 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="row">
+        <div className="content">
+          <h2>Privacy and GDPR</h2>
+          <Link to="/privacy">Privacy policy</Link>
+        </div>
+      </div>
     </div>
   );
 }

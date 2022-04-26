@@ -303,7 +303,7 @@ function App() {
           path="/user/:uid"
           element={
             <Suspense fallback={<Loading />}>
-              <User />
+              <User signOut={signOut} />
             </Suspense>
           }
         />

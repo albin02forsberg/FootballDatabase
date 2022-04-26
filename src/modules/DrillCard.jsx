@@ -34,7 +34,7 @@ export default function DrillCard({ drill, showCreator }) {
           <div className="card-footer">
             <p className="card-text">
               <Link to={"/user/" + drill.data().uid}>{drill.data().uname}</Link>{" "}
-              - {calculateTime(drill.data().created.seconds)}
+              {calculateTime(drill.data().created.seconds)}
             </p>
           </div>
         )) || (

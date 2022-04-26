@@ -8,9 +8,10 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import React, { lazy, useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { auth, db } from "../firebase-config";
+import Loading from "../modules/Loading";
 
 const Comment = lazy(() => {
   return Promise.all([
@@ -112,7 +113,9 @@ export default function News() {
         {comments &&
           comments.map((comment) => (
             <div className="col-md-12">
-              <Comment comment={comment} />
+              <Suspense fallback={<Loading />} key={comment.id}>
+                <Comment comment={comment} key={comment.id} />
+              </Suspense>
             </div>
           ))}
       </div>

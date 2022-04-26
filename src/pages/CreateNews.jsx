@@ -44,8 +44,8 @@ export default function CreateNews() {
 
   return (
     <div className="container">
-      <h1>Skapa nyhet</h1>
       <div className="row">
+        <h1>Skapa nyhet</h1>
         <div className="form">
           <label class="form-label">Rubrik</label>
           <input

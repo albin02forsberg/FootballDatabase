@@ -323,66 +323,92 @@ export default function Canvas({ setImage }) {
       <hr />
       <div className="row">
         <div className="grid-2">
-          <div>
-            <h3>Typ av plan</h3>
-            <div
-              class="btn-group"
-              role="group"
-              aria-label="Basic radio toggle button group"
-            >
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="field1"
-                autocomplete="off"
-                onChange={() => setFieldType("full")}
-              />
-              <label class="btn btn-outline-primary" for="field1">
-                Helplan
-              </label>
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="field3"
-                autocomplete="off"
-                onChange={() => setFieldType("fullgreen")}
-              />
-              <label class="btn btn-outline-primary" for="field3">
-                Helplan grön
-              </label>
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="field2"
-                autocomplete="off"
-                onChange={() => setFieldType("half")}
-              />
-              <label class="btn btn-outline-primary" for="field2">
-                halvplan
-              </label>
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="field4"
-                autocomplete="off"
-                onChange={() => setFieldType("halfgreen")}
-              />
-              <label class="btn btn-outline-primary" for="field4">
-                halvplan grön
-              </label>
-            </div>
-          </div>
-          <div>
-            <h4>Verktyk</h4>
-          </div>
+          <div></div>
         </div>
       </div>
       <div className="grid">
         <div>
+          <h3>Typ av plan</h3>
+          <div
+            class="btn-group"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="field1"
+              autocomplete="off"
+              onChange={() => setFieldType("full")}
+            />
+
+            {fieldType === "full" ? (
+              <label className="btn btn-outline-primary active" for="field1">
+                Helplan
+              </label>
+            ) : (
+              <label className="btn btn-outline-primary" for="field1">
+                Helplan
+              </label>
+            )}
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="field3"
+              autocomplete="off"
+              onChange={() => setFieldType("fullgreen")}
+            />
+
+            {fieldType === "fullgreen" ? (
+              <label className="btn btn-outline-primary active" for="field3">
+                Helplan grön
+              </label>
+            ) : (
+              <label className="btn btn-outline-primary" for="field3">
+                Helplan grön
+              </label>
+            )}
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="field2"
+              autocomplete="off"
+              onChange={() => setFieldType("half")}
+            />
+
+            {fieldType === "half" ? (
+              <label className="btn btn-outline-primary active" for="field2">
+                halvplan
+              </label>
+            ) : (
+              <label className="btn btn-outline-primary" for="field2">
+                halvplan
+              </label>
+            )}
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="field4"
+              autocomplete="off"
+              onChange={() => setFieldType("halfgreen")}
+            />
+
+            {fieldType === "halfgreen" ? (
+              <label className="btn btn-outline-primary active" for="field4">
+                halvplan grön
+              </label>
+            ) : (
+              <label className="btn btn-outline-primary" for="field4">
+                halvplan grön
+              </label>
+            )}
+          </div>
           <canvas
             id="canvas"
             width={canvasWidth + "px"}
@@ -395,6 +421,7 @@ export default function Canvas({ setImage }) {
           />
         </div>
         <div>
+          <h3>Verktyg</h3>
           <div
             className="btn-group"
             role="group"
@@ -410,11 +437,11 @@ export default function Canvas({ setImage }) {
             />
             {tool === "circleX" ? (
               <label class="btn btn-outline-primary active" for="btnradio1">
-                Cirkel
+                Anfallare med boll
               </label>
             ) : (
               <label class="btn btn-outline-primary" for="btnradio1">
-                Cirkel
+                Anfallare med boll
               </label>
             )}
 

@@ -172,7 +172,7 @@ export default function CreateDrill() {
           />
         </div>
         <div className="form">
-          <span class="form-label">Organisation</span>
+          <label class="form-label">Organisation</label>
           <textarea
             class="form-control"
             rows="5"
@@ -184,7 +184,7 @@ export default function CreateDrill() {
           ></textarea>
         </div>
         <div className="form">
-          <span class="form-label">Anvisningar</span>
+          <label class="form-label">Anvisningar</label>
           <textarea
             class="form-control"
             rows="5"
