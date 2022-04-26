@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimateSharedLayout } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { auth } from "../firebase-config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // Import user icon
@@ -9,29 +9,12 @@ import {
   faHome,
   faPersonRunning,
   faPlus,
-  faInfo,
   faPager,
+  faHammer,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MobileNav({ user, isAuth }) {
   const [state, setState] = useState(1);
-  let navigate = useNavigate();
-
-  useEffect(() => {
-    if (state === 1) {
-      navigate("/");
-    } else if (state === 2) {
-      navigate("/drills");
-    } else if (state === 3) {
-      navigate("/sessions");
-    } else if (state === 4) {
-      navigate("/createNews");
-    } else if (state === 5) {
-      navigate("/about");
-    } else if (state === 6) {
-      navigate("/user/" + user.uid);
-    }
-  }, [state, user]);
 
   return (
     <nav className="bottom-nav">
@@ -77,16 +60,6 @@ export default function MobileNav({ user, isAuth }) {
               <motion.div className="highlight" layoutId="highlight" />
             )}
           </motion.li>
-          <motion.li className="nav-item" onClick={() => setState(5)}>
-            <motion.div animate className="nav-content">
-              <Link to="/about">
-                <FontAwesomeIcon icon={faInfo} />
-              </Link>
-            </motion.div>
-            {state === 5 && (
-              <motion.div className="highlight" layoutId="highlight" />
-            )}
-          </motion.li>
           {isAuth ? (
             <motion.li className="nav-item" onClick={() => setState(6)}>
               <motion.div animate className="nav-content">
@@ -99,13 +72,25 @@ export default function MobileNav({ user, isAuth }) {
               )}
             </motion.li>
           ) : (
-            <motion.li className="nav-item" onClick={() => setState(6)}>
+            <motion.li className="nav-item" onClick={() => setState(7)}>
               <motion.div animate className="nav-content">
                 <Link to={"/login"}>
                   <FontAwesomeIcon icon={faUser} />
                 </Link>
               </motion.div>
-              {state === 6 && (
+              {state === 7 && (
+                <motion.div className="highlight" layoutId="highlight" />
+              )}
+            </motion.li>
+          )}
+          {isAuth && user && user.role === "admin" && (
+            <motion.li className="nav-item" onClick={() => setState(5)}>
+              <motion.div animate className="nav-content">
+                <Link to="/admin">
+                  <FontAwesomeIcon icon={faHammer} />
+                </Link>
+              </motion.div>
+              {state === 5 && (
                 <motion.div className="highlight" layoutId="highlight" />
               )}
             </motion.li>

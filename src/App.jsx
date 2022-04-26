@@ -5,6 +5,7 @@ import React from "react";
 import { auth, db } from "./firebase-config";
 import Loading from "./modules/Loading";
 import { collection, doc, getDoc } from "firebase/firestore";
+import MobileNav from "./modules/MobileNav";
 
 const Home = lazy(() => {
   return Promise.all([
@@ -124,9 +125,16 @@ const AdminDrills = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-const MobileNav = lazy(() => {
+const Header = lazy(() => {
   return Promise.all([
-    import("./modules/MobileNav"),
+    import("./modules/Header"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Footer = lazy(() => {
+  return Promise.all([
+    import("./modules/Footer"),
     new Promise((resolve) => setTimeout(resolve, 500)),
   ]).then(([moduleExports]) => moduleExports);
 });
@@ -173,6 +181,9 @@ function App() {
   return (
     <Router>
       {/* <Nav isAuth={isAuth} signOut={signOut} user={user} /> */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Header />
+      </Suspense>
       <Routes>
         <Route
           path="/"
@@ -292,7 +303,7 @@ function App() {
           path="/user/:uid"
           element={
             <Suspense fallback={<Loading />}>
-              <User />
+              <User signOut={signOut} />
             </Suspense>
           }
         />
@@ -324,9 +335,8 @@ function App() {
           }
         />
       </Routes>
-      <Suspense fallback={<Loading />}>
-        <MobileNav isAuth={isAuth} signOut={signOut} user={user} />
-      </Suspense>
+      <Footer />
+      <MobileNav isAuth={isAuth} signOut={signOut} user={user} />
     </Router>
   );
 }

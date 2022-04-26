@@ -41,27 +41,25 @@ export default function Admin() {
     <div className="container">
       <h1>Adminpanelen</h1>
       <div className="row">
-        {/* show cards to users and drills */}
-        <Link to="/admin/users">
-          <div className="card mb-3">
-            <div className="card-body">
+        <div className="grid">
+          {/* show cards to users and drills */}
+          <Link to="/admin/users">
+            <div className="card mb-3">
               <h5 className="card-title">Användare</h5>
               <p className="card-text">
                 Här kan du se alla användare och redigera dem.
               </p>
             </div>
-          </div>
-        </Link>
-        <Link to="/admin/drills">
-          <div className="card mb-3">
-            <div className="card-body">
+          </Link>
+          <Link to="/admin/drills">
+            <div className="card mb-3">
               <h5 className="card-title">Övningar</h5>
               <p className="card-text">
                 Här kan du se alla övningar och redigera dem.
               </p>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
     </div>
   );

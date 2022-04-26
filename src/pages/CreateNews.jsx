@@ -44,30 +44,31 @@ export default function CreateNews() {
 
   return (
     <div className="container">
-      <h1>Skapa nyhet</h1>
+      <div className="row">
+        <h1>Skapa nyhet</h1>
+        <div className="form">
+          <label class="form-label">Rubrik</label>
+          <input
+            className="form-control"
+            placeholder="Nyhetsrubrik"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
 
-      <div className="mb-3">
-        <label class="form-label">Rubrik</label>
-        <input
-          className="form-control"
-          placeholder="Nyhetsrubrik"
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
+          <label class="form-label">Innehåll</label>
+          <textarea
+            className="form-control"
+            placeholder="Nyhetsinnehåll"
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
+          />
 
-        <label class="form-label">Innehåll</label>
-        <textarea
-          className="form-control"
-          placeholder="Nyhetsinnehåll"
-          onChange={(e) => {
-            setContent(e.target.value);
-          }}
-        />
-
-        <button className="btn btn-primary" onClick={post}>
-          Posta
-        </button>
+          <button className="btn btn-primary" onClick={post}>
+            Posta
+          </button>
+        </div>
       </div>
     </div>
   );

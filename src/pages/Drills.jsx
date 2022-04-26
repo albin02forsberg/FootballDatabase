@@ -51,26 +51,26 @@ export default function Drills() {
   }
   return (
     <div className="container">
-      <h1>Övningar</h1>
-      <Link to="/createDrill" className="pageLink">
-        <button className="btn btn-primary">Skapa övning</button>
-      </Link>
-      <hr />
-      <div className="row row-cols-1 row-cols-md-4 mx-auto">
-        {drills &&
-          drills.map((drill, index) => {
-            return (
-              <Suspense fallback={<Loading />}>
-                <DrillCard drill={drill} index={index} showCreator={true} />
-              </Suspense>
-            );
-          })}
+      <div className="row">
+        <h1>Övningar</h1>
+        <Link to="/createDrill" className="pageLink">
+          <button className="btn btn-primary">Skapa övning</button>
+        </Link>
+        <div className="grid">
+          {drills &&
+            drills.map((drill, index) => {
+              return (
+                <Suspense fallback={<Loading />}>
+                  <DrillCard drill={drill} index={index} showCreator={true} />
+                </Suspense>
+              );
+            })}
+        </div>
       </div>
-      <div className="d-grid">
-        <button className="btn btn-primary" onClick={fetchMore}>
-          Visa fler
-        </button>
-      </div>
+      {drills && <p>Antal övningar som visas: {drills.length}</p>}
+      <button className="btn btn-primary" onClick={fetchMore}>
+        Visa fler
+      </button>
     </div>
   );
 }

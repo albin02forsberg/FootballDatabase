@@ -55,9 +55,9 @@ export default function CreateSession() {
 
   return (
     <div className="container">
-      <h1>Skapa träningspass</h1>
       <div className="row">
-        <div className="mb-3">
+        <h1>Skapa träningspass</h1>
+        <div className="form">
           <label class="form-label">Passets namn</label>
           <input
             className="form-control"
@@ -67,7 +67,7 @@ export default function CreateSession() {
             }}
           />
         </div>
-        <div className="mb-3">
+        <div className="form">
           <label class="form-label">
             <b>Vad</b> ska tränas?
           </label>
@@ -108,7 +108,7 @@ export default function CreateSession() {
             </optgroup>
           </select>
         </div>
-        <div className="mb-3">
+        <div className="form">
           <label class="form-label">
             <b>Vilka</b> ska träna?
           </label>
@@ -125,7 +125,7 @@ export default function CreateSession() {
             <option value="11 mot 11">11 mot 11</option>
           </select>
         </div>
-        <div className="md-3">
+        <div className="form">
           <label class="form-label">Beskrivning</label>
           <textarea
             class="form-control"
@@ -140,15 +140,14 @@ export default function CreateSession() {
       </div>
       <div className="row">
         <h2>Välj övningar</h2>
+        <h3>Mina övningar</h3>
         <hr></hr>
-        <div className="col-md-6">
-          <h3>Mina övningar</h3>
+        <div className="grid">
           {drills &&
             drills.map((drill) => {
               return (
-                <div className="card mb-2" key={drill.data().imgLink}>
+                <div className="card mt" key={drill.data().imgLink}>
                   <div className="card-body">
-                    <h5 className="card-title">{drill.data().name}</h5>
                     <p className="card-text">{drill.data().description}</p>
                     <p className="card-text">
                       <img
@@ -156,12 +155,13 @@ export default function CreateSession() {
                         alt={drill.data().name}
                         className="card-img-top"
                       />
+                      <h5 className="card-title">{drill.data().name}</h5>
                       <small className="text-muted">
                         {drill.data().difficulty} - {drill.data().type}
                       </small>
                     </p>
                     <button
-                      className="btn btn-success"
+                      className="btn"
                       value={drill}
                       onClick={(e) => {
                         if (selectedDrills.includes(drill.id)) {
@@ -169,7 +169,7 @@ export default function CreateSession() {
                             selectedDrills.filter((d) => d !== drill.id)
                           );
                           e.target.innerText = "Välj";
-                          e.target.className = "btn btn-success";
+                          e.target.className = "btn";
                         } else {
                           setSelectedDrills([...selectedDrills, drill.id]);
                           e.target.innerText = "Ta bort";
@@ -183,9 +183,6 @@ export default function CreateSession() {
                 </div>
               );
             })}
-        </div>
-        <div className="col-md-6">
-          <h3>Mina favoriter</h3>
         </div>
       </div>
       <button className="btn btn-primary" onClick={createSession}>

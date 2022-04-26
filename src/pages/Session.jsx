@@ -7,16 +7,9 @@ import {
   getDocs,
 } from "firebase/firestore";
 import React, { useEffect, lazy, Suspense } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase-config";
 import Loading from "../modules/Loading";
-
-const DrillCard = lazy(() => {
-  return Promise.all([
-    import("../modules/SessionDrillCard"),
-    new Promise((resolve) => setTimeout(resolve, 500)),
-  ]).then(([moduleExports]) => moduleExports);
-});
 
 const SessionDrill = lazy(() => {
   return Promise.all([
@@ -55,35 +48,37 @@ export default function Session() {
 
   return (
     <div className="container">
-      {session && (
-        <div>
-          <h1>{session.name}</h1>
-          <p>
-            {session.difficulty} - {session.type}
-          </p>
-          <button className="btn btn-primary disabled">
-            Exportera till pdf
-          </button>
-
-          <hr />
-        </div>
-      )}
       <div className="row">
-        <div className="col-md-12">
-          <div className="card">
-            <div className="card-header">Passets övningar</div>
-            <ul className="list-group list-group-flush">
-              {drills &&
-                drills.map((drill) => (
-                  <Suspense fallback={<Loading />}>
-                    <DrillCard drill={drill} />
-                  </Suspense>
-                ))}
-            </ul>
+        {session && (
+          <div>
+            <h1>{session.name}</h1>
+            <p>
+              {session.difficulty} - {session.type}
+            </p>
+            <button className="btn btn-primary disabled">
+              Exportera till pdf
+            </button>
+
+            <hr />
           </div>
-          {session && <p>Antal övningar: {session.drills.length}</p>}
-          <hr />
+        )}
+      </div>
+      <div className="row">
+        <div className="card">
+          <div className="card-header">Passets övningar</div>
+          <ul>
+            {drills &&
+              drills.map((drill) => (
+                <li key={drill.id}>
+                  <Link to={`/drill/${drill.id}`}>
+                    {drill.data().name} - {drill.data().difficulty}
+                  </Link>
+                </li>
+              ))}
+          </ul>
         </div>
+        {session && <p>Antal övningar: {session.drills.length}</p>}
+        <hr />
       </div>
       {drills &&
         drills.map((drill) => (

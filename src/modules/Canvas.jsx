@@ -317,10 +317,18 @@ export default function Canvas({ setImage }) {
 
   return (
     <div className="container">
-      <h2>Skissa din övning</h2>
+      <div className="row">
+        <h2>Skissa din övning</h2>
+      </div>
       <hr />
       <div className="row">
-        <div className="col-md-6">
+        <div className="grid-2">
+          <div></div>
+        </div>
+      </div>
+      <div className="grid">
+        <div>
+          <h3>Typ av plan</h3>
           <div
             class="btn-group"
             role="group"
@@ -334,9 +342,16 @@ export default function Canvas({ setImage }) {
               autocomplete="off"
               onChange={() => setFieldType("full")}
             />
-            <label class="btn btn-outline-primary" for="field1">
-              Helplan
-            </label>
+
+            {fieldType === "full" ? (
+              <label className="btn btn-outline-primary active" for="field1">
+                Helplan
+              </label>
+            ) : (
+              <label className="btn btn-outline-primary" for="field1">
+                Helplan
+              </label>
+            )}
             <input
               type="radio"
               class="btn-check"
@@ -345,9 +360,17 @@ export default function Canvas({ setImage }) {
               autocomplete="off"
               onChange={() => setFieldType("fullgreen")}
             />
-            <label class="btn btn-outline-primary" for="field3">
-              Helplan grön
-            </label>
+
+            {fieldType === "fullgreen" ? (
+              <label className="btn btn-outline-primary active" for="field3">
+                Helplan grön
+              </label>
+            ) : (
+              <label className="btn btn-outline-primary" for="field3">
+                Helplan grön
+              </label>
+            )}
+
             <input
               type="radio"
               class="btn-check"
@@ -356,9 +379,17 @@ export default function Canvas({ setImage }) {
               autocomplete="off"
               onChange={() => setFieldType("half")}
             />
-            <label class="btn btn-outline-primary" for="field2">
-              halvplan
-            </label>
+
+            {fieldType === "half" ? (
+              <label className="btn btn-outline-primary active" for="field2">
+                halvplan
+              </label>
+            ) : (
+              <label className="btn btn-outline-primary" for="field2">
+                halvplan
+              </label>
+            )}
+
             <input
               type="radio"
               class="btn-check"
@@ -367,14 +398,17 @@ export default function Canvas({ setImage }) {
               autocomplete="off"
               onChange={() => setFieldType("halfgreen")}
             />
-            <label class="btn btn-outline-primary" for="field4">
-              halvplan grön
-            </label>
+
+            {fieldType === "halfgreen" ? (
+              <label className="btn btn-outline-primary active" for="field4">
+                halvplan grön
+              </label>
+            ) : (
+              <label className="btn btn-outline-primary" for="field4">
+                halvplan grön
+              </label>
+            )}
           </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-6">
           <canvas
             id="canvas"
             width={canvasWidth + "px"}
@@ -386,7 +420,8 @@ export default function Canvas({ setImage }) {
             className="canvas"
           />
         </div>
-        <div className="col-md-6">
+        <div>
+          <h3>Verktyg</h3>
           <div
             className="btn-group"
             role="group"
@@ -400,9 +435,16 @@ export default function Canvas({ setImage }) {
               autocomplete="off"
               onChange={() => setTool("circleX")}
             />
-            <label class="btn btn-outline-primary" for="btnradio1">
-              Anfallare med boll
-            </label>
+            {tool === "circleX" ? (
+              <label class="btn btn-outline-primary active" for="btnradio1">
+                Anfallare med boll
+              </label>
+            ) : (
+              <label class="btn btn-outline-primary" for="btnradio1">
+                Anfallare med boll
+              </label>
+            )}
+
             <input
               type="radio"
               class="btn-check"
@@ -411,9 +453,16 @@ export default function Canvas({ setImage }) {
               autocomplete="off"
               onChange={() => setTool("X")}
             />
-            <label class="btn btn-outline-primary" for="btnradio2">
-              Anfallare utan boll
-            </label>
+
+            {tool === "X" ? (
+              <label class="btn btn-outline-primary active" for="btnradio2">
+                Anfallare utan boll
+              </label>
+            ) : (
+              <label class="btn btn-outline-primary" for="btnradio2">
+                Anfallare utan boll
+              </label>
+            )}
             <input
               type="radio"
               class="btn-check"
@@ -422,9 +471,16 @@ export default function Canvas({ setImage }) {
               autocomplete="off"
               onChange={() => setTool("circle")}
             />
-            <label class="btn btn-outline-primary" for="btnradio3">
-              Försvarare
-            </label>
+
+            {tool === "circle" ? (
+              <label class="btn btn-outline-primary active" for="btnradio3">
+                Försvarare
+              </label>
+            ) : (
+              <label class="btn btn-outline-primary" for="btnradio3">
+                Försvarare
+              </label>
+            )}
             <input
               type="radio"
               class="btn-check"
@@ -433,9 +489,16 @@ export default function Canvas({ setImage }) {
               autocomplete="off"
               onChange={() => setTool("mv")}
             />
-            <label class="btn btn-outline-primary" for="btnradio10">
-              Målvakt
-            </label>
+
+            {tool === "mv" ? (
+              <label class="btn btn-outline-primary active" for="btnradio10">
+                Målvakt
+              </label>
+            ) : (
+              <label class="btn btn-outline-primary" for="btnradio10">
+                Målvakt
+              </label>
+            )}
           </div>
           <hr />
           <div className="col-md-6">
@@ -452,9 +515,17 @@ export default function Canvas({ setImage }) {
                 autocomplete="off"
                 onChange={() => setTool("player")}
               />
-              <label class="btn btn-outline-primary" for="btnradio5">
-                Spelarens väg
-              </label>
+
+              {tool === "player" ? (
+                <label class="btn btn-outline-primary active" for="btnradio5">
+                  Spelarens väg
+                </label>
+              ) : (
+                <label class="btn btn-outline-primary" for="btnradio5">
+                  Spelarens väg
+                </label>
+              )}
+
               <input
                 type="radio"
                 class="btn-check"
@@ -463,9 +534,17 @@ export default function Canvas({ setImage }) {
                 autocomplete="off"
                 onChange={() => setTool("playerWithBall")}
               />
-              <label class="btn btn-outline-primary" for="btnradio7">
-                Spelarens väg med boll
-              </label>
+
+              {tool === "playerWithBall" ? (
+                <label class="btn btn-outline-primary active" for="btnradio7">
+                  Spelarens väg med boll
+                </label>
+              ) : (
+                <label class="btn btn-outline-primary" for="btnradio7">
+                  Spelarens väg med boll
+                </label>
+              )}
+
               <input
                 type="radio"
                 class="btn-check"
@@ -474,9 +553,15 @@ export default function Canvas({ setImage }) {
                 autocomplete="off"
                 onChange={() => setTool("arrow")}
               />
-              <label class="btn btn-outline-primary" for="btnradio6">
-                Bollens bana
-              </label>
+              {tool === "arrow" ? (
+                <label class="btn btn-outline-primary active" for="btnradio6">
+                  Bollens bana
+                </label>
+              ) : (
+                <label class="btn btn-outline-primary" for="btnradio6">
+                  Bollens bana
+                </label>
+              )}
             </div>
             <hr />
             <div
@@ -492,9 +577,16 @@ export default function Canvas({ setImage }) {
                 autocomplete="off"
                 onChange={() => setTool("ball")}
               />
-              <label class="btn btn-outline-primary" for="btnradio4">
-                Boll
-              </label>
+              {tool === "ball" ? (
+                <label class="btn btn-outline-primary active" for="btnradio4">
+                  Boll
+                </label>
+              ) : (
+                <label class="btn btn-outline-primary" for="btnradio4">
+                  Boll
+                </label>
+              )}
+
               <input
                 type="radio"
                 class="btn-check"
@@ -503,9 +595,15 @@ export default function Canvas({ setImage }) {
                 autocomplete="off"
                 onChange={() => setTool("cone")}
               />
-              <label class="btn btn-outline-primary" for="btnradio8">
-                Kona
-              </label>
+              {tool === "cone" ? (
+                <label class="btn btn-outline-primary active" for="btnradio8">
+                  Kona
+                </label>
+              ) : (
+                <label class="btn btn-outline-primary" for="btnradio8">
+                  Kona
+                </label>
+              )}
             </div>
             <hr />
             <div
@@ -521,9 +619,16 @@ export default function Canvas({ setImage }) {
                 autocomplete="off"
                 onChange={() => setTool("text")}
               />
-              <label class="btn btn-outline-primary" for="btnradio12">
-                Text
-              </label>
+              {tool === "text" ? (
+                <label class="btn btn-outline-primary active" for="btnradio12">
+                  Text
+                </label>
+              ) : (
+                <label class="btn btn-outline-primary" for="btnradio12">
+                  Text
+                </label>
+              )}
+
               <input
                 type="input"
                 name="btnradio"
@@ -548,6 +653,9 @@ export default function Canvas({ setImage }) {
             </button>
           </div>
         </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6"></div>
         <hr />
       </div>
     </div>

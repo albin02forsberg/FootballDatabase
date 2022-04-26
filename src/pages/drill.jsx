@@ -40,7 +40,7 @@ export default function Drill() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-6">
+        <div className="grid-2">
           {drill && (
             <div>
               <h1>{drill.data().name}</h1>
@@ -59,16 +59,16 @@ export default function Drill() {
               <p>{drill.data().desc}</p>
             </div>
           )}
+          {drill && (
+            <div className="col-md-6">
+              <img
+                className="img img-thumbnail"
+                src={drill.data().imgLink}
+                alt={drill.id}
+              />
+            </div>
+          )}
         </div>
-        {drill && (
-          <div className="col-md-6">
-            <img
-              className="img img-thumbnail"
-              src={drill.data().imgLink}
-              alt={drill.id}
-            />
-          </div>
-        )}
       </div>
     </div>
   );
