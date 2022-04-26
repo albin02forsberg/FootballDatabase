@@ -52,9 +52,7 @@ export default function Home() {
                   </Link>
                 </div>
                 <div className="card-body">
-                  <p className="cut-text card-text">
-                    {discussion.data().content}
-                  </p>
+                  <p className="cut-text ">{discussion.data().content}</p>
                 </div>
                 <div className="card-footer">
                   <small>
