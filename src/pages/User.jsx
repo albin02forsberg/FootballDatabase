@@ -76,9 +76,9 @@ export default function User({ signOut }) {
   return (
     <div className="container">
       <div className="row">
-        {user && (
+        {user && drills && (
           <Suspense fallback={<Loading />}>
-            <UserHeader user={user} signOut={signOut} />
+            <UserHeader user={user} drills={drills.length} signOut={signOut} />
           </Suspense>
         )}
       </div>

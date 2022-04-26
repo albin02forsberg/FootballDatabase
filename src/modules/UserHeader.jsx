@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase-config";
 
-export default function UserHeader({ user, signOut }) {
+export default function UserHeader({ drills, user, signOut }) {
   return (
     <div className="user-header">
       <div className="user-image">
@@ -10,6 +10,9 @@ export default function UserHeader({ user, signOut }) {
       </div>
       <div className="user-info">
         <h2>{user.data().name}</h2>
+      </div>
+      <div className="user-info">
+        <p>Antal övningar: {drills}</p>
       </div>
       <div className="user-info">
         <p>Gick med {user.data().joined}</p>

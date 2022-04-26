@@ -45,7 +45,7 @@ export default function Home() {
           <div className="row">
             <h2>Diskussioner</h2>
             {discussions.map((discussion) => (
-              <div className="card" key={discussion.id}>
+              <div className="card mb" key={discussion.id}>
                 <div className="card-header">
                   <Link to={`/news/${discussion.id}`}>
                     {discussion.data().title}
@@ -72,7 +72,7 @@ export default function Home() {
           <div className="row">
             <h2>Senaste uppdateringarna</h2>
             {news.map((news) => (
-              <div className="card" key={news.id}>
+              <div className="card mb" key={news.id}>
                 <div className="card-header">
                   <Link to={`/news/${news.id}`}>{news.data().title}</Link>
                 </div>

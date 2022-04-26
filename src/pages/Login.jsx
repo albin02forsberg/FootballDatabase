@@ -40,11 +40,13 @@ export default function Login({ setIsAuth }) {
   });
 
   return (
-    <div className="loginPage">
-      <h1>Sign in with Google</h1>
-      <button className="login-with-google-btn" onClick={signInWithGoogle}>
-        Sign in with Google
-      </button>
+    <div className="container">
+      <div className="row">
+        <h1>Sign in with Google</h1>
+        <button className="login-with-google-btn" onClick={signInWithGoogle}>
+          Sign in with Google
+        </button>
+      </div>
     </div>
   );
 }

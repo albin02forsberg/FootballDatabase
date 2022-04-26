@@ -149,7 +149,7 @@ function App() {
       .then(() => {
         setIsAuth(false);
         localStorage.clear();
-        window.location.href("/login");
+        window.location.replace("/");
       })
       .catch((error) => {
         console.log(error);
