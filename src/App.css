@@ -12,6 +12,15 @@
 
 * {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: var(--dark-color);
+    background-color: var(--light-color);
 }
 
 p {
