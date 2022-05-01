@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase-config";
 
 export default function UserHeader({ drills, user, signOut }) {
+  const [currentUser, setCurrentUser] = React.useState();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+    });
+  }, []);
+
   return (
     <div className="user-header">
       <div className="user-image">
@@ -18,7 +28,7 @@ export default function UserHeader({ drills, user, signOut }) {
         <p>Gick med {user.data().joined}</p>
       </div>
       <div className="user-info">
-        {auth && auth.currentUser.uid === user.id && (
+        {(currentUser && currentUser.uid === user.id && (
           <>
             <Link to="/profile">
               <button className="btn btn-secondary disabled">
@@ -29,7 +39,7 @@ export default function UserHeader({ drills, user, signOut }) {
               Logga ut
             </button>
           </>
-        )}
+        )) || <></>}
       </div>
     </div>
   );

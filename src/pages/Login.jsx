@@ -3,7 +3,7 @@ import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, updateDoc } from "firebase/firestore";
 
 export default function Login({ setIsAuth }) {
   let navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function Login({ setIsAuth }) {
         localStorage.setItem("IsAuth", true);
         const userCollectionRef = doc(db, "users", result.user.uid);
         // Add user to database
-        setDoc(userCollectionRef, {
+        updateDoc(userCollectionRef, {
           name: result.user.displayName,
           uid: result.user.uid,
           email: result.user.email,
@@ -22,10 +22,10 @@ export default function Login({ setIsAuth }) {
           joined: result.user.metadata.creationTime,
           lastSignInTime: result.user.metadata.lastSignInTime,
           // if user is admin set role to admin
-          role:
-            result.user.email === "albin02forsberg@gmail.com"
-              ? "admin"
-              : "user",
+          // role:
+          //   result.user.email === "albin02forsberg@gmail.com"
+          //     ? "admin"
+          //     : "user",
         });
 
         navigate("/");

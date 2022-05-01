@@ -39,8 +39,8 @@ export default function Admin() {
 
   return (
     <div className="container">
-      <h1>Adminpanelen</h1>
       <div className="row">
+        <h1>Adminpanelen</h1>
         <div className="grid">
           {/* show cards to users and drills */}
           <Link to="/admin/users">
@@ -57,6 +57,20 @@ export default function Admin() {
               <p className="card-text">
                 Här kan du se alla övningar och redigera dem.
               </p>
+            </div>
+          </Link>
+          <Link to="/admin/clubs">
+            <div className="card mb-3">
+              <h5 className="card-title">Klubbar</h5>
+              <p className="card-text">
+                Här kan du se alla klubbar och redigera dem.
+              </p>
+            </div>
+          </Link>
+          <Link to="/admin/createClub">
+            <div className="card mb-3">
+              <h5 className="card-title">Skapa klubb</h5>
+              <p className="card-text">Här kan du skapa en ny klubb.</p>
             </div>
           </Link>
         </div>

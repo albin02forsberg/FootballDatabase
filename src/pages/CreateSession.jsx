@@ -140,13 +140,53 @@ export default function CreateSession() {
       </div>
       <div className="row">
         <h2>Välj övningar</h2>
-        <h3>Mina övningar</h3>
-        <hr></hr>
+        <div className="content">
+          <table className="table table-striped table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">Namn</th>
+                <th scope="col">Välj</th>
+              </tr>
+            </thead>
+            <tbody>
+              {drills &&
+                drills.map((drill) => {
+                  return (
+                    <tr key={drill.id}>
+                      <td>{drill.data().name}</td>
+                      <td>
+                        <button
+                          className="btn btn-outline-primary"
+                          value={drill}
+                          onClick={(e) => {
+                            if (selectedDrills.includes(drill.id)) {
+                              setSelectedDrills(
+                                selectedDrills.filter((d) => d !== drill.id)
+                              );
+                              e.target.innerText = "Välj";
+                              e.target.className = "btn bnt-primary";
+                            } else {
+                              setSelectedDrills([...selectedDrills, drill.id]);
+                              e.target.innerText = "Ta bort";
+                              e.target.className = "btn btn-danger";
+                            }
+                          }}
+                        >
+                          Välj
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+
         <div className="grid">
-          {drills &&
+          {/* {drills &&
             drills.map((drill) => {
               return (
-                <div className="card mt" key={drill.data().imgLink}>
+                <div className="card mb" key={drill.data().imgLink}>
                   <div className="card-body">
                     <p className="card-text">{drill.data().description}</p>
                     <p className="card-text">
@@ -182,7 +222,7 @@ export default function CreateSession() {
                   </div>
                 </div>
               );
-            })}
+            })} */}
         </div>
       </div>
       <button className="btn btn-primary" onClick={createSession}>

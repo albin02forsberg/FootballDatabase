@@ -25,46 +25,46 @@ export default function Sessions() {
 
   return (
     <div className="container">
-      <h1>Träningspass</h1>
-      <Link to="/createSession" className="pageLink">
-        <button className="btn btn-primary">Skapa träningspass</button>
-      </Link>
-      <div className="table-responsive">
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Namn</th>
-              <th scope="col">Typ</th>
-              <th scope="col">Nivå</th>
-              <th scope="col">Antal övningar</th>
-              <th scope="col">Skapad av</th>
-              <th scope="col">Skapad</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sessions && // If drills is not null
-              // Loop through drills and create a table row for each drill
-              sessions.map((session) => (
-                <tr key={session.id}>
-                  <td>
-                    <Link to={"/session/" + session.id}>
+      <div className="row">
+        <h1>Träningspass</h1>
+
+        <Link to="/createSession" className="pageLink">
+          <button className="btn btn-primary">Skapa träningspass</button>
+        </Link>
+        <div className="grid">
+          {sessions && // If drills is not null
+            // Loop through drills and create a table row for each drill
+            sessions.map((session) => (
+              <Link to={`/session/${session.id}`} key={session.id}>
+                <div className="card mb">
+                  <div className="card-header"></div>
+                  <div className="card-body">
+                    <Link to={`/session/${session.id}`} className="card-text">
                       {session.data().name}
                     </Link>
-                  </td>
-                  <td>{session.data().type}</td>
-                  <td>{session.data().difficulty}</td>
-                  <td>{session.data().drills.length}</td>
-                  <td>
-                    <Link to={"/user/" + session.data().uid}>
-                      {" "}
-                      {session.data().uname}
-                    </Link>
-                  </td>
-                  <td>{calculateTime(session.data().created.seconds)}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+                    <p className="card-text">{session.data().desc}</p>
+                  </div>
+                  <hr />
+                  <div className="card-footer">
+                    <small className="card-text">
+                      Antal övningar: {session.data().drills.length}
+                    </small>
+                    <small className="card-text">{session.data().type}</small>
+                    <small className="card-text">
+                      Nivå: {session.data().difficulty}
+                    </small>
+                    <hr />
+                    <small className="card-text">
+                      {calculateTime(session.data().created.seconds)}
+                      <Link to={`/user/${session.data().uid}`}>
+                        {session.data().uname}
+                      </Link>
+                    </small>
+                  </div>
+                </div>
+              </Link>
+            ))}
+        </div>
       </div>
     </div>
   );

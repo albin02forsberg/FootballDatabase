@@ -139,6 +139,48 @@ const Footer = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const NotFound = lazy(() => {
+  return Promise.all([
+    import("./modules/NotFound"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Club = lazy(() => {
+  return Promise.all([
+    import("./pages/Club"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const Team = lazy(() => {
+  return Promise.all([
+    import("./pages/Team/Team"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const CreateTeam = lazy(() => {
+  return Promise.all([
+    import("./pages/Team/CreateTeam"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const CreateClub = lazy(() => {
+  return Promise.all([
+    import("./pages/admin/CreateClub"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const AdminClubs = lazy(() => {
+  return Promise.all([
+    import("./pages/admin/Clubs"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
@@ -282,6 +324,31 @@ function App() {
             </Suspense>
           }
         />
+        <Route
+          path="/admin/clubs"
+          element={
+            <Suspense fallback={<Loading />}>
+              <AdminClubs />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/admin/createclub"
+          element={
+            <Suspense fallback={<Loading />}>
+              <CreateClub />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/club/:id"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Club />
+            </Suspense>
+          }
+        />
 
         <Route
           path="/drill/:id"
@@ -316,6 +383,14 @@ function App() {
           }
         />
         <Route
+          path="/team/:id"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Team />
+            </Suspense>
+          }
+        />
+        <Route
           path="/drill/:id/edit"
           element={
             <Suspense fallback={<Loading />}>
@@ -327,10 +402,7 @@ function App() {
           path="*"
           element={
             <Suspense fallback={<Loading />}>
-              <div className="container">
-                <h1>404</h1>
-                <p>Page not found</p>
-              </div>
+              <NotFound />
             </Suspense>
           }
         />

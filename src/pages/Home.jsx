@@ -10,6 +10,7 @@ import React, { useEffect } from "react";
 import { db } from "../firebase-config";
 import { Link } from "react-router-dom";
 import calculateTime from "../scripts/calculateTime";
+import Loading from "../modules/Loading";
 
 export default function Home() {
   const [news, setNews] = React.useState([]);
@@ -37,6 +38,10 @@ export default function Home() {
       setDiscussions(docs.docs);
     });
   }, []);
+
+  if (!news.length) {
+    <Loading />;
+  }
 
   return (
     <div className="container">
@@ -90,8 +95,10 @@ export default function Home() {
       </div>
       <div className="row">
         <div className="content">
-          <h2>Privacy and GDPR</h2>
+          <h2>Privacy</h2>
           <Link to="/privacy">Privacy policy</Link>
+          <br />
+          <Link to="/contact">Kontakta oss</Link>
         </div>
       </div>
     </div>
