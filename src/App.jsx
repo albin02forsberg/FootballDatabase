@@ -160,12 +160,12 @@ const Team = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-const CreateTeam = lazy(() => {
-  return Promise.all([
-    import("./pages/Team/CreateTeam"),
-    new Promise((resolve) => setTimeout(resolve, 500)),
-  ]).then(([moduleExports]) => moduleExports);
-});
+// const CreateTeam = lazy(() => {
+//   return Promise.all([
+//     import("./pages/Team/CreateTeam"),
+//     new Promise((resolve) => setTimeout(resolve, 500)),
+//   ]).then(([moduleExports]) => moduleExports);
+// });
 
 const CreateClub = lazy(() => {
   return Promise.all([

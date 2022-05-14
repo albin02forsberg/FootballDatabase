@@ -3,7 +3,6 @@ import {
   doc,
   getDoc,
   getDocs,
-  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -37,7 +36,13 @@ export default function Club() {
     <div className="container">
       <div className="row">{club && <h1>{club.name}</h1>}</div>
       <div className="row">
-        <div className="grid"></div>
+        <div className="grid">
+          {teams.map((team) => (
+            <Link to={`/team/${team.id}`} key={team.id}>
+              <div className="card"></div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

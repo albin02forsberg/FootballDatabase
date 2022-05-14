@@ -1,5 +1,3 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   collection,
   getDocs,
@@ -7,7 +5,6 @@ import {
   orderBy,
   query,
   startAfter,
-  where,
 } from "firebase/firestore";
 import React, { Suspense, useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
@@ -23,7 +20,6 @@ const DrillCard = lazy(() => {
 
 export default function Drills() {
   const [drills, setDrills] = React.useState([]);
-  const [search, setSearch] = React.useState("");
 
   useEffect(() => {
     document.title = "Övningar";
@@ -60,7 +56,7 @@ export default function Drills() {
         <Link to="/createDrill" className="pageLink">
           <button className="btn btn-primary">Skapa övning</button>
         </Link>
-        <div className="content">
+        {/* <div className="content">
           <input
             type="text"
             placeholder="sök"
@@ -72,7 +68,8 @@ export default function Drills() {
             <FontAwesomeIcon icon={faSearch} />
           </button>
           <hr />
-        </div>
+        </div> */}
+        <hr />
         <div className="grid">
           {drills &&
             drills.map((drill, index) => {

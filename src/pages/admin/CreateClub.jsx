@@ -1,13 +1,13 @@
 import { addDoc, collection } from "firebase/firestore";
 import { auth } from "../../firebase-config";
 import React from "react";
-import { db, storage } from "../../firebase-config";
+import { db } from "../../firebase-config";
 
 export default function CreateClub() {
   const [clubName, setClubName] = React.useState("");
   const [abbr, setAbbr] = React.useState("");
   const [clubNr, setClubNr] = React.useState("");
-  const [image, setImage] = React.useState("");
+  // const [image, setImage] = React.useState("");
 
   const handleSubmit = (e) => {
     const ClubRef = collection(db, "clubs");
@@ -61,7 +61,7 @@ export default function CreateClub() {
             onChange={(e) => setClubNr(e.target.value)}
           />
         </div>
-        <div className="form">
+        {/* <div className="form">
           <label htmlFor="image" />
           <input
             type="file"
@@ -71,7 +71,7 @@ export default function CreateClub() {
             required
             onChange={(e) => setImage(e.target.files[0])}
           />
-        </div>
+        </div> */}
       </div>
       <div className="form">
         <button

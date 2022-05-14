@@ -5,7 +5,6 @@ import {
   query,
   where,
   getDocs,
-  orderBy,
 } from "firebase/firestore";
 import React, { useEffect, lazy, Suspense } from "react";
 import { Link, useParams } from "react-router-dom";
