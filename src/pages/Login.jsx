@@ -3,7 +3,7 @@ import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
-import { setDoc, doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 export default function Login({ setIsAuth }) {
   let navigate = useNavigate();
@@ -21,6 +21,7 @@ export default function Login({ setIsAuth }) {
           photo: result.user.photoURL,
           joined: result.user.metadata.creationTime,
           lastSignInTime: result.user.metadata.lastSignInTime,
+          provider: result.user.providerData,
           // if user is admin set role to admin
           // role:
           //   result.user.email === "albin02forsberg@gmail.com"
