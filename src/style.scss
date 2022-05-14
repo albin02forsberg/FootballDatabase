@@ -544,6 +544,21 @@ canvas {
     margin: 8rem auto;
 }
 
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    .contact-info-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+    }
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);

@@ -160,6 +160,13 @@ const Team = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const Contact = lazy(() => {
+  return Promise.all([
+    import("./pages/Contact"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 // const CreateTeam = lazy(() => {
 //   return Promise.all([
 //     import("./pages/Team/CreateTeam"),
@@ -240,6 +247,14 @@ function App() {
           element={
             <Suspense fallback={<Loading />}>
               <About />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Contact />
             </Suspense>
           }
         />
