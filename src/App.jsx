@@ -167,6 +167,20 @@ const Contact = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const MyTeams = lazy(() => {
+  return Promise.all([
+    import("./pages/Team/MyTeams"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
+const AddGame = lazy(() => {
+  return Promise.all([
+    import("./pages/Team/AddGame"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 // const CreateTeam = lazy(() => {
 //   return Promise.all([
 //     import("./pages/Team/CreateTeam"),
@@ -308,6 +322,14 @@ function App() {
           }
         />
         <Route
+          path="/myteams"
+          element={
+            <Suspense fallback={<Loading />}>
+              <MyTeams />
+            </Suspense>
+          }
+        />
+        <Route
           path="/privacy"
           element={
             <Suspense fallback={<Loading />}>
@@ -361,6 +383,14 @@ function App() {
           element={
             <Suspense fallback={<Loading />}>
               <Club />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/addgame/:id"
+          element={
+            <Suspense fallback={<Loading />}>
+              <AddGame />
             </Suspense>
           }
         />

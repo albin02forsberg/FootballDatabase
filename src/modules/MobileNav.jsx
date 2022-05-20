@@ -8,9 +8,9 @@ import {
   faUser,
   faHome,
   faPersonRunning,
-  faPlus,
-  faPager,
   faHammer,
+  faUsers,
+  faAlignJustify,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MobileNav({ user, isAuth }) {
@@ -43,23 +43,25 @@ export default function MobileNav({ user, isAuth }) {
           <motion.li className="nav-item" onClick={() => setState(3)}>
             <motion.div animate className="nav-content">
               <Link to="/sessions">
-                <FontAwesomeIcon icon={faPager} />
+                <FontAwesomeIcon icon={faAlignJustify} />
               </Link>
             </motion.div>
             {state === 3 && (
               <motion.div className="highlight" layoutId="highlight" />
             )}
           </motion.li>
-          <motion.li className="nav-item" onClick={() => setState(4)}>
-            <motion.div animate className="nav-content">
-              <Link to="/createNews">
-                <FontAwesomeIcon icon={faPlus} />
-              </Link>
-            </motion.div>
-            {state === 4 && (
-              <motion.div className="highlight" layoutId="highlight" />
-            )}
-          </motion.li>
+          {isAuth ? (
+            <motion.li className="nav-item" onClick={() => setState(4)}>
+              <motion.div animate className="nav-content">
+                <Link to="/myteams">
+                  <FontAwesomeIcon icon={faUsers} />
+                </Link>
+              </motion.div>
+              {state === 4 && (
+                <motion.div className="highlight" layoutId="highlight" />
+              )}
+            </motion.li>
+          ) : null}
           {isAuth ? (
             <motion.li className="nav-item" onClick={() => setState(6)}>
               <motion.div animate className="nav-content">
