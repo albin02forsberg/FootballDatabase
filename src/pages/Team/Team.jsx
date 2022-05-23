@@ -15,7 +15,6 @@ export default function Team() {
   const [team, setTeam] = React.useState();
   const [games, setGames] = React.useState([]);
   const [players, setPlayers] = React.useState([]);
-  const [playerStats, setPlayerStats] = React.useState([]);
   const { id } = useParams();
   useEffect(() => {
     const teamCollectionRef = collection(db, "teams");
@@ -38,13 +37,6 @@ export default function Team() {
     const playerQ = query(playerCollectionRef, where("teamId", "==", id));
     getDocs(playerQ).then((docs) => {
       setPlayers(docs.docs);
-      docs.forEach((player) => {
-        const playerCollectionRef = collection(db, "players");
-        const playerRef = doc(playerCollectionRef, player.data().playerId);
-        getDoc(playerRef).then((player) => {
-          setPlayerStats((prev) => [...prev, player]);
-        });
-      });
     });
   }, [id]);
 
