@@ -181,6 +181,13 @@ const AddGame = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const AddPlayer = lazy(() => {
+  return Promise.all([
+    import("./pages/Team/AddPlayer"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 // const CreateTeam = lazy(() => {
 //   return Promise.all([
 //     import("./pages/Team/CreateTeam"),
@@ -378,6 +385,14 @@ function App() {
           }
         />
 
+        <Route
+          path="/addplayer/:id"
+          element={
+            <Suspense fallback={<Loading />}>
+              <AddPlayer />
+            </Suspense>
+          }
+        />
         <Route
           path="/club/:id"
           element={

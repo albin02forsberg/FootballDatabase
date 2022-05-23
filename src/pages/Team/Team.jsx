@@ -12,8 +12,10 @@ import { db } from "../../firebase-config";
 import Loading from "../../modules/Loading";
 
 export default function Team() {
-  const [team, setTeam] = React.useState(null);
+  const [team, setTeam] = React.useState();
   const [games, setGames] = React.useState([]);
+  const [players, setPlayers] = React.useState([]);
+  const [playerStats, setPlayerStats] = React.useState([]);
   const { id } = useParams();
   useEffect(() => {
     const teamCollectionRef = collection(db, "teams");
@@ -30,6 +32,19 @@ export default function Team() {
     const gameQ = query(gameCollectionRef, where("teamID", "==", id));
     getDocs(gameQ).then((docs) => {
       setGames(docs.docs);
+    });
+
+    const playerCollectionRef = collection(db, "PlayerTeam");
+    const playerQ = query(playerCollectionRef, where("teamId", "==", id));
+    getDocs(playerQ).then((docs) => {
+      setPlayers(docs.docs);
+      docs.forEach((player) => {
+        const playerCollectionRef = collection(db, "players");
+        const playerRef = doc(playerCollectionRef, player.data().playerId);
+        getDoc(playerRef).then((player) => {
+          setPlayerStats((prev) => [...prev, player]);
+        });
+      });
     });
   }, [id]);
 
@@ -94,6 +109,45 @@ export default function Team() {
       </div>
       <div className="row">
         <h2>Spelare</h2>
+        <table className="table table-responsive">
+          <thead>
+            <tr>
+              <th>Namn</th>
+              <th>Träningar</th>
+              <th>Matcher</th>
+              <th>Gula kort</th>
+              <th>Röda kort</th>
+              <th>Mål</th>
+              <th>Assist</th>
+            </tr>
+          </thead>
+          <tbody>
+            {players && players.length > 0 && (
+              <>
+                {players.map((player) => (
+                  <tr key={player.id}>
+                    <td>{player.data().name}</td>
+                    <td>{player.data().sessions.length}</td>
+                    <td>{player.data().games.length}</td>
+                    <td>{player.data().yellowCards}</td>
+                    <td>{player.data().redCards}</td>
+                    <td>{player.data().goals}</td>
+                    <td>{player.data().assists}</td>
+                  </tr>
+                ))}
+              </>
+            )}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                <Link to={"/addplayer/" + team.id}>
+                  <button className="btn">Lägg till spelare</button>
+                </Link>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
   );

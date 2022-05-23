@@ -163,25 +163,25 @@ export default function Canvas({ setImage }) {
       let ball = new Image();
       ball.src = "./ball.svg";
       ball.onload = () => {
-        ctxRef.current.drawImage(ball, offsetX, offsetY, 20, 20);
+        ctxRef.current.drawImage(ball, offsetX - 7, offsetY - 7, 15, 15);
       };
     } else if (tool === "cone") {
       let cone = new Image();
       cone.src = "./cone.svg";
       cone.onload = () => {
-        ctxRef.current.drawImage(cone, offsetX, offsetY, 20, 20);
+        ctxRef.current.drawImage(cone, offsetX - 7, offsetY - 7, 20, 20);
       };
     } else if (tool === "mv") {
       // Write mv text
       ctxRef.current.font = "20px Arial";
       ctxRef.current.fillStyle = "white";
-      ctxRef.current.fillText("MV", offsetX, offsetY);
+      ctxRef.current.fillText("MV", offsetX - 10, offsetY + 10);
       ctxRef.current.stroke();
     } else if (tool === "text" && text !== "") {
       // Write text
       ctxRef.current.font = "20px Arial";
       ctxRef.current.fillStyle = "white";
-      ctxRef.current.fillText(text, offsetX, offsetY);
+      ctxRef.current.fillText(text, offsetX - 10, offsetY + 10);
       ctxRef.current.stroke();
     } else {
       setStartX(offsetX);

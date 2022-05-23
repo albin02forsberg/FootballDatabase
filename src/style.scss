@@ -283,8 +283,9 @@ option {
     -webkit-overflow-scrolling: touch;
 }
 
-td {
-    padding: 500;
+td,
+th {
+    padding: 10px;
     border-bottom: 1px solid $secondary-color;
     text-align: left;
     // Make img responsive
