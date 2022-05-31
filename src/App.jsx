@@ -6,6 +6,7 @@ import { auth, db } from "./firebase-config";
 import Loading from "./modules/Loading";
 import { collection, doc, getDoc } from "firebase/firestore";
 import MobileNav from "./modules/MobileNav";
+import { Box } from "@mui/system";
 
 const Home = lazy(() => {
   return Promise.all([
@@ -132,12 +133,12 @@ const Header = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-const Footer = lazy(() => {
-  return Promise.all([
-    import("./modules/Footer"),
-    new Promise((resolve) => setTimeout(resolve, 500)),
-  ]).then(([moduleExports]) => moduleExports);
-});
+// const Footer = lazy(() => {
+//   return Promise.all([
+//     import("./modules/Footer"),
+//     new Promise((resolve) => setTimeout(resolve, 500)),
+//   ]).then(([moduleExports]) => moduleExports);
+// });
 
 const NotFound = lazy(() => {
   return Promise.all([
@@ -254,6 +255,7 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Header />
       </Suspense>
+      <Box mt={3}></Box>
       <Routes>
         <Route
           path="/"
@@ -384,7 +386,6 @@ function App() {
             </Suspense>
           }
         />
-
         <Route
           path="/addplayer/:id"
           element={
@@ -467,8 +468,8 @@ function App() {
           }
         />
       </Routes>
-      <Footer />
       <MobileNav isAuth={isAuth} signOut={signOut} user={user} />
+      <Box mt={8}></Box>
     </Router>
   );
 }

@@ -1,3 +1,4 @@
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import Loading from "./Loading";
 
@@ -8,32 +9,41 @@ export default function SessionDrill({ drill }) {
   }
 
   return (
-    <div className="row">
-      <div className="grid-2">
-        <div>
-          <h2 id={drill.id}>{drill.data().name}</h2>
-          <hr></hr>
-          <h3>Vad?</h3>
-          <p>{drill.data().type}</p>
-          <h3>Varför?</h3>
-          <p>{drill.data().why}</p>
-          <h3>Hur?</h3>
-          <p>{drill.data().how}</p>
-          <h3>Organisation</h3>
-          <p>{drill.data().org}</p>
-          <h3>Anvisningar</h3>
-          <p>{drill.data().desc}</p>
-          <div />
-        </div>
-        <div className="center">
-          <img
-            src={drill.data().imgLink}
-            className="img img-thumbnail"
-            alt={drill.data().name}
-          />
-        </div>
-      </div>
-      <hr />
-    </div>
+    <Box>
+      <Grid container spacing={1}>
+        <Grid item xs={12} md={6}>
+          {drill && (
+            <div>
+              <Typography variant="h4">{drill.data().name}</Typography>
+              <Divider />
+              <Typography variant="h4">Vad?</Typography>
+              <Typography variant="body1">
+                {drill.data().type} - {drill.data().what}{" "}
+              </Typography>
+              <Typography variant="h4">Varför?</Typography>
+              <Typography variant="body1">{drill.data().why}</Typography>
+              <Typography variant="h4">Hur?</Typography>
+              <Typography variant="body1">{drill.data().how}</Typography>
+              <Typography variant="h4">Organisation</Typography>
+              <Typography variant="body1">{drill.data().org}</Typography>
+              <Typography variant="h4">Anvisningar</Typography>
+              <Typography variant="body1">{drill.data().desc}</Typography>
+            </div>
+          )}
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {drill && (
+            <img
+              className="img img-thumbnail"
+              src={drill.data().imgLink}
+              alt={drill.id}
+              width={"100%"}
+              height={"100%"}
+            />
+          )}
+          <Divider />
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

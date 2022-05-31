@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import "./style.css";
+import "./default.css";
 import reportWebVitals from "./reportWebVitals";
 import ReactDOM from "react-dom";
 import Loading from "./modules/Loading";
@@ -12,12 +12,8 @@ const App = lazy(() => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Suspense
-      fallback={
-        <Loading/>
-      }
-    >
-    <App />
+    <Suspense fallback={<Loading />}>
+      <App />
     </Suspense>
   </React.StrictMode>,
   document.getElementById("root")

@@ -1,3 +1,11 @@
+import {
+  FormControl,
+  Grid,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
+import { Box, Container } from "@mui/system";
 import React, { useEffect } from "react";
 
 export default function Canvas({ setImage }) {
@@ -316,99 +324,48 @@ export default function Canvas({ setImage }) {
   }, [canvasHeight, canvasWidth, fieldType]);
 
   return (
-    <div className="container">
-      <div className="row">
-        <h2>Skissa din övning</h2>
-      </div>
-      <hr />
-      <div className="row">
-        <div className="grid-2">
-          <div></div>
-        </div>
-      </div>
-      <div className="grid">
-        <div>
-          <h3>Typ av plan</h3>
-          <div
-            class="btn-group"
-            role="group"
-            aria-label="Basic radio toggle button group"
+    <Container>
+      <Box mb={2}>
+        <Typography variant="h5">Skissa övning</Typography>
+      </Box>
+      <FormControl>
+        <ToggleButtonGroup value={fieldType} exclusive>
+          <ToggleButton
+            value="full"
+            onClick={() => {
+              setFieldType("full");
+            }}
           >
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="field1"
-              autocomplete="off"
-              onChange={() => setFieldType("full")}
-            />
-
-            {fieldType === "full" ? (
-              <label className="btn btn-outline-primary active" for="field1">
-                Helplan
-              </label>
-            ) : (
-              <label className="btn btn-outline-primary" for="field1">
-                Helplan
-              </label>
-            )}
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="field3"
-              autocomplete="off"
-              onChange={() => setFieldType("fullgreen")}
-            />
-
-            {fieldType === "fullgreen" ? (
-              <label className="btn btn-outline-primary active" for="field3">
-                Helplan grön
-              </label>
-            ) : (
-              <label className="btn btn-outline-primary" for="field3">
-                Helplan grön
-              </label>
-            )}
-
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="field2"
-              autocomplete="off"
-              onChange={() => setFieldType("half")}
-            />
-
-            {fieldType === "half" ? (
-              <label className="btn btn-outline-primary active" for="field2">
-                halvplan
-              </label>
-            ) : (
-              <label className="btn btn-outline-primary" for="field2">
-                halvplan
-              </label>
-            )}
-
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="field4"
-              autocomplete="off"
-              onChange={() => setFieldType("halfgreen")}
-            />
-
-            {fieldType === "halfgreen" ? (
-              <label className="btn btn-outline-primary active" for="field4">
-                halvplan grön
-              </label>
-            ) : (
-              <label className="btn btn-outline-primary" for="field4">
-                halvplan grön
-              </label>
-            )}
-          </div>
+            Full
+          </ToggleButton>
+          <ToggleButton
+            value="half"
+            onClick={() => {
+              setFieldType("half");
+            }}
+          >
+            Halv
+          </ToggleButton>
+          <ToggleButton
+            value="halfgreen"
+            onClick={() => {
+              setFieldType("halfgreen");
+            }}
+          >
+            Halv grön
+          </ToggleButton>
+          <ToggleButton
+            value="fullgreen"
+            onClick={() => {
+              setFieldType("fullgreen");
+            }}
+          >
+            Full grön
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </FormControl>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
           <canvas
             id="canvas"
             width={canvasWidth + "px"}
@@ -419,245 +376,84 @@ export default function Canvas({ setImage }) {
             onMouseMove={setPos}
             className="canvas"
           />
-        </div>
-        <div>
-          <h3>Verktyg</h3>
-          <div
-            className="btn-group"
-            role="group"
-            aria-label="Basic radio toggle button group"
-          >
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="btnradio1"
-              autocomplete="off"
-              onChange={() => setTool("circleX")}
-            />
-            {tool === "circleX" ? (
-              <label class="btn btn-outline-primary active" for="btnradio1">
-                Anfallare med boll
-              </label>
-            ) : (
-              <label class="btn btn-outline-primary" for="btnradio1">
-                Anfallare med boll
-              </label>
-            )}
-
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="btnradio2"
-              autocomplete="off"
-              onChange={() => setTool("X")}
-            />
-
-            {tool === "X" ? (
-              <label class="btn btn-outline-primary active" for="btnradio2">
-                Anfallare utan boll
-              </label>
-            ) : (
-              <label class="btn btn-outline-primary" for="btnradio2">
-                Anfallare utan boll
-              </label>
-            )}
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="btnradio3"
-              autocomplete="off"
-              onChange={() => setTool("circle")}
-            />
-
-            {tool === "circle" ? (
-              <label class="btn btn-outline-primary active" for="btnradio3">
-                Försvarare
-              </label>
-            ) : (
-              <label class="btn btn-outline-primary" for="btnradio3">
-                Försvarare
-              </label>
-            )}
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              id="btnradio10"
-              autocomplete="off"
-              onChange={() => setTool("mv")}
-            />
-
-            {tool === "mv" ? (
-              <label class="btn btn-outline-primary active" for="btnradio10">
-                Målvakt
-              </label>
-            ) : (
-              <label class="btn btn-outline-primary" for="btnradio10">
-                Målvakt
-              </label>
-            )}
-          </div>
-          <hr />
-          <div className="col-md-6">
-            <div
-              class="btn-group"
-              role="group"
-              aria-label="Basic radio toggle button group"
-            >
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio5"
-                autocomplete="off"
-                onChange={() => setTool("player")}
-              />
-
-              {tool === "player" ? (
-                <label class="btn btn-outline-primary active" for="btnradio5">
-                  Spelarens väg
-                </label>
-              ) : (
-                <label class="btn btn-outline-primary" for="btnradio5">
-                  Spelarens väg
-                </label>
-              )}
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio7"
-                autocomplete="off"
-                onChange={() => setTool("playerWithBall")}
-              />
-
-              {tool === "playerWithBall" ? (
-                <label class="btn btn-outline-primary active" for="btnradio7">
-                  Spelarens väg med boll
-                </label>
-              ) : (
-                <label class="btn btn-outline-primary" for="btnradio7">
-                  Spelarens väg med boll
-                </label>
-              )}
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio6"
-                autocomplete="off"
-                onChange={() => setTool("arrow")}
-              />
-              {tool === "arrow" ? (
-                <label class="btn btn-outline-primary active" for="btnradio6">
-                  Bollens bana
-                </label>
-              ) : (
-                <label class="btn btn-outline-primary" for="btnradio6">
-                  Bollens bana
-                </label>
-              )}
-            </div>
-            <hr />
-            <div
-              class="btn-group"
-              role="group"
-              aria-label="Basic radio toggle button group"
-            >
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio4"
-                autocomplete="off"
-                onChange={() => setTool("ball")}
-              />
-              {tool === "ball" ? (
-                <label class="btn btn-outline-primary active" for="btnradio4">
-                  Boll
-                </label>
-              ) : (
-                <label class="btn btn-outline-primary" for="btnradio4">
-                  Boll
-                </label>
-              )}
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio8"
-                autocomplete="off"
-                onChange={() => setTool("cone")}
-              />
-              {tool === "cone" ? (
-                <label class="btn btn-outline-primary active" for="btnradio8">
-                  Kona
-                </label>
-              ) : (
-                <label class="btn btn-outline-primary" for="btnradio8">
-                  Kona
-                </label>
-              )}
-            </div>
-            <hr />
-            <div
-              class="btn-group"
-              role="group"
-              aria-label="Basic radio toggle button group"
-            >
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio12"
-                autocomplete="off"
-                onChange={() => setTool("text")}
-              />
-              {tool === "text" ? (
-                <label class="btn btn-outline-primary active" for="btnradio12">
-                  Text
-                </label>
-              ) : (
-                <label class="btn btn-outline-primary" for="btnradio12">
-                  Text
-                </label>
-              )}
-
-              <input
-                type="input"
-                name="btnradio"
-                id="btnradio12"
-                placeholder="Text"
-                autocomplete="off"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-              />
-              <button
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Box mb={2}>
+            <Typography variant="h6">Välj spelare</Typography>
+          </Box>
+          <FormControl>
+            <ToggleButtonGroup value={tool} exclusive>
+              <ToggleButton
+                value="circleX"
                 onClick={() => {
-                  setText("");
+                  setTool("circleX");
                 }}
-                className="btn btn-outline-danger"
               >
-                Rensa
-              </button>
-            </div>
-            <hr />
-            <button onClick={undo} className="btn btn-danger">
-              Undo
-            </button>
-          </div>
-        </div>
+                Spelare med boll
+              </ToggleButton>
+              <ToggleButton
+                value="X"
+                onClick={() => {
+                  setTool("X");
+                }}
+              >
+                Spelare utan boll
+              </ToggleButton>
+              <ToggleButton
+                value="circle"
+                onClick={() => {
+                  setTool("circle");
+                }}
+              >
+                Försvarare
+              </ToggleButton>
+              <ToggleButton
+                value="mv"
+                onClick={() => {
+                  setTool("mv");
+                }}
+              >
+                Målvakt
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </FormControl>
+          <Box mb={2}>
+            <Typography variant="h6">Pilar</Typography>
+          </Box>
+          <FormControl>
+            <ToggleButtonGroup value={tool} exclusive>
+              <ToggleButton
+                value="playerWithBall"
+                onClick={() => {
+                  setTool("playerWithBall");
+                }}
+              >
+                Spelares väg med boll
+              </ToggleButton>
+              <ToggleButton
+                value="player"
+                onClick={() => {
+                  setTool("player");
+                }}
+              >
+                Spelares väg utan boll
+              </ToggleButton>
+              <ToggleButton value="arrow" onClick={() => setTool("arrow")}>
+                Bollens bana
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </FormControl>
+        </Grid>
+      </Grid>
+      <div>
+        <button onClick={undo} className="btn btn-danger">
+          Undo
+        </button>
       </div>
       <div className="row">
         <div className="col-md-6"></div>
         <hr />
       </div>
-    </div>
+    </Container>
   );
 }

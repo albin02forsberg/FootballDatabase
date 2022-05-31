@@ -1,3 +1,6 @@
+import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Masonry } from "@mui/lab";
+import { Container } from "@mui/system";
 import {
   collection,
   getDocs,
@@ -8,7 +11,7 @@ import {
 } from "firebase/firestore";
 import React, { Suspense, useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import Loading from "../modules/Loading";
 
 const DrillCard = lazy(() => {
@@ -50,41 +53,41 @@ export default function Drills() {
     return <Loading />;
   }
   return (
-    <div className="container">
-      <div className="row">
-        <h1>Övningar</h1>
-        <Link to="/createDrill" className="pageLink">
-          <button className="btn btn-primary">Skapa övning</button>
-        </Link>
-        {/* <div className="content">
-          <input
-            type="text"
-            placeholder="sök"
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-          />
-          <button className="btn btn-primary">
-            <FontAwesomeIcon icon={faSearch} />
-          </button>
-          <hr />
-        </div> */}
-        <hr />
-        <div className="grid">
-          {drills &&
-            drills.map((drill, index) => {
-              return (
-                <Suspense fallback={<Loading />}>
-                  <DrillCard drill={drill} index={index} showCreator={true} />
-                </Suspense>
-              );
-            })}
-        </div>
-      </div>
-      {drills && <p>Antal övningar som visas: {drills.length}</p>}
-      <button className="btn btn-primary" onClick={fetchMore}>
-        Visa fler
-      </button>
-    </div>
+    <Container fluid>
+      <Box mb={3}></Box>
+      <Box mb={3}>
+        <Typography variant="h4">Övningar</Typography>
+        {auth && auth.currentUser && (
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/createdrill"
+          >
+            Skapa ny övning
+          </Button>
+        )}
+      </Box>
+      <Stack spacing={2}>
+        <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
+          {drills.map((drill) => (
+            <Grid item xs={12} sm={6} md={4} key={drill.id}>
+              <Suspense fallback={<Loading />}>
+                <DrillCard drill={drill} />
+              </Suspense>
+            </Grid>
+          ))}
+        </Masonry>
+        <Divider />
+        <Stack spacing={3}>
+          <Button onClick={fetchMore} variant="contained">
+            Ladda fler
+          </Button>
+        </Stack>
+      </Stack>
+      <Box mb={10}></Box>
+      <Box mb={3}></Box>
+      <Box mb={3}></Box>
+    </Container>
   );
 }

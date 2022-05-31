@@ -12,6 +12,8 @@ import {
   getDoc,
   orderBy,
 } from "firebase/firestore";
+import { Masonry } from "@mui/lab";
+import { Box, Container } from "@mui/system";
 
 const DrillCard = lazy(() => {
   return Promise.all([
@@ -74,25 +76,27 @@ export default function User({ signOut }) {
   }
 
   return (
-    <div className="container">
-      <div className="row">
+    <Container>
+      <Box mb={3}>
         {user && drills && (
           <Suspense fallback={<Loading />}>
             <UserHeader user={user} drills={drills.length} signOut={signOut} />
           </Suspense>
         )}
-      </div>
+      </Box>
       <div className="row">
         {user && <h2>{user.data().name + "s övningar"}</h2>}
         <div className="grid">
-          {drills &&
-            drills.map((drill) => {
-              return (
-                <Suspense fallback={<Loading />}>
-                  <DrillCard drill={drill} showCreator={false} />
-                </Suspense>
-              );
-            })}
+          <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
+            {drills &&
+              drills.map((drill) => {
+                return (
+                  <Suspense fallback={<Loading />}>
+                    <DrillCard drill={drill} showCreator={false} />
+                  </Suspense>
+                );
+              })}
+          </Masonry>
         </div>
       </div>
       <div className="row">
@@ -127,6 +131,6 @@ export default function User({ signOut }) {
           )}
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

@@ -12,93 +12,67 @@ import {
   faUsers,
   faAlignJustify,
 } from "@fortawesome/free-solid-svg-icons";
+import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 
 export default function MobileNav({ user, isAuth }) {
   const [state, setState] = useState(1);
 
   return (
-    <nav className="bottom-nav">
-      <AnimateSharedLayout>
-        <ul className="nav-list">
-          <motion.li animate className="nav-item" onClick={() => setState(1)}>
-            <motion.div animate className="nav-content">
-              <Link to="/">
-                <FontAwesomeIcon icon={faHome} />
-              </Link>
-            </motion.div>
-            {state === 1 && (
-              <motion.div className="highlight" layoutId="highlight" />
-            )}
-          </motion.li>
-          <motion.li className="nav-item" onClick={() => setState(2)}>
-            <motion.div animate className="nav-content">
-              <Link to="/drills">
-                <FontAwesomeIcon icon={faPersonRunning} />
-              </Link>
-            </motion.div>
-            {state === 2 && (
-              <motion.div className="highlight" layoutId="highlight" />
-            )}
-          </motion.li>
-          <motion.li className="nav-item" onClick={() => setState(3)}>
-            <motion.div animate className="nav-content">
-              <Link to="/sessions">
-                <FontAwesomeIcon icon={faAlignJustify} />
-              </Link>
-            </motion.div>
-            {state === 3 && (
-              <motion.div className="highlight" layoutId="highlight" />
-            )}
-          </motion.li>
-          {isAuth ? (
-            <motion.li className="nav-item" onClick={() => setState(4)}>
-              <motion.div animate className="nav-content">
-                <Link to="/myteams">
-                  <FontAwesomeIcon icon={faUsers} />
-                </Link>
-              </motion.div>
-              {state === 4 && (
-                <motion.div className="highlight" layoutId="highlight" />
-              )}
-            </motion.li>
-          ) : null}
-          {isAuth ? (
-            <motion.li className="nav-item" onClick={() => setState(6)}>
-              <motion.div animate className="nav-content">
-                <Link to={"/user/" + auth.currentUser.uid}>
-                  <FontAwesomeIcon icon={faUser} />
-                </Link>
-              </motion.div>
-              {state === 6 && (
-                <motion.div className="highlight" layoutId="highlight" />
-              )}
-            </motion.li>
-          ) : (
-            <motion.li className="nav-item" onClick={() => setState(7)}>
-              <motion.div animate className="nav-content">
-                <Link to={"/login"}>
-                  <FontAwesomeIcon icon={faUser} />
-                </Link>
-              </motion.div>
-              {state === 7 && (
-                <motion.div className="highlight" layoutId="highlight" />
-              )}
-            </motion.li>
-          )}
-          {isAuth && user && user.role === "admin" && (
-            <motion.li className="nav-item" onClick={() => setState(5)}>
-              <motion.div animate className="nav-content">
-                <Link to="/admin">
-                  <FontAwesomeIcon icon={faHammer} />
-                </Link>
-              </motion.div>
-              {state === 5 && (
-                <motion.div className="highlight" layoutId="highlight" />
-              )}
-            </motion.li>
-          )}
-        </ul>
-      </AnimateSharedLayout>
-    </nav>
+    <Paper sx={{ position: "fixed", bottom: 0, width: "100%" }}>
+      <BottomNavigation
+        value={state}
+        onChange={(e, newValue) => setState(newValue)}
+      >
+        <BottomNavigationAction
+          label="Hem"
+          icon={<FontAwesomeIcon icon={faHome} />}
+          component={Link}
+          to="/"
+        />
+        <BottomNavigationAction
+          label="Övningar"
+          icon={<FontAwesomeIcon icon={faPersonRunning} />}
+          component={Link}
+          to="/drills"
+        />
+        <BottomNavigationAction
+          label="Träningspass"
+          icon={<FontAwesomeIcon icon={faAlignJustify} />}
+          component={Link}
+          to="/sessions"
+        />
+        {user && (
+          <BottomNavigationAction
+            label="Mina lag"
+            icon={<FontAwesomeIcon icon={faUsers} />}
+            component={Link}
+            to="/myteams"
+          />
+        )}
+        {user ? (
+          <BottomNavigationAction
+            label="Min profil"
+            icon={<FontAwesomeIcon icon={faUser} />}
+            component={Link}
+            to={`/user/${user.uid}`}
+          />
+        ) : (
+          <BottomNavigationAction
+            label="Logga in"
+            icon={<FontAwesomeIcon icon={faUser} />}
+            component={Link}
+            to="/login"
+          />
+        )}
+        {user && user.role === "admin" && (
+          <BottomNavigationAction
+            label="Admin"
+            icon={<FontAwesomeIcon icon={faHammer} />}
+            component={Link}
+            to="/admin"
+          />
+        )}
+      </BottomNavigation>
+    </Paper>
   );
 }
