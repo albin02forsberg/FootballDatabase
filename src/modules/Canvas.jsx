@@ -1,6 +1,9 @@
 import {
+  Button,
+  Divider,
   FormControl,
   Grid,
+  TextField,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -363,6 +366,7 @@ export default function Canvas({ setImage }) {
             Full grön
           </ToggleButton>
         </ToggleButtonGroup>
+        <Divider />
       </FormControl>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
@@ -443,17 +447,52 @@ export default function Canvas({ setImage }) {
               </ToggleButton>
             </ToggleButtonGroup>
           </FormControl>
+          <Box mb={2}>
+            <Typography variant="h6">Övrigt</Typography>
+          </Box>
+          <FormControl>
+            <ToggleButtonGroup value={tool} exclusive>
+              <ToggleButton
+                value="cone"
+                onClick={() => {
+                  setTool("cone");
+                }}
+              >
+                Kona
+              </ToggleButton>
+              <ToggleButton
+                value="ball"
+                onClick={() => {
+                  setTool("ball");
+                }}
+              >
+                Boll
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </FormControl>
+          <Box mb={2}>
+            <Typography variant="h6">Text</Typography>
+          </Box>
+          <FormControl>
+            <ToggleButtonGroup value={tool} exclusive>
+              <ToggleButton
+                value="text"
+                onClick={() => {
+                  setTool("text");
+                }}
+              >
+                Text
+              </ToggleButton>
+            </ToggleButtonGroup>
+            <TextField value={text} onChange={(e) => setText(e.target.value)} />
+          </FormControl>
+          <Box mb={2}>
+            <Typography variant="h6">Undo</Typography>
+          </Box>
+          <Button onClick={undo}>Ångra</Button>
         </Grid>
       </Grid>
-      <div>
-        <button onClick={undo} className="btn btn-danger">
-          Undo
-        </button>
-      </div>
-      <div className="row">
-        <div className="col-md-6"></div>
-        <hr />
-      </div>
+      <Divider />
     </Container>
   );
 }

@@ -6,7 +6,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { db } from "../firebase-config";
 import { Link } from "react-router-dom";
 import calculateTime from "../scripts/calculateTime";
@@ -17,14 +17,16 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
-  Divider,
   Stack,
   Typography,
 } from "@mui/material";
+import DrillCard from "../modules/DrillCard";
+import { Masonry } from "@mui/lab";
 
 export default function Home() {
   const [news, setNews] = React.useState([]);
-  const [discussions, setDiscussions] = React.useState([]);
+  // const [discussions, setDiscussions] = React.useState([]);
+  const [drills, setDrills] = React.useState([]);
 
   useEffect(() => {
     document.title = "Hem";
@@ -38,14 +40,20 @@ export default function Home() {
     getDocs(newsQ).then((docs) => {
       setNews(docs.docs);
     });
-    const discussionsQ = query(
-      newsRef,
-      orderBy("created", "desc"),
-      where("isUpdate", "==", false),
-      limit(3)
-    );
-    getDocs(discussionsQ).then((docs) => {
-      setDiscussions(docs.docs);
+    // const discussionsQ = query(
+    //   newsRef,
+    //   orderBy("created", "desc"),
+    //   where("isUpdate", "==", false),
+    //   limit(3)
+    // );
+    // getDocs(discussionsQ).then((docs) => {
+    //   // setDiscussions(docs.docs);
+    // });
+
+    const drillsRef = collection(db, "drills");
+    const drillsQ = query(drillsRef, limit(4));
+    getDocs(drillsQ).then((docs) => {
+      setDrills(docs.docs);
     });
   }, []);
 
@@ -55,7 +63,6 @@ export default function Home() {
 
   return (
     <Container>
-      <Box mb={3}></Box>
       <Box mb={3}>
         <Typography variant="h4">Nyheter</Typography>
       </Box>
@@ -85,8 +92,16 @@ export default function Home() {
           </Link>
         ))}
       </Stack>
-      <Box mb={10}></Box>
-      <Box mb={3}></Box>
+      <Box mb={3}>
+        <Typography variant="h4">Rekommenderade övningar</Typography>
+      </Box>
+      <Masonry>
+        {drills.map((drill) => (
+          <Suspense key={drill.id} fallback={<Loading />}>
+            <DrillCard drill={drill} showCreator={true} />
+          </Suspense>
+        ))}
+      </Masonry>
     </Container>
   );
 }

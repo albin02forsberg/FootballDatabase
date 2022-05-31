@@ -1,4 +1,4 @@
-import { Divider, List, ListItemButton } from "@mui/material";
+import { Divider, List, ListItemButton, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import {
   collection,
@@ -53,22 +53,17 @@ export default function Session() {
     <Container>
       <Box>
         {session && (
-          <div>
-            <h1>{session.name}</h1>
-            <p>
-              {session.difficulty} - {session.type}
-            </p>
-            <button className="btn btn-primary disabled">
+          <Box>
+            <Typography variant="h4">{session.name}</Typography>
+            {/* <button className="btn btn-primary disabled">
               Exportera till pdf
-            </button>
-
-            <hr />
-          </div>
+            </button> */}
+          </Box>
         )}
       </Box>
       <Box>
         <div className="card">
-          <div className="card-header">Passets övningar</div>
+          <Typography variant="h5">Passets övningar</Typography>
           <List>
             {drills &&
               drills.map((drill) => (

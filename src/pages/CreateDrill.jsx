@@ -6,11 +6,9 @@ import Loading from "../modules/Loading";
 import {
   Button,
   Container,
-  Divider,
   FormControl,
-  FormGroup,
-  InputLabel,
   ListSubheader,
+  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -137,7 +135,6 @@ export default function CreateDrill() {
         </Select>
       </FormControl>
       <FormControl fullWidth margin="normal">
-        <InputLabel id="why">Varför</InputLabel>
         <TextField label="Varför" onChange={(e) => setWhy(e.target.value)} />
       </FormControl>
       <FormControl fullWidth margin="normal">

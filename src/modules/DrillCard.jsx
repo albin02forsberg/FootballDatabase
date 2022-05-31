@@ -1,7 +1,6 @@
 import {
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardHeader,
   CardMedia,

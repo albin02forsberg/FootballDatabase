@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimateSharedLayout } from "framer-motion";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase-config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // Import user icon
 import {

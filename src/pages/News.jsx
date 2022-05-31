@@ -1,4 +1,13 @@
 import {
+  Button,
+  Card,
+  Divider,
+  FormControl,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Box, Container } from "@mui/system";
+import {
   addDoc,
   collection,
   doc,
@@ -74,51 +83,47 @@ export default function News() {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        {article && (
-          <div>
-            <h1>{article.data().title}</h1>
-            <hr></hr>
-            <p>{article.data().content}</p>
-
-            <p>
-              Skrivet av:{" "}
-              <Link to={"/user/" + article.data().uid}>
-                {article.data().uname}
-              </Link>{" "}
-            </p>
-            <hr />
-          </div>
-        )}
-      </div>
-      <div className="row">
-        <div className="col-md-6">
-          <div className="form">
-            <label htmlFor="comment">Kommentar</label>
-            <textarea
-              className="form-control"
-              placeholder="Kommentar"
-              onChange={(e) => {
-                setComment(e.target.value);
-              }}
-            />
-            <button className="btn btn-primary" onClick={postComment}>
-              Kommentera
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="row">
+    <Container>
+      {article && (
+        <Box>
+          <Typography variant="h4">{article.data().title}</Typography>
+          <Divider />
+          <Typography variant="body1">{article.data().content}</Typography>
+          <Typography variant="body1">
+            Skrivet av:{" "}
+            <Link to={"/user/" + article.data().uid}>
+              {article.data().uname}
+            </Link>{" "}
+          </Typography>
+          <Divider />
+        </Box>
+      )}
+      <Box>
+        <FormControl fullWidth>
+          <Typography variant="h6">Kommentera</Typography>
+          <Box mb={2} />
+          <TextField
+            field="comment"
+            value={comment}
+            label="Kommentar"
+            onChange={setComment}
+          />
+          <Box mb={2} />
+          <Button onClick={postComment}>Kommentera</Button>
+        </FormControl>
+      </Box>
+      <Box>
         {comments &&
           comments.map((comment) => (
-            <div className="col-md-12">
-              <Suspense fallback={<Loading />} key={comment.id}>
-                <Comment comment={comment} key={comment.id} />
-              </Suspense>
-            </div>
+            <Box mb={3}>
+              <Card mb={6} key={comment.id}>
+                <Suspense fallback={<Loading />} key={comment.id}>
+                  <Comment comment={comment} key={comment.id} />
+                </Suspense>
+              </Card>
+            </Box>
           ))}
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 }
