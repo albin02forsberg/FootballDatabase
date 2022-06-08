@@ -9,6 +9,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableFooter,
   TableHead,
   TableRow,
@@ -37,33 +38,37 @@ export default function Drills() {
         <Typography variant="h4">Övningar</Typography>
       </Box>
       <Box mb={3}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Namn</TableCell>
-              <TableCell>Skapare</TableCell>
-              <TableCell>Redigera</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {drills.map((drill) => {
-              return (
-                <TableRow key={drill.id}>
-                  <TableCell>{drill.data().name}</TableCell>
-                  <TableCell>{drill.data().uname}</TableCell>
-                  <TableCell>
-                    <Link to={`/admin/drills/${drill.id}`}>Redigera</Link>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={3}>Antal övningar: {drills.length}</TableCell>
-            </TableRow>
-          </TableFooter>
-        </Table>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Namn</TableCell>
+                <TableCell>Skapare</TableCell>
+                <TableCell>Redigera</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {drills.map((drill) => {
+                return (
+                  <TableRow key={drill.id}>
+                    <TableCell>{drill.data().name}</TableCell>
+                    <TableCell>{drill.data().uname}</TableCell>
+                    <TableCell>
+                      <Link to={`/admin/drills/${drill.id}`}>Redigera</Link>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={3}>
+                  Antal övningar: {drills.length}
+                </TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
       </Box>
       <Box mb={3}></Box>
       <Box mb={3}>

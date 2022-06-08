@@ -7,7 +7,7 @@ export default function Header() {
     <AppBar position="static">
       <Link to="/" style={{ display: "flex", justifyContent: "center" }}>
         <h1>
-          <img src="/logo-trans.png" alt="logo" style={{ height: "100px" }} />
+          <img src="/logo-black.png" alt="logo" style={{ height: "100px" }} />
         </h1>
       </Link>
     </AppBar>

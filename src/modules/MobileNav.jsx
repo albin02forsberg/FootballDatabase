@@ -6,7 +6,6 @@ import {
   faUser,
   faHome,
   faPersonRunning,
-  faHammer,
   faUsers,
   faAlignJustify,
 } from "@fortawesome/free-solid-svg-icons";
@@ -49,7 +48,7 @@ export default function MobileNav({ user, isAuth }) {
         )}
         {user ? (
           <BottomNavigationAction
-            label="Min profil"
+            label="Profil"
             icon={<FontAwesomeIcon icon={faUser} />}
             component={Link}
             to={`/user/${user.uid}`}
@@ -63,12 +62,13 @@ export default function MobileNav({ user, isAuth }) {
           />
         )}
         {user && user.role === "admin" && (
-          <BottomNavigationAction
-            label="Admin"
-            icon={<FontAwesomeIcon icon={faHammer} />}
-            component={Link}
-            to="/admin"
-          />
+          // <BottomNavigationAction
+          //   label="Admin"
+          //   icon={<FontAwesomeIcon icon={faHammer} />}
+          //   component={Link}
+          //   to="/admin"
+          // />
+          <></>
         )}
       </BottomNavigation>
     </Paper>

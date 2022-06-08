@@ -95,7 +95,7 @@ export default function Home() {
       <Box mb={3}>
         <Typography variant="h4">Rekommenderade övningar</Typography>
       </Box>
-      <Masonry>
+      <Masonry columns={{ md: 4, sm: 1 }}>
         {drills.map((drill) => (
           <Suspense key={drill.id} fallback={<Loading />}>
             <DrillCard drill={drill} showCreator={true} />
