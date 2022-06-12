@@ -1,3 +1,5 @@
+import { Divider, List, ListItemButton, Typography } from "@mui/material";
+import { Box, Container } from "@mui/system";
 import {
   collection,
   doc,
@@ -48,45 +50,41 @@ export default function Session() {
   }
 
   return (
-    <div className="container">
-      <div className="row">
+    <Container>
+      <Box>
         {session && (
-          <div>
-            <h1>{session.name}</h1>
-            <p>
-              {session.difficulty} - {session.type}
-            </p>
-            <button className="btn btn-primary disabled">
+          <Box>
+            <Typography variant="h4">{session.name}</Typography>
+            {/* <button className="btn btn-primary disabled">
               Exportera till pdf
-            </button>
-
-            <hr />
-          </div>
+            </button> */}
+          </Box>
         )}
-      </div>
-      <div className="row">
+      </Box>
+      <Box>
         <div className="card">
-          <div className="card-header">Passets övningar</div>
-          <ul>
+          <Typography variant="h5">Passets övningar</Typography>
+          <List>
             {drills &&
               drills.map((drill) => (
-                <li key={drill.id}>
-                  <Link to={`/drill/${drill.id}`}>
-                    {drill.data().name} - {drill.data().difficulty}
-                  </Link>
-                </li>
+                <Link to={`/drill/${drill.id}`} key={drill.id}>
+                  <ListItemButton key={drill.id}>
+                    {drill.data().name}
+                  </ListItemButton>
+                </Link>
               ))}
-          </ul>
+          </List>
         </div>
         {session && <p>Antal övningar: {session.drills.length}</p>}
         <hr />
-      </div>
+      </Box>
       {drills &&
         drills.map((drill) => (
           <Suspense fallback={<Loading />}>
             <SessionDrill key={drill.id} drill={drill} session={session} />
+            <Divider />
           </Suspense>
         ))}
-    </div>
+    </Container>
   );
 }

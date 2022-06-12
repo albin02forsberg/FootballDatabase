@@ -1,9 +1,20 @@
+import { Masonry } from "@mui/lab";
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  ListItem,
+  Typography,
+} from "@mui/material";
+import { Box, Container } from "@mui/system";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
 import Loading from "../modules/Loading";
-import calculateTime from "../scripts/calculateTime";
+// import calculateTime from "../scripts/calculateTime";
 
 export default function Sessions() {
   const [sessions, setSessions] = React.useState(null);
@@ -24,48 +35,48 @@ export default function Sessions() {
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <h1>Träningspass</h1>
-
-        <Link to="/createSession" className="pageLink">
-          <button className="btn btn-primary">Skapa träningspass</button>
-        </Link>
-        <div className="grid">
-          {sessions && // If drills is not null
-            // Loop through drills and create a table row for each drill
-            sessions.map((session) => (
-              <Link to={`/session/${session.id}`} key={session.id}>
-                <div className="card mb">
-                  <div className="card-header"></div>
-                  <div className="card-body">
-                    <Link to={`/session/${session.id}`} className="card-text">
-                      {session.data().name}
+    <Container>
+      <Box mb={3}></Box>
+      <Box mb={3}>
+        <Typography variant="h4">Träningspass</Typography>
+      </Box>
+      <Box mb={3}>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/createsession"
+        >
+          Skapa träningspass
+        </Button>
+      </Box>
+      <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
+        {sessions.map((session) => {
+          return (
+            <ListItem key={session.id}>
+              <Link to={`/session/${session.id}`}>
+                <Card variant="outlined">
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography variant="h5">
+                        {session.data().name}
+                      </Typography>
+                      <Typography variant="body1">
+                        {session.data().desc}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Link to={`/session/${session.id}`}>
+                      <Typography variant="body1">Läs mer</Typography>
                     </Link>
-                    <p className="card-text">{session.data().desc}</p>
-                  </div>
-                  <hr />
-                  <div className="card-footer">
-                    <small className="card-text">
-                      Antal övningar: {session.data().drills.length}
-                    </small>
-                    <small className="card-text">{session.data().type}</small>
-                    <small className="card-text">
-                      Nivå: {session.data().difficulty}
-                    </small>
-                    <hr />
-                    <small className="card-text">
-                      {calculateTime(session.data().created.seconds)}
-                      <Link to={`/user/${session.data().uid}`}>
-                        {session.data().uname}
-                      </Link>
-                    </small>
-                  </div>
-                </div>
+                  </CardActions>
+                </Card>
               </Link>
-            ))}
-        </div>
-      </div>
-    </div>
+            </ListItem>
+          );
+        })}
+      </Masonry>
+    </Container>
   );
 }

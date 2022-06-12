@@ -1,3 +1,13 @@
+import {
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import { Box } from "@mui/system";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -44,53 +54,44 @@ export default function Users() {
   }, []);
 
   return (
-    <div className="container">
-      <h1>Användare</h1>
-      <div className="row">
-        <div className="table-responsive">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Namn</th>
-                <th>Email</th>
-                <th>Roll</th>
-                <th>Skapad</th>
-                <th>Senast inloggad</th>
-                <th>Bild</th>
-                <th>Redigera</th>
-              </tr>
-            </thead>
-            {users &&
-              users.map((user) => {
-                return (
-                  <tbody>
-                    <tr>
-                      <td>
-                        <Link to={"/user/" + user.id}>{user.data().name}</Link>
-                      </td>
-                      <td>{user.data().email}</td>
-                      <td>{user.data().role}</td>
-                      <td>{user.data().joined}</td>
-                      <td>{user.data().lastSignInTime}</td>
-                      <td>
-                        <img
-                          src={user.data().photo}
-                          alt={user.data().name}
-                          className="img-fluid"
-                        />
-                      </td>
-                      <td>
-                        <Link to={"/editUser/" + user.id}>
-                          <button className="btn btn-primary">Redigera</button>
-                        </Link>
-                      </td>
-                    </tr>
-                  </tbody>
-                );
-              })}
-          </table>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <Box mb={3}></Box>
+      <Typography variant="h4">Användare</Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Namn</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Roll</TableCell>
+            <TableCell>Gick med</TableCell>
+            <TableCell>Senast inloggad</TableCell>
+            <TableCell>Profilbild</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {users &&
+            users.map((user) => {
+              return (
+                <TableRow key={user.id}>
+                  <TableCell>
+                    <Link to={"/user/" + user.id}>{user.data().name}</Link>
+                  </TableCell>
+                  <TableCell>{user.data().email}</TableCell>
+                  <TableCell>{user.data().role}</TableCell>
+                  <TableCell>{user.data().joined}</TableCell>
+                  <TableCell>{user.data().lastSignInTime}</TableCell>
+                  <TableCell>
+                    <img
+                      src={user.data().photo}
+                      alt={user.data().name}
+                      width="50"
+                    />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+        </TableBody>
+      </Table>
+    </Container>
   );
 }

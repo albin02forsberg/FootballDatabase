@@ -1,3 +1,5 @@
+import { Button, FormControl, TextField, Typography } from "@mui/material";
+import { Box, Container } from "@mui/system";
 import { addDoc, collection } from "firebase/firestore";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,12 +9,15 @@ export default function AddPlayer() {
   const { id } = useParams();
   let navigate = useNavigate();
   const [name, setName] = React.useState("");
+  const [birth, setBirth] = React.useState("");
 
   const addPlayer = () => {
     const playersCollectionRef = collection(db, "players");
 
     addDoc(playersCollectionRef, {
       name,
+      birth,
+      addedById: auth.currentUser.uid,
     }).then((doc) => {
       const playerTeamCollectionRef = collection(db, "PlayerTeam");
       addDoc(playerTeamCollectionRef, {
@@ -33,30 +38,34 @@ export default function AddPlayer() {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <h1>Lägg till spelare</h1>
-        <div className="form">
-          <div className="form-group">
-            <label htmlFor="name">Namn</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              addPlayer();
-            }}
-          >
-            Lägg till
-          </button>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <Box mb={3}>
+        <Typography variant="h4">Lägg till spelare</Typography>
+      </Box>
+      <FormControl fullWidth margin="normal">
+        <TextField
+          label="Namn"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </FormControl>
+      <FormControl fullWidth margin="normal">
+        <TextField
+          type="date"
+          value={birth}
+          onChange={(e) => setBirth(e.target.value)}
+        />
+      </FormControl>
+      <Box mt={3}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={addPlayer}
+          disabled={name === ""}
+        >
+          Lägg till
+        </Button>
+      </Box>
+    </Container>
   );
 }

@@ -1,8 +1,21 @@
 import {
+  Box,
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import {
   collection,
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -28,7 +41,11 @@ export default function Team() {
       }
     );
     const gameCollectionRef = collection(db, "games");
-    const gameQ = query(gameCollectionRef, where("teamID", "==", id));
+    const gameQ = query(
+      gameCollectionRef,
+      where("teamID", "==", id),
+      orderBy("date", "asc")
+    );
     getDocs(gameQ).then((docs) => {
       setGames(docs.docs);
     });
@@ -45,102 +62,103 @@ export default function Team() {
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        {team && (
-          <h1>
-            {team.data().club} - {team.data().name}
-          </h1>
-        )}
-      </div>
-      <div className="row">
-        <table className="table table-responsive">
-          <h2>Matcher</h2>
-          <thead>
-            <tr>
-              <th>Hemmalag</th>
-              <th>Bortalag</th>
-              <th>Datum</th>
-              <th>Tid</th>
-              <th>Plats</th>
-              <th>Info</th>
-            </tr>
-          </thead>
-          <tbody>
-            {games && games.length > 0 && (
-              <>
-                {games.map((game) => (
-                  <tr key={game.id}>
-                    <td>{game.data().homeTeam}</td>
-                    <td>{game.data().awayTeam}</td>
-                    <td>{game.data().date}</td>
-                    <td>{game.data().time}</td>
-                    <td>{game.data().location}</td>
-                    <td>
-                      <Link to={`/game/${game.id}`}>Info</Link>
-                    </td>
-                  </tr>
-                ))}
-              </>
-            )}
-          </tbody>
-
-          <tfoot>
-            <tr>
-              <td>
-                <Link to={"/addgame/" + team.id}>
-                  <button className="btn">Lägg till match</button>
-                </Link>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-        <>
-          <h2>Träningar</h2>
-        </>
-      </div>
-      <div className="row">
-        <h2>Spelare</h2>
-        <table className="table table-responsive">
-          <thead>
-            <tr>
-              <th>Namn</th>
-              <th>Träningar</th>
-              <th>Matcher</th>
-              <th>Gula kort</th>
-              <th>Röda kort</th>
-              <th>Mål</th>
-              <th>Assist</th>
-            </tr>
-          </thead>
-          <tbody>
-            {players && players.length > 0 && (
-              <>
-                {players.map((player) => (
-                  <tr key={player.id}>
-                    <td>{player.data().name}</td>
-                    <td>{player.data().sessions.length}</td>
-                    <td>{player.data().games.length}</td>
-                    <td>{player.data().yellowCards}</td>
-                    <td>{player.data().redCards}</td>
-                    <td>{player.data().goals}</td>
-                    <td>{player.data().assists}</td>
-                  </tr>
-                ))}
-              </>
-            )}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td>
-                <Link to={"/addplayer/" + team.id}>
-                  <button className="btn">Lägg till spelare</button>
-                </Link>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
+    <Container>
+      <Box mb={3}>
+        <Typography variant="h4">
+          {team.data().club} {team.data().name}
+        </Typography>
+      </Box>
+      <Box mb={3}>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableCell>Hemmalag</TableCell>
+              <TableCell>Bortalag</TableCell>
+              <TableCell>Datum</TableCell>
+              <TableCell>Tid</TableCell>
+              <TableCell>Resultat</TableCell>
+              <TableCell>Info</TableCell>
+            </TableHead>
+            <TableBody>
+              {games.map((game) => {
+                return (
+                  <TableRow key={game.id}>
+                    <TableCell>{game.data().homeTeam}</TableCell>
+                    <TableCell>{game.data().awayTeam}</TableCell>
+                    <TableCell>{game.data().date}</TableCell>
+                    <TableCell>{game.data().time}</TableCell>
+                    <TableCell>
+                      {game.data().played && (
+                        <>
+                          {game.data().scoreHome} - {game.data().scoreAway}
+                        </>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Link to={"game/" + game.id}>Info</Link>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <Link to={`/addgame/${id}`}>Lägg till</Link>
+                </TableCell>
+                <TableCell colSpan={2}>Antal matcher: {games.length}</TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      </Box>
+      <Box mb={3}>
+        <Typography variant="h4">Spelare</Typography>
+      </Box>
+      <Box mb={3}>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableCell>Namn</TableCell>
+              <TableCell>Träningar</TableCell>
+              <TableCell>Matcher</TableCell>
+              <TableCell>Mål</TableCell>
+              <TableCell>Assister</TableCell>
+              <TableCell>Gula kort</TableCell>
+              <TableCell>Röda kort</TableCell>
+              <TableCell>Info</TableCell>
+            </TableHead>
+            <TableBody>
+              {players.map((player) => {
+                return (
+                  <TableRow key={player.id}>
+                    <TableCell>{player.data().name}</TableCell>
+                    <TableCell>{player.data().sessions.length}</TableCell>
+                    <TableCell>{player.data().games.length}</TableCell>
+                    <TableCell>{player.data().goals}</TableCell>
+                    <TableCell>{player.data().assists}</TableCell>
+                    <TableCell>{player.data().yellowCards}</TableCell>
+                    <TableCell>{player.data().redCards}</TableCell>
+                    <TableCell>
+                      <Link to={`/player/${player.id}`}>Info</Link>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={7}>
+                  <Link to={`/addplayer/${id}`}>Lägg till</Link>
+                </TableCell>
+                <TableCell colSpan={2}>
+                  Antal spelare: {players.length}
+                </TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      </Box>
+    </Container>
   );
 }

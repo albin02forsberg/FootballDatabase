@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import Loading from "../modules/Loading";
+import { Box, Container } from "@mui/system";
+import { Divider, Grid, Typography } from "@mui/material";
 
 export default function Drill() {
   const { id } = useParams();
@@ -38,38 +40,42 @@ export default function Drill() {
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="grid-2">
-          {drill && (
-            <div>
-              <h1>{drill.data().name}</h1>
-              <hr></hr>
-              <h2>Vad?</h2>
-              <p>
-                {drill.data().type} - {drill.data().what}
-              </p>
-              <h2>Varför?</h2>
-              <p>{drill.data().why}</p>
-              <h2>Hur?</h2>
-              <p>{drill.data().how}</p>
-              <h2>Organisation</h2>
-              <p>{drill.data().org}</p>
-              <h2>Anvisningar</h2>
-              <p>{drill.data().desc}</p>
-            </div>
-          )}
-          {drill && (
-            <div className="col-md-6">
+    <Container>
+      <Box>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={6}>
+            {drill && (
+              <div>
+                <Typography variant="h4">{drill.data().name}</Typography>
+                <Divider />
+                <Typography variant="h4">Vad?</Typography>
+                <Typography variant="body1">
+                  {drill.data().type} - {drill.data().what}{" "}
+                </Typography>
+                <Typography variant="h4">Varför?</Typography>
+                <Typography variant="body1">{drill.data().why}</Typography>
+                <Typography variant="h4">Hur?</Typography>
+                <Typography variant="body1">{drill.data().how}</Typography>
+                <Typography variant="h4">Organisation</Typography>
+                <Typography variant="body1">{drill.data().org}</Typography>
+                <Typography variant="h4">Anvisningar</Typography>
+                <Typography variant="body1">{drill.data().desc}</Typography>
+              </div>
+            )}
+          </Grid>
+          <Grid item xs={12} md={6}>
+            {drill && (
               <img
                 className="img img-thumbnail"
                 src={drill.data().imgLink}
                 alt={drill.id}
+                width={"100%"}
+                height={"100%"}
               />
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+            )}
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
   );
 }

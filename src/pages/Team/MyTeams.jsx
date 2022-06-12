@@ -1,3 +1,5 @@
+import { Card, CardActionArea, Typography } from "@mui/material";
+import { Box, Container } from "@mui/system";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -23,25 +25,27 @@ export default function MyTeams() {
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <h1>Mina lag (Beta)</h1>
-        <div className="grid">
-          {(teams &&
-            teams.map((team) => {
-              return (
-                <div className="card">
-                  <Link to={`/team/${team.data().teamId}`}>
-                    <h2>
-                      {team.data().club} - {team.data().name}
-                    </h2>
-                  </Link>
-                </div>
-              );
-            })) || <p>Du är inte kopplad till något lag...</p>}
-        </div>
-        {/* <div>{teams2.length === 0 && <h2>Du har inga lag</h2>}</div> */}
-      </div>
-    </div>
+    <Container>
+      <Box mb={3}>
+        <Typography variant="h4">Mina lag</Typography>
+      </Box>
+      <Box mb={3}>
+        {teams &&
+          teams.map((team) => {
+            return (
+              <Card key={team.id}>
+                <CardActionArea
+                  component={Link}
+                  to={`/team/${team.data().teamId}`}
+                >
+                  <Typography variant="h5">
+                    {team.data().club} - {team.data().name}
+                  </Typography>
+                </CardActionArea>
+              </Card>
+            );
+          })}
+      </Box>
+    </Container>
   );
 }

@@ -1,12 +1,15 @@
+import { AppBar } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <div className="header">
-      <Link to="/">
-        <img src="./logo-trans.png" alt="Fotbollsträning.se" />
+    <AppBar position="static">
+      <Link to="/" style={{ display: "flex", justifyContent: "center" }}>
+        <h1>
+          <img src="/logo-black.png" alt="logo" style={{ height: "100px" }} />
+        </h1>
       </Link>
-    </div>
+    </AppBar>
   );
 }
