@@ -1,5 +1,6 @@
 import { Masonry } from "@mui/lab";
 import {
+  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -38,6 +39,16 @@ export default function Sessions() {
       <Box mb={3}></Box>
       <Box mb={3}>
         <Typography variant="h4">Träningspass</Typography>
+      </Box>
+      <Box mb={3}>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/createsession"
+        >
+          Skapa träningspass
+        </Button>
       </Box>
       <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
         {sessions.map((session) => {

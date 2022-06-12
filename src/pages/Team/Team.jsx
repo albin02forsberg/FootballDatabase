@@ -87,7 +87,13 @@ export default function Team() {
                     <TableCell>{game.data().awayTeam}</TableCell>
                     <TableCell>{game.data().date}</TableCell>
                     <TableCell>{game.data().time}</TableCell>
-                    <TableCell>{game.data().result}</TableCell>
+                    <TableCell>
+                      {game.data().played && (
+                        <>
+                          {game.data().scoreHome} - {game.data().scoreAway}
+                        </>
+                      )}
+                    </TableCell>
                     <TableCell>
                       <Link to={"game/" + game.id}>Info</Link>
                     </TableCell>

@@ -32,7 +32,7 @@ export default function AddGame() {
 
     addDoc(gameCollectionRef, game).then((doc) => {
       console.log("Added game");
-      navigate("/game/" + doc.id);
+      navigate("/team/" + id + "/game/" + doc.id);
     });
 
     console.log(game);
