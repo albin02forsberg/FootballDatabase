@@ -3,5 +3,5 @@ import React from "react";
 
 export default function Loading() {
   // Return loading screen
-  return <Skeleton />;
+  return <Skeleton variant="rectangular" />;
 }

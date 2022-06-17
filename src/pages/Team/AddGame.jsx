@@ -25,7 +25,7 @@ export default function AddGame() {
       scoreHome: 0,
       scoreAway: 0,
       played: false,
-      players: [],
+      // players: [],
     };
 
     const gameCollectionRef = collection(db, "games");

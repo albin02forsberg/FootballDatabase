@@ -1,3 +1,4 @@
+import { Masonry } from "@mui/lab";
 import { Card, CardActionArea, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -27,24 +28,27 @@ export default function MyTeams() {
   return (
     <Container>
       <Box mb={3}>
-        <Typography variant="h4">Mina lag</Typography>
+        <Typography variant="h4">Mina lag (Beta)</Typography>
       </Box>
       <Box mb={3}>
-        {teams &&
-          teams.map((team) => {
-            return (
-              <Card key={team.id}>
-                <CardActionArea
-                  component={Link}
-                  to={`/team/${team.data().teamId}`}
-                >
-                  <Typography variant="h5">
-                    {team.data().club} - {team.data().name}
-                  </Typography>
-                </CardActionArea>
-              </Card>
-            );
-          })}
+        <Masonry columns={"auto"}>
+          {teams &&
+            teams.map((team) => {
+              return (
+                <Card key={team.id}>
+                  <CardActionArea
+                    component={Link}
+                    to={`/team/${team.data().teamId}`}
+                  >
+                    <Typography variant="h5">
+                      {team.data().club} - {team.data().name}
+                    </Typography>
+                  </CardActionArea>
+                </Card>
+              );
+            })}
+        </Masonry>
+        {!teams && <Typography variant="h5">Inga lag</Typography>}
       </Box>
     </Container>
   );

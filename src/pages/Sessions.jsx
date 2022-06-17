@@ -3,9 +3,7 @@ import {
   Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
-  ListItem,
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
@@ -53,27 +51,21 @@ export default function Sessions() {
       <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
         {sessions.map((session) => {
           return (
-            <ListItem key={session.id}>
+            <Card>
               <Link to={`/session/${session.id}`}>
-                <Card variant="outlined">
-                  <CardActionArea>
-                    <CardContent>
-                      <Typography variant="h5">
-                        {session.data().name}
-                      </Typography>
-                      <Typography variant="body1">
-                        {session.data().desc}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Link to={`/session/${session.id}`}>
-                      <Typography variant="body1">Läs mer</Typography>
-                    </Link>
-                  </CardActions>
-                </Card>
+                <CardActionArea>
+                  <CardContent>
+                    <Typography variant="h5">{session.data().name}</Typography>
+                    <Typography variant="body1">
+                      {session.data().desc}
+                    </Typography>
+                    <Typography variant="body1">
+                      Antal övningar {session.data().drills.length}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
               </Link>
-            </ListItem>
+            </Card>
           );
         })}
       </Masonry>

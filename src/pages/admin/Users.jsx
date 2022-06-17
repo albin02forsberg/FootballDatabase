@@ -1,16 +1,9 @@
-import {
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { DataGrid } from "@mui/x-data-grid";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { db, auth } from "../../firebase-config";
 import Loading from "../../modules/Loading";
 
@@ -49,15 +42,59 @@ export default function Users() {
     // Get all users
     const userCollectionRef = collection(db, "users");
     getDocs(userCollectionRef).then((docs) => {
-      setUsers(docs.docs);
+      const u = docs.docs.map((doc) => doc.data());
+      setUsers(u);
     });
   }, []);
 
   return (
     <Container>
-      <Box mb={3}></Box>
-      <Typography variant="h4">Användare</Typography>
-      <Table>
+      <Box mb={3} style={{ width: "auto", height: "500px" }}>
+        <Typography variant="h4">Användare</Typography>
+        {users && (
+          <DataGrid
+            columns={[
+              {
+                name: "name",
+                field: "name",
+                label: "Namn",
+                flex: 1,
+              },
+              {
+                name: "email",
+                field: "email",
+                label: "E-post",
+                flex: 1,
+              },
+              {
+                name: "Roll",
+                field: "role",
+                label: "Roll",
+                flex: 1,
+              },
+              {
+                name: "Gick med",
+                field: "joined",
+                label: "Gick med",
+                flex: 1,
+              },
+            ]}
+            rows={
+              users &&
+              users.map((user) => {
+                return {
+                  id: user.uid,
+                  name: user.name,
+                  email: user.email,
+                  role: user.role,
+                  joined: user.joined,
+                };
+              })
+            }
+          />
+        )}
+      </Box>
+      {/* <Table>
         <TableHead>
           <TableRow>
             <TableCell>Namn</TableCell>
@@ -91,7 +128,7 @@ export default function Users() {
               );
             })}
         </TableBody>
-      </Table>
+      </Table> */}
     </Container>
   );
 }

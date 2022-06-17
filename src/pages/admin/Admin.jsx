@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase-config";
 import { Link } from "react-router-dom";
 import Loading from "../../modules/Loading";
+import { Container } from "@mui/system";
 
 export default function Admin() {
   let navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function Admin() {
   }, [navigate]);
 
   return (
-    <div className="container">
+    <Container>
       <div className="row">
         <h1>Adminpanelen</h1>
         <div className="grid">
@@ -75,6 +76,6 @@ export default function Admin() {
           </Link>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

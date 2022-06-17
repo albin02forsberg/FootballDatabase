@@ -4,6 +4,7 @@ import {
   FormControl,
   Switch,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
   TableHead,
@@ -18,9 +19,11 @@ import {
   doc,
   getDoc,
   getDocs,
+  deleteDoc,
   query,
   updateDoc,
   where,
+  orderBy,
 } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -31,6 +34,7 @@ export default function Game() {
   const [game, setGame] = React.useState(null);
   const [players, setPlayers] = React.useState([]);
   const [checkedPlayers, setCheckedPlayers] = React.useState([]);
+  const [playerStats, setPlayerStats] = React.useState([]);
   const [homeScore, setHomeScore] = React.useState();
   const [awayScore, setAwayScore] = React.useState();
   const [played, setPlayed] = React.useState(false);
@@ -47,16 +51,15 @@ export default function Game() {
       console.log(game.data());
 
       // For every player in gp, get the player name and id  add it to the checkedPlayers array
-      const playerCollectionRef = collection(db, "PlayerTeam");
-      for (let i = 0; i < game.data().players.length; i++) {
-        const playerRef = doc(playerCollectionRef, game.data().players[i]);
-        getDoc(playerRef).then((player) => {
-          checkedPlayers.push({
-            id: player.id,
-            name: player.data().name,
-          });
-        });
-      }
+      // for (let i = 0; i < game.data().players.length; i++) {
+      //   const playerRef = doc(playerCollectionRef, game.data().players[i]);
+      //   getDoc(playerRef).then((player) => {
+      //     checkedPlayers.push({
+      //       id: player.id,
+      //       name: player.data().name,
+      //     });
+      //   });
+      // }
     });
 
     const playerCollectionRef = collection(db, "PlayerTeam");
@@ -72,27 +75,20 @@ export default function Game() {
       const playerGameCollectionRef = collection(db, "PlayerGame");
       const playerGameQ = query(
         playerGameCollectionRef,
-        where("gameId", "==", gameId)
+        where("gameId", "==", gameId),
+        orderBy("goals", "desc"),
+        orderBy("assists", "desc"),
+        orderBy("yellowCards", "desc"),
+        orderBy("redCards", "desc")
       );
+
       getDocs(playerGameQ).then((playerGameDocs) => {
-        // For every player in gp, get the player name and id  add it to the checkedPlayers array
-        for (let i = 0; i < playerGameDocs.docs.length; i++) {
-          const playerRef = doc(
-            playerCollectionRef,
-            playerGameDocs.docs[i].data().playerId
-          );
-          getDoc(playerRef).then((player) => {
-            checkedPlayers.push({
-              id: player.id,
-              name: player.data().name,
-            });
-          });
-        }
+        setPlayerStats(playerGameDocs.docs);
       });
     });
   }, [gameId, id, checkedPlayers]);
 
-  if (!game) {
+  if (!game || !players) {
     <Loading />;
   }
 
@@ -183,7 +179,6 @@ export default function Game() {
                 const gameCollectionRef = collection(db, "games");
                 const gameRef = doc(gameCollectionRef, gameId);
                 updateDoc(gameRef, {
-                  players: checkedPlayers.map((player) => player.id),
                   scoreHome: homeScore,
                   scoreAway: awayScore,
                   played: played,
@@ -195,24 +190,27 @@ export default function Game() {
                     console.log(error);
                   });
 
-                // for every player in selected, add doc in PlayerGame with the gameId,
-                // if not already in there
-
+                // Add all entries in checkedPlayers to the PlayerGame collection if they are not already in there
                 for (let i = 0; i < checkedPlayers.length; i++) {
-                  const playerGameCollectionRef = collection(
-                    db,
-                    "PlayerGame/" + gameId + "/" + checkedPlayers[i].id
-                  );
+                  const playerGameCollectionRef = collection(db, "PlayerGame");
+
                   addDoc(playerGameCollectionRef, {
                     playerId: checkedPlayers[i].id,
                     gameId: gameId,
+                    name: checkedPlayers[i].name,
+                    teamId: id,
                     goals: 0,
                     assists: 0,
                     yellowCards: 0,
                     redCards: 0,
+                    games: 1,
                   });
-                  console.log("added new doc");
+                  // wait for the doc to be added
                 }
+                setTimeout(() => {
+                  console.log("added");
+                  window.location.reload();
+                }, 2500);
               }}
             >
               Spara
@@ -230,9 +228,134 @@ export default function Game() {
               <TableCell>Assister</TableCell>
               <TableCell>Gula kort</TableCell>
               <TableCell>Röda kort</TableCell>
-              <TableCell>Spara</TableCell>
+              <TableCell>Ta bort</TableCell>
             </TableRow>
           </TableHead>
+          <TableBody>
+            {playerStats.map((playerStat) => (
+              <TableRow key={playerStat.id}>
+                <TableCell>{playerStat.data().name}</TableCell>
+                <TableCell>
+                  <TextField
+                    id="outlined-basic"
+                    label="Mål"
+                    type="number"
+                    variant="outlined"
+                    defaultValue={playerStat.data().goals}
+                    onChange={(e) => {
+                      const playerGameCollectionRef = collection(
+                        db,
+                        "PlayerGame"
+                      );
+                      const playerGameRef = doc(
+                        playerGameCollectionRef,
+                        playerStat.id
+                      );
+                      updateDoc(playerGameRef, {
+                        goals: parseInt(e.target.value),
+                      });
+                    }}
+                  />
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    id="outlined-basic"
+                    label="Assister"
+                    type="number"
+                    variant="outlined"
+                    defaultValue={playerStat.data().assists}
+                    onChange={(e) => {
+                      const playerGameCollectionRef = collection(
+                        db,
+                        "PlayerGame"
+                      );
+                      const playerGameRef = doc(
+                        playerGameCollectionRef,
+                        playerStat.id
+                      );
+                      updateDoc(playerGameRef, {
+                        assists: parseInt(e.target.value),
+                      });
+                    }}
+                  />
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    id="outlined-basic"
+                    label="Gula kort"
+                    type="number"
+                    variant="outlined"
+                    defaultValue={playerStat.data().yellowCards}
+                    onChange={(e) => {
+                      const playerGameCollectionRef = collection(
+                        db,
+                        "PlayerGame"
+                      );
+                      const playerGameRef = doc(
+                        playerGameCollectionRef,
+                        playerStat.id
+                      );
+                      updateDoc(playerGameRef, {
+                        yellowCards: parseInt(e.target.value),
+                      });
+                    }}
+                  />
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    id="outlined-basic"
+                    label="Röda kort"
+                    type="number"
+                    variant="outlined"
+                    defaultValue={playerStat.data().redCards}
+                    onChange={(e) => {
+                      const playerGameCollectionRef = collection(
+                        db,
+                        "PlayerGame"
+                      );
+                      const playerGameRef = doc(
+                        playerGameCollectionRef,
+                        playerStat.id
+                      );
+                      updateDoc(playerGameRef, {
+                        redCards: parseInt(e.target.value),
+                      });
+                    }}
+                  />
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => {
+                      const playerGameCollectionRef = collection(
+                        db,
+                        "PlayerGame"
+                      );
+                      const playerGameRef = doc(
+                        playerGameCollectionRef,
+                        playerStat.id
+                      );
+                      deleteDoc(playerGameRef)
+                        .then(() => {
+                          console.log("deleted");
+                          setPlayerStats(
+                            playerStats.filter((p) => {
+                              return p.id !== playerStat.id;
+                            })
+                          );
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                    }}
+                  >
+                    Radera
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
 

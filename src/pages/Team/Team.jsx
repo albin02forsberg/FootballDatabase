@@ -1,15 +1,5 @@
-import {
-  Box,
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableFooter,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import {
   collection,
   doc,
@@ -20,7 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../firebase-config";
 import Loading from "../../modules/Loading";
 
@@ -28,6 +18,8 @@ export default function Team() {
   const [team, setTeam] = React.useState();
   const [games, setGames] = React.useState([]);
   const [players, setPlayers] = React.useState([]);
+  const [columns, setColumns] = React.useState([]);
+  let navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     const teamCollectionRef = collection(db, "teams");
@@ -50,11 +42,59 @@ export default function Team() {
       setGames(docs.docs);
     });
 
-    const playerCollectionRef = collection(db, "PlayerTeam");
+    const playerCollectionRef = collection(db, "PlayerGame");
     const playerQ = query(playerCollectionRef, where("teamId", "==", id));
-    getDocs(playerQ).then((docs) => {
-      setPlayers(docs.docs);
-    });
+
+    // if two or more playerId are the same, add the players values together
+    getDocs(playerQ).then(
+      (docs) => {
+        const players = docs.docs.reduce((acc, doc) => {
+          const player = doc.data();
+          const playerId = player.playerId;
+          if (acc[playerId]) {
+            acc[playerId].goals += player.goals;
+            acc[playerId].assists += player.assists;
+            acc[playerId].points += player.points;
+            acc[playerId].games += player.games;
+          } else {
+            acc[playerId] = player;
+          }
+          return acc;
+        }, {});
+        setPlayers(players);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    setColumns([
+      {
+        name: "name",
+        label: "Namn",
+        headerName: "Namn",
+      },
+      {
+        name: "goals",
+        label: "Mål",
+        headerName: "Mål",
+      },
+      {
+        name: "assists",
+        label: "Assister",
+        headerName: "Assister",
+      },
+      {
+        name: "yellowCards",
+        label: "Gula kort",
+        headerName: "Gula kort",
+      },
+      {
+        name: "redCards",
+        label: "Röda kort",
+        headerName: "Röda kort",
+      },
+    ]);
   }, [id]);
 
   if (!team) {
@@ -64,12 +104,78 @@ export default function Team() {
   return (
     <Container>
       <Box mb={3}>
-        <Typography variant="h4">
-          {team.data().club} {team.data().name}
-        </Typography>
+        {team && (
+          <Typography variant="h4">
+            {team.data().club} {team.data().name}
+          </Typography>
+        )}
       </Box>
-      <Box mb={3}>
-        <TableContainer>
+      <Box mb={6} style={{ height: "600px", width: "auto" }}>
+        <Typography variant="h6">Spelschema</Typography>
+        <DataGrid
+          columns={[
+            {
+              name: "date",
+              headerName: "Datum",
+              field: "date",
+              label: "Datum",
+              flex: 1,
+            },
+            {
+              name: "homeTeam",
+              headerName: "Hemmalag",
+              field: "homeTeam",
+              label: "Hemma",
+              flex: 1,
+            },
+            {
+              name: "awayTeam",
+              headerName: "Bortalag",
+              field: "awayTeam",
+              label: "Borta",
+              flex: 1,
+            },
+            {
+              name: "result",
+              headerName: "Resultat",
+              field: "result",
+              label: "Resultat",
+              flex: 1,
+            },
+            {
+              name: "location",
+              headerName: "Plats",
+              field: "location",
+              label: "Plats",
+              flex: 1,
+            },
+            {
+              name: "Spelad",
+              headerName: "Spelad",
+              field: "Spelad",
+              label: "Spelad",
+              flex: 1,
+            },
+          ]}
+          rows={
+            games &&
+            games.map((game) => {
+              return {
+                id: game.id,
+                date: game.data().date,
+                homeTeam: game.data().homeTeam,
+                awayTeam: game.data().awayTeam,
+                result: game.data().scoreHome + " - " + game.data().scoreAway,
+                location: game.data().location,
+                Spelad: game.data().played,
+              };
+            })
+          }
+          onRowDoubleClick={(row) => {
+            navigate(`/team/${id}/game/${row.id}`);
+          }}
+        />
+        {/* <TableContainer>
           <Table>
             <TableHead>
               <TableCell>Hemmalag</TableCell>
@@ -110,17 +216,16 @@ export default function Team() {
               </TableRow>
             </TableFooter>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
       </Box>
       <Box mb={3}>
         <Typography variant="h4">Spelare</Typography>
       </Box>
-      <Box mb={3}>
-        <TableContainer>
+      <Box mb={3} height="auto">
+        {/* <TableContainer>
           <Table>
             <TableHead>
               <TableCell>Namn</TableCell>
-              <TableCell>Träningar</TableCell>
               <TableCell>Matcher</TableCell>
               <TableCell>Mål</TableCell>
               <TableCell>Assister</TableCell>
@@ -129,18 +234,18 @@ export default function Team() {
               <TableCell>Info</TableCell>
             </TableHead>
             <TableBody>
-              {players.map((player) => {
+              {Object.keys(players).map((playerId) => {
+                const player = players[playerId];
                 return (
-                  <TableRow key={player.id}>
-                    <TableCell>{player.data().name}</TableCell>
-                    <TableCell>{player.data().sessions.length}</TableCell>
-                    <TableCell>{player.data().games.length}</TableCell>
-                    <TableCell>{player.data().goals}</TableCell>
-                    <TableCell>{player.data().assists}</TableCell>
-                    <TableCell>{player.data().yellowCards}</TableCell>
-                    <TableCell>{player.data().redCards}</TableCell>
+                  <TableRow key={playerId}>
+                    <TableCell>{player.name}</TableCell>
+                    <TableCell>{player.games}</TableCell>
+                    <TableCell>{player.goals}</TableCell>
+                    <TableCell>{player.assists}</TableCell>
+                    <TableCell>{player.yellowCards}</TableCell>
+                    <TableCell>{player.redCards}</TableCell>
                     <TableCell>
-                      <Link to={`/player/${player.id}`}>Info</Link>
+                      <Link to={`/player/${playerId}`}>Info</Link>
                     </TableCell>
                   </TableRow>
                 );
@@ -148,16 +253,76 @@ export default function Team() {
             </TableBody>
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={7}>
+                <TableCell colSpan={6}>
                   <Link to={`/addplayer/${id}`}>Lägg till</Link>
                 </TableCell>
                 <TableCell colSpan={2}>
-                  Antal spelare: {players.length}
+                  Antal spelare: {Object.keys(players).length}
                 </TableCell>
               </TableRow>
             </TableFooter>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
+        <Box style={{ height: "600px", width: "auto", flexGrow: 1 }}>
+          {players && (
+            <DataGrid
+              columns={[
+                {
+                  name: "name",
+                  field: "name",
+                  headerName: "Namn",
+                  flex: 1,
+                },
+                {
+                  name: "games",
+                  field: "games",
+                  label: "Matcher",
+                  headerName: "Matcher",
+                  flex: 1,
+                },
+                {
+                  name: "goals",
+                  field: "goals",
+                  label: "Mål",
+                  headerName: "Mål",
+                  flex: 1,
+                },
+                {
+                  name: "assists",
+                  field: "assists",
+                  label: "Assister",
+                  headerName: "Assister",
+                  flex: 1,
+                },
+                {
+                  name: "yellowCards",
+                  field: "yellowCards",
+                  label: "Gula kort",
+                  headerName: "Gula kort",
+                  flex: 1,
+                },
+                {
+                  name: "redCards",
+                  field: "redCards",
+                  label: "Röda kort",
+                  headerName: "Röda kort",
+                  flex: 1,
+                },
+              ]}
+              rows={Object.values(players)}
+              colunmDefs={columns}
+              getRowId={(row) => row.playerId}
+              pageSize={10}
+              rowHeight={50}
+              onRowClick={(event, rowData) => {
+                navigate(`/player/${event.id}`);
+              }}
+            />
+          )}
+        </Box>
+        <Button onClick={() => navigate(`/addplayer/${id}`)}>
+          Lägg till spelare
+        </Button>
       </Box>
     </Container>
   );
