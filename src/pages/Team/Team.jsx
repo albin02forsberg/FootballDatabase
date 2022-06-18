@@ -110,71 +110,73 @@ export default function Team() {
           </Typography>
         )}
       </Box>
-      <Box mb={6} style={{ height: "600px", width: "auto" }}>
-        <Typography variant="h6">Spelschema</Typography>
-        <DataGrid
-          columns={[
-            {
-              name: "date",
-              headerName: "Datum",
-              field: "date",
-              label: "Datum",
-              flex: 1,
-            },
-            {
-              name: "homeTeam",
-              headerName: "Hemmalag",
-              field: "homeTeam",
-              label: "Hemma",
-              flex: 1,
-            },
-            {
-              name: "awayTeam",
-              headerName: "Bortalag",
-              field: "awayTeam",
-              label: "Borta",
-              flex: 1,
-            },
-            {
-              name: "result",
-              headerName: "Resultat",
-              field: "result",
-              label: "Resultat",
-              flex: 1,
-            },
-            {
-              name: "location",
-              headerName: "Plats",
-              field: "location",
-              label: "Plats",
-              flex: 1,
-            },
-            {
-              name: "Spelad",
-              headerName: "Spelad",
-              field: "Spelad",
-              label: "Spelad",
-              flex: 1,
-            },
-          ]}
-          rows={
-            games &&
-            games.map((game) => {
-              return {
-                id: game.id,
-                date: game.data().date,
-                homeTeam: game.data().homeTeam,
-                awayTeam: game.data().awayTeam,
-                result: game.data().scoreHome + " - " + game.data().scoreAway,
-                location: game.data().location,
-                Spelad: game.data().played,
-              };
-            })
-          }
-          onRowDoubleClick={(row) => {
-            navigate(`/team/${id}/game/${row.id}`);
-          }}
-        />
+      <Box mb={6} style={{ height: "600px", width: "auto", display: "flex" }}>
+        <Box style={{ flexGrow: 1 }}>
+          <Typography variant="h6">Spelschema</Typography>
+          <DataGrid
+            columns={[
+              {
+                name: "date",
+                headerName: "Datum",
+                field: "date",
+                label: "Datum",
+                width: 100,
+              },
+              {
+                name: "homeTeam",
+                headerName: "Hemmalag",
+                field: "homeTeam",
+                label: "Hemma",
+                width: 100,
+              },
+              {
+                name: "awayTeam",
+                headerName: "Bortalag",
+                field: "awayTeam",
+                label: "Borta",
+                width: 100,
+              },
+              {
+                name: "result",
+                headerName: "Resultat",
+                field: "result",
+                label: "Resultat",
+                width: 100,
+              },
+              {
+                name: "location",
+                headerName: "Plats",
+                field: "location",
+                label: "Plats",
+                width: 100,
+              },
+              {
+                name: "Spelad",
+                headerName: "Spelad",
+                field: "Spelad",
+                label: "Spelad",
+                flex: 1,
+              },
+            ]}
+            rows={
+              games &&
+              games.map((game) => {
+                return {
+                  id: game.id,
+                  date: game.data().date,
+                  homeTeam: game.data().homeTeam,
+                  awayTeam: game.data().awayTeam,
+                  result: game.data().scoreHome + " - " + game.data().scoreAway,
+                  location: game.data().location,
+                  Spelad: game.data().played,
+                };
+              })
+            }
+            onRowDoubleClick={(row) => {
+              navigate(`/team/${id}/game/${row.id}`);
+            }}
+          />
+        </Box>
         {/* <TableContainer>
           <Table>
             <TableHead>
@@ -271,41 +273,41 @@ export default function Team() {
                   name: "name",
                   field: "name",
                   headerName: "Namn",
-                  flex: 1,
+                  width: 200,
                 },
                 {
                   name: "games",
                   field: "games",
                   label: "Matcher",
-                  headerName: "Matcher",
+                  headerName: "G",
                   flex: 1,
                 },
                 {
                   name: "goals",
                   field: "goals",
                   label: "Mål",
-                  headerName: "Mål",
+                  headerName: "GM",
                   flex: 1,
                 },
                 {
                   name: "assists",
                   field: "assists",
                   label: "Assister",
-                  headerName: "Assister",
+                  headerName: "A",
                   flex: 1,
                 },
                 {
                   name: "yellowCards",
                   field: "yellowCards",
                   label: "Gula kort",
-                  headerName: "Gula kort",
+                  headerName: "GK",
                   flex: 1,
                 },
                 {
                   name: "redCards",
                   field: "redCards",
                   label: "Röda kort",
-                  headerName: "Röda kort",
+                  headerName: "RK",
                   flex: 1,
                 },
               ]}
@@ -314,9 +316,10 @@ export default function Team() {
               getRowId={(row) => row.playerId}
               pageSize={10}
               rowHeight={50}
-              onRowClick={(event, rowData) => {
+              onRowDoubleClick={(event, rowData) => {
                 navigate(`/player/${event.id}`);
               }}
+              experimentalFeatures={{ newEditingApi: true }}
             />
           )}
         </Box>

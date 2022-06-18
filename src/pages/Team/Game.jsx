@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
+import { DataGrid } from "@mui/x-data-grid";
 import {
   addDoc,
   collection,
@@ -218,8 +219,75 @@ export default function Game() {
           </Box>
         </>
       )}
+      <Box style={{ width: "100%", height: "600px" }}>
+        <DataGrid
+          columns={[
+            {
+              name: "name",
+              field: "name",
+              headerName: "Namn",
+              width: 200,
+            },
+            {
+              name: "goals",
+              field: "goals",
+              label: "Mål",
+              headerName: "GM",
+              flex: 1,
+              editable: true,
+            },
+            {
+              name: "assists",
+              field: "assists",
+              label: "Assister",
+              headerName: "A",
+              flex: 1,
+              editable: true,
+            },
+            {
+              name: "yellowCards",
+              field: "yellowCards",
+              label: "Gula kort",
+              headerName: "GK",
+              flex: 1,
+              editable: true,
+            },
+            {
+              name: "redCards",
+              field: "redCards",
+              label: "Röda kort",
+              headerName: "RK",
+              flex: 1,
+              editable: true,
+            },
+          ]}
+          rows={
+            playerStats &&
+            playerStats.map((player) => ({
+              id: player.id,
+              name: player.data().name,
+              goals: player.data().goals,
+              assists: player.data().assists,
+              yellowCards: player.data().yellowCards,
+              redCards: player.data().redCards,
+            }))
+          }
+          onCellEditStart={(event) => {
+            console.log(event);
+          }}
+          onCellEditStop={(event) => {
+            console.log(event);
+            const playerGameCollectionRef = collection(db, "PlayerGame");
+            const playerGameRef = doc(playerGameCollectionRef, event.id);
+            updateDoc(playerGameRef, {
+              [event.field]: event.row[event.field],
+            });
+          }}
+          experimentalFeatures={{ newEditingApi: true }}
+        />
+      </Box>
 
-      <TableContainer>
+      {/* <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
@@ -357,7 +425,7 @@ export default function Game() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
 
       {!game && <Loading />}
     </Container>
