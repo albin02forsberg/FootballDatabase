@@ -127,14 +127,14 @@ export default function Team() {
                 headerName: "Hemmalag",
                 field: "homeTeam",
                 label: "Hemma",
-                width: 100,
+                width: 200,
               },
               {
                 name: "awayTeam",
                 headerName: "Bortalag",
                 field: "awayTeam",
                 label: "Borta",
-                width: 100,
+                width: 200,
               },
               {
                 name: "result",
@@ -148,14 +148,25 @@ export default function Team() {
                 headerName: "Plats",
                 field: "location",
                 label: "Plats",
-                width: 100,
+                width: 200,
               },
               {
-                name: "Spelad",
-                headerName: "Spelad",
+                name: "Gå till match",
+                headerName: "Gå till match",
                 field: "Spelad",
                 label: "Spelad",
                 flex: 1,
+                renderCell: (rowData) => {
+                  return (
+                    <Button
+                      onClick={() => {
+                        navigate(`/team/${id}/game/${rowData.id}`);
+                      }}
+                    >
+                      Info
+                    </Button>
+                  );
+                },
               },
             ]}
             rows={
@@ -219,6 +230,17 @@ export default function Team() {
             </TableFooter>
           </Table>
         </TableContainer> */}
+      </Box>
+      <Box mb={6}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            navigate(`/addgame/${id}`);
+          }}
+        >
+          Lägg till match
+        </Button>
       </Box>
       <Box mb={3}>
         <Typography variant="h4">Spelare</Typography>
@@ -314,7 +336,6 @@ export default function Team() {
               rows={Object.values(players)}
               colunmDefs={columns}
               getRowId={(row) => row.playerId}
-              pageSize={10}
               rowHeight={50}
               onRowDoubleClick={(event, rowData) => {
                 navigate(`/player/${event.id}`);

@@ -51,7 +51,7 @@ export default function Home() {
     // });
 
     const drillsRef = collection(db, "drills");
-    const drillsQ = query(drillsRef, limit(4));
+    const drillsQ = query(drillsRef, limit(8));
     getDocs(drillsQ).then((docs) => {
       setDrills(docs.docs);
     });

@@ -37,8 +37,9 @@ export default function SessionDrill({ drill }) {
               className="img img-thumbnail"
               src={drill.data().imgLink}
               alt={drill.id}
-              width={"100%"}
-              height={"100%"}
+              width={"auto"}
+              height={"auto"}
+              loading="lazy"
             />
           )}
           <Divider />

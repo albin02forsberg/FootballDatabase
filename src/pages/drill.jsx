@@ -69,8 +69,9 @@ export default function Drill() {
                 className="img img-thumbnail"
                 src={drill.data().imgLink}
                 alt={drill.id}
-                width={"100%"}
+                width={"auto"}
                 height={"100%"}
+                loading="lazy"
               />
             )}
           </Grid>

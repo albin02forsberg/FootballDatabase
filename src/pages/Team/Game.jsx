@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { DataGrid } from "@mui/x-data-grid";
 import {
   addDoc,
   collection,
@@ -38,6 +37,10 @@ export default function Game() {
   const [playerStats, setPlayerStats] = React.useState([]);
   const [homeScore, setHomeScore] = React.useState();
   const [awayScore, setAwayScore] = React.useState();
+  const [location, setLocation] = React.useState();
+  const [date, setDate] = React.useState();
+  const [time, setTime] = React.useState();
+
   const [played, setPlayed] = React.useState(false);
   const { id, gameId } = useParams();
 
@@ -49,6 +52,10 @@ export default function Game() {
       setPlayed(game.data().played);
       setHomeScore(game.data().scoreHome);
       setAwayScore(game.data().scoreAway);
+      setLocation(game.data().location);
+      setDate(game.data().date);
+      setTime(game.data().time);
+
       console.log(game.data());
 
       // For every player in gp, get the player name and id  add it to the checkedPlayers array
@@ -102,39 +109,58 @@ export default function Game() {
               {game.data().homeTeam} - {game.data().awayTeam}
             </Typography>
           </Box>
-          <Box>
-            <Typography variant="h6">{game.data().date}</Typography>
+          <Box mb={3}>
+            <TextField
+              type="date"
+              defaultValue={game.data().date}
+              onChange={(event) => {
+                setDate(event.target.value);
+              }}
+            />
+          </Box>
+          <Box mb={3}>
+            <TextField
+              type="time"
+              defaultValue={game.data().time}
+              onChange={(event) => {
+                setTime(event.target.value);
+              }}
+            />
           </Box>
           <Box>
-            <Typography variant="h6">{game.data().time}</Typography>
-          </Box>
-          <Box>
-            <Typography variant="h6">{game.data().location}</Typography>
+            <TextField
+              type="text"
+              defaultValue={game.data().location}
+              onChange={(event) => {
+                setLocation(event.target.value);
+              }}
+            />
           </Box>
           <Box>
             <Typography variant="h6">Resultat</Typography>
             <FormControl variant="filled">
-              <TextField
-                id="outlined-basic"
-                label="Hemmalag mål"
-                type="number"
-                variant="outlined"
-                defaultValue={game.data().scoreHome}
-                onChange={(e) => {
-                  setHomeScore(e.target.value);
-                }}
-              />
-
-              <TextField
-                id="outlined-basic"
-                label="Bortalag mål"
-                type="number"
-                variant="outlined"
-                defaultValue={game.data().scoreAway}
-                onChange={(e) => {
-                  setAwayScore(e.target.value);
-                }}
-              />
+              <Box mb={3}>
+                <TextField
+                  id="outlined-basic"
+                  label="Hemmalag mål"
+                  type="number"
+                  variant="outlined"
+                  defaultValue={game.data().scoreHome}
+                  onChange={(e) => {
+                    setHomeScore(e.target.value);
+                  }}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Bortalag mål"
+                  type="number"
+                  variant="outlined"
+                  defaultValue={game.data().scoreAway}
+                  onChange={(e) => {
+                    setAwayScore(e.target.value);
+                  }}
+                />
+              </Box>
               <Typography variant="h6">Matchen spelad?</Typography>
               <Switch
                 checked={played}
@@ -182,6 +208,9 @@ export default function Game() {
                 updateDoc(gameRef, {
                   scoreHome: homeScore,
                   scoreAway: awayScore,
+                  location: location,
+                  date: date,
+                  time: time,
                   played: played,
                 })
                   .then(() => {
@@ -219,7 +248,7 @@ export default function Game() {
           </Box>
         </>
       )}
-      <Box style={{ width: "100%", height: "600px" }}>
+      {/* <Box style={{ width: "100%", height: "600px" }}>
         <DataGrid
           columns={[
             {
@@ -272,22 +301,20 @@ export default function Game() {
               redCards: player.data().redCards,
             }))
           }
-          onCellEditStart={(event) => {
-            console.log(event);
-          }}
-          onCellEditStop={(event) => {
-            console.log(event);
+          // When done editing, update the database
+          editMode={"cell"}
+          onCellValueChanged={(e) => {
             const playerGameCollectionRef = collection(db, "PlayerGame");
-            const playerGameRef = doc(playerGameCollectionRef, event.id);
+            const playerGameRef = doc(playerGameCollectionRef, e.data.id);
             updateDoc(playerGameRef, {
-              [event.field]: event.row[event.field],
+              [e.column.field]: e.newValue,
             });
           }}
           experimentalFeatures={{ newEditingApi: true }}
         />
-      </Box>
+      </Box> */}
 
-      {/* <TableContainer>
+      <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
@@ -425,7 +452,7 @@ export default function Game() {
             ))}
           </TableBody>
         </Table>
-      </TableContainer> */}
+      </TableContainer>
 
       {!game && <Loading />}
     </Container>

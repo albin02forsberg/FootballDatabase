@@ -4,6 +4,8 @@ import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import { doc, updateDoc } from "firebase/firestore";
+import { Box, Container } from "@mui/system";
+import { Button } from "@mui/material";
 
 export default function Login({ setIsAuth }) {
   let navigate = useNavigate();
@@ -41,13 +43,12 @@ export default function Login({ setIsAuth }) {
   });
 
   return (
-    <div className="container">
-      <div className="row">
-        <h1>Sign in with Google</h1>
-        <button className="login-with-google-btn" onClick={signInWithGoogle}>
-          Sign in with Google
-        </button>
-      </div>
-    </div>
+    <Container>
+      <Box style={{ width: "100%", margin: "auto" }}>
+        <Button variant="contained" color="primary" onClick={signInWithGoogle}>
+          Logga in med Google
+        </Button>
+      </Box>
+    </Container>
   );
 }
