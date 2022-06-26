@@ -11,7 +11,7 @@ import {
 import { Box, Container } from "@mui/system";
 import React, { useEffect } from "react";
 
-export default function Canvas({ setImage }) {
+export default function Canvas({ setImg }) {
   const canvasRef = React.useRef(null);
   const ctxRef = React.useRef(null);
   const [tool, setTool] = React.useState("");
@@ -198,7 +198,7 @@ export default function Canvas({ setImage }) {
       setStartX(offsetX);
       setStartY(offsetY);
     }
-    setImage(canvasRef.current.toDataURL("image/png"));
+    setImg(canvasRef.current.toDataURL("image/png"));
   };
 
   const stopDrawing = ({ nativeEvent }) => {
@@ -278,6 +278,7 @@ export default function Canvas({ setImage }) {
     ctxRef.current.closePath();
 
     setHistory([...history, canvasRef.current.toDataURL("image/png")]);
+    setImg(canvasRef.current.toDataURL("image/png"));
   };
 
   const setPos = ({ nativeEvent }) => {
