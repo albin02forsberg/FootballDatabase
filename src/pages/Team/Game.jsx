@@ -382,6 +382,7 @@ export default function Game() {
                     variant="outlined"
                     defaultValue={playerStat.data().yellowCards}
                     onChange={(e) => {
+                      console.log(e.target.value);
                       const playerGameCollectionRef = collection(
                         db,
                         "PlayerGame"
@@ -392,7 +393,13 @@ export default function Game() {
                       );
                       updateDoc(playerGameRef, {
                         yellowCards: parseInt(e.target.value),
-                      });
+                      })
+                        .then(() => {
+                          console.log("updated " + playerStat.id);
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
                     }}
                   />
                 </TableCell>

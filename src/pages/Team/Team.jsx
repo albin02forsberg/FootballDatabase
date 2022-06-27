@@ -54,8 +54,10 @@ export default function Team() {
           if (acc[playerId]) {
             acc[playerId].goals += player.goals;
             acc[playerId].assists += player.assists;
-            acc[playerId].points += player.points;
+            acc[playerId].points += parseInt(player.assists + player.goals);
             acc[playerId].games += player.games;
+            acc[playerId].yellowCards += player.yellowCards;
+            acc[playerId].redCards += player.redCards;
           } else {
             acc[playerId] = player;
           }

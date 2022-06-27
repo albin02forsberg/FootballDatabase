@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 import { Masonry } from "@mui/lab";
 import { Container } from "@mui/system";
 import {
@@ -53,7 +53,7 @@ export default function Drills() {
     return <Loading />;
   }
   return (
-    <Container fluid>
+    <Container>
       <Box mb={3}></Box>
       <Box mb={3}>
         <Typography variant="h4">Övningar</Typography>
@@ -68,16 +68,17 @@ export default function Drills() {
           </Button>
         )}
       </Box>
-      <Stack spacing={2}>
+      <Box>
         <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
-          {drills.map((drill) => (
-            <Grid item xs={12} sm={6} md={4} key={drill.id}>
+          {drills &&
+            drills.map((drill) => (
               <Suspense fallback={<Loading />}>
                 <DrillCard drill={drill} />
               </Suspense>
-            </Grid>
-          ))}
+            ))}
         </Masonry>
+      </Box>
+      <Stack spacing={2}>
         <Divider />
         <Stack spacing={3}>
           <Button onClick={fetchMore} variant="contained">

@@ -100,6 +100,13 @@ const User = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const Player = lazy(() => {
+  return Promise.all([
+    import("./pages/Team/Player"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 const EditDrill = lazy(() => {
   return Promise.all([
     import("./pages/EditDrill"),
@@ -469,6 +476,15 @@ function App() {
               </Suspense>
             }
           />
+          <Route
+            path="/player/:id"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Player />
+              </Suspense>
+            }
+          />
+
           <Route
             path="/news/:id"
             element={
