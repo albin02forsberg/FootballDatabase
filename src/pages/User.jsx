@@ -14,6 +14,16 @@ import {
 } from "firebase/firestore";
 import { Masonry } from "@mui/lab";
 import { Box, Container } from "@mui/system";
+import {
+  Divider,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 
 const DrillCard = lazy(() => {
   return Promise.all([
@@ -84,53 +94,55 @@ export default function User({ signOut }) {
           </Suspense>
         )}
       </Box>
-      <div className="row">
+      <Box mb={3}>
         {user && <h2>{user.data().name + "s övningar"}</h2>}
-        <div className="grid">
-          <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
-            {drills &&
-              drills.map((drill) => {
-                return (
-                  <Suspense fallback={<Loading />}>
-                    <DrillCard drill={drill} showCreator={false} />
-                  </Suspense>
-                );
-              })}
-          </Masonry>
-        </div>
-      </div>
-      <div className="row">
-        <div className="table-responsive">
-          {user && <h2>{user.data().name + "s träningspass"}</h2>}
-          {sessions && (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">Namn</th>
-                  <th scope="col">Typ</th>
-                  <th scope="col">Nivå</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sessions &&
-                  // If drills is not null
-                  // Loop through drills and create a table row for each drill
-                  sessions.map((session) => (
-                    <tr key={session.id}>
-                      <td>
-                        <Link to={"/session/" + session.id}>
+        <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
+          {drills &&
+            drills.map((drill) => {
+              return (
+                <Suspense fallback={<Loading />}>
+                  <DrillCard drill={drill} showCreator={false} />
+                </Suspense>
+              );
+            })}
+        </Masonry>
+      </Box>
+      <Divider />
+      <Box mb={3}>
+        {user && (
+          <Typography variant="h5">{user.data().name + "s pass"}</Typography>
+        )}
+        {sessions && (
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Namn</TableCell>
+                  <TableCell>Typ</TableCell>
+                  <TableCell>Nivå</TableCell>
+                  <TableCell>Antal övningar</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {sessions.map((session) => {
+                  return (
+                    <TableRow key={session.id}>
+                      <TableCell>
+                        <Link to={`/session/${session.id}`}>
                           {session.data().name}
                         </Link>
-                      </td>
-                      <td>{session.data().type}</td>
-                      <td>{session.data().difficulty}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </div>
+                      </TableCell>
+                      <TableCell>{session.data().type}</TableCell>
+                      <TableCell>{session.data().difficulty}</TableCell>
+                      <TableCell>{session.data().drills.length}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      </Box>
     </Container>
   );
 }

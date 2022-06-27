@@ -15,3 +15,4 @@ export default function Comment({ comment, key }) {
     </CardContent>
   );
 }
+

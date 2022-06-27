@@ -17,6 +17,7 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
+  Paper,
   Stack,
   Typography,
 } from "@mui/material";
@@ -71,23 +72,27 @@ export default function Home() {
           <Link
             to={`/news/${newsItem.id}`}
             key={newsItem.id}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color: "inherit" }}
           >
             <Card>
-              <CardActionArea>
-                <CardContent>
-                  <Typography variant="h5">{newsItem.data().title}</Typography>
-                  <Typography variant="body1">
-                    {newsItem.data().description}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Typography variant="body1">
-                    {calculateTime(newsItem.data().created.seconds)} -{" "}
-                    {newsItem.data().uname}
-                  </Typography>
-                </CardActions>
-              </CardActionArea>
+              <Paper elevation={3}>
+                <CardActionArea>
+                  <CardContent>
+                    <Typography variant="h5">
+                      {newsItem.data().title}
+                    </Typography>
+                    <Typography variant="body1">
+                      {newsItem.data().description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Typography variant="body1">
+                      {calculateTime(newsItem.data().created.seconds)} -{" "}
+                      {newsItem.data().uname}
+                    </Typography>
+                  </CardActions>
+                </CardActionArea>
+              </Paper>
             </Card>
           </Link>
         ))}

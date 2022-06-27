@@ -292,11 +292,10 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {/* <Nav isAuth={isAuth} signOut={signOut} user={user} /> */}
         <Suspense fallback={<div>Loading...</div>}>
-          <Header />
+          <Header user={user} signOut={signOut} />
         </Suspense>
-        <Box mt={3}></Box>
+        {/* <Nav isAuth={isAuth} signOut={signOut} user={user} /> */}
         <Routes>
           <Route
             path="/"

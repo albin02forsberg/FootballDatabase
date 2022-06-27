@@ -6,6 +6,13 @@ import { auth, db } from "../../firebase-config";
 import { Link } from "react-router-dom";
 import Loading from "../../modules/Loading";
 import { Container } from "@mui/system";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
 
 export default function Admin() {
   let navigate = useNavigate();
@@ -40,42 +47,74 @@ export default function Admin() {
 
   return (
     <Container>
-      <div className="row">
-        <h1>Adminpanelen</h1>
-        <div className="grid">
-          {/* show cards to users and drills */}
-          <Link to="/admin/users">
-            <div className="card mb-3">
-              <h5 className="card-title">Användare</h5>
-              <p className="card-text">
-                Här kan du se alla användare och redigera dem.
-              </p>
-            </div>
-          </Link>
-          <Link to="/admin/drills">
-            <div className="card mb-3">
-              <h5 className="card-title">Övningar</h5>
-              <p className="card-text">
+      <h1>Adminpanelen</h1>
+      <Grid spacing={3}>
+        {/* show cards to users and drills */}
+        <Card variant="outlined" component={Link} to="/admin/users">
+          <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                Användare
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Här kan du se alla användare och ändra deras roller.
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+
+        <Card variant="elevation" component={Link} to="/admin/drills">
+          <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                Övningar
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
                 Här kan du se alla övningar och redigera dem.
-              </p>
-            </div>
-          </Link>
-          <Link to="/admin/clubs">
-            <div className="card mb-3">
-              <h5 className="card-title">Klubbar</h5>
-              <p className="card-text">
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+
+        <Card variant="outlined" component={Link} to="/admin/clubs">
+          <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                Klubbar
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
                 Här kan du se alla klubbar och redigera dem.
-              </p>
-            </div>
-          </Link>
-          <Link to="/admin/createClub">
-            <div className="card mb-3">
-              <h5 className="card-title">Skapa klubb</h5>
-              <p className="card-text">Här kan du skapa en ny klubb.</p>
-            </div>
-          </Link>
-        </div>
-      </div>
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+
+        <Card variant="outlined" component={Link} to="/admin/teams">
+          <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                Lag
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Här kan du se alla lag och redigera dem.
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+
+        <Card variant="outlined" component={Link} to="/admin/createClub">
+          <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                Skapa klubb
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Här kan du skapa en ny klubb.
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Grid>
     </Container>
   );
 }
