@@ -95,7 +95,9 @@ export default function User({ signOut }) {
         )}
       </Box>
       <Box mb={3}>
-        {user && <h2>{user.data().name + "s övningar"}</h2>}
+        {user && (
+          <Typography variant="h4">{user.data().name}s övningar</Typography>
+        )}
         <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
           {drills &&
             drills.map((drill) => {

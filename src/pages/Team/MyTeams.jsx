@@ -27,7 +27,7 @@ export default function MyTeams() {
   }, []);
 
   if (teams.length === 0) {
-    <Loading />;
+    return <Loading />;
   }
 
   return (
@@ -36,24 +36,27 @@ export default function MyTeams() {
         <Typography variant="h4">Mina lag (Beta)</Typography>
       </Box>
       <Box mb={3}>
-        <List>
-          {teams.map((team) => (
-            <>
-              <ListItem>
-                <ListItemButton
-                  component={Link}
-                  to={`/team/${team.data().teamId}`}
-                >
-                  <Typography variant="h6">
-                    {team.data().club} - {team.data().name}
-                  </Typography>
-                </ListItemButton>
-              </ListItem>
-              <Divider />
-            </>
-          ))}
-        </List>
-        {!teams && <Typography variant="h5">Inga lag</Typography>}
+        {teams.length > 0 ? (
+          <List>
+            {teams.map((team) => (
+              <>
+                <ListItem>
+                  <ListItemButton
+                    component={Link}
+                    to={`/team/${team.data().teamId}`}
+                  >
+                    <Typography variant="h6">
+                      {team.data().club} - {team.data().name}
+                    </Typography>
+                  </ListItemButton>
+                </ListItem>
+                <Divider />
+              </>
+            ))}
+          </List>
+        ) : (
+          <Typography variant="h6">Du är inte med i något lag</Typography>
+        )}
       </Box>
     </Container>
   );

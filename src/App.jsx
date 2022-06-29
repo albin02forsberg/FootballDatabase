@@ -5,8 +5,6 @@ import React from "react";
 import { auth, db } from "./firebase-config";
 import Loading from "./modules/Loading";
 import { collection, doc, getDoc } from "firebase/firestore";
-import MobileNav from "./modules/MobileNav";
-import { Box } from "@mui/system";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 
@@ -525,8 +523,8 @@ function App() {
             }
           />
         </Routes>
-        <MobileNav isAuth={isAuth} signOut={signOut} user={user} />
-        <Box mt={8}></Box>
+        {/* <MobileNav isAuth={isAuth} signOut={signOut} user={user} /> */}
+        {/* <Box mt={8}></Box> */}
       </Router>
     </ThemeProvider>
   );

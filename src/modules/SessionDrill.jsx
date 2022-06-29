@@ -1,12 +1,8 @@
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
-import Loading from "./Loading";
 
 export default function SessionDrill({ drill }) {
   // Return loading screen
-  if (!drill) {
-    <Loading />;
-  }
 
   return (
     <Box mb={3}>
