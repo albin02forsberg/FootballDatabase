@@ -1,7 +1,6 @@
 import {
   Card,
   CardActionArea,
-  CardContent,
   CardHeader,
   CardMedia,
   Paper,
@@ -13,25 +12,28 @@ import calculateTime from "../scripts/calculateTime";
 export default function DrillCard({ drill, showCreator }) {
   return (
     // Create mui card
-    <Paper elevation={3} style={{ borderRadius: "120px" }}>
-      <Card>
-        <Link to={`/drill/${drill.id}`}>
-          <CardActionArea>
-            <CardHeader
-              title={<Link to={`/drill/${drill.id}`}>{drill.data().name}</Link>}
-              subheader={calculateTime(drill.data().created.seconds)}
-            />
-            <CardMedia
-              image={drill.data().imgLink}
-              title={drill.data().title}
-              height="auto"
-              component="img"
-            />
-            <CardContent>
-              <p>{drill.data().content}</p>
-            </CardContent>
-          </CardActionArea>
-        </Link>
+    <Paper elevation={2} style={{ borderRadius: "12px" }}>
+      <Card style={{ borderRadius: "12px" }}>
+        <CardActionArea component={Link} to={"/drill/" + drill.id}>
+          <CardHeader
+            title={
+              <Link
+                to={`/drill/${drill.id}`}
+                style={{ color: "black", textDecoration: "none" }}
+              >
+                {drill.data().name}
+              </Link>
+            }
+            subheader={calculateTime(drill.data().created.seconds)}
+          />
+          <CardMedia
+            image={drill.data().imgLink}
+            title={drill.data().title}
+            height="auto"
+            component="img"
+            style={{ borderRadius: "12px" }}
+          />
+        </CardActionArea>
       </Card>
     </Paper>
 
