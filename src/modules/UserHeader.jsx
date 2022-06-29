@@ -24,7 +24,6 @@ export default function UserHeader({ drills, user, signOut }) {
         justifyContent: "center",
         justifyItems: "center",
         borderRadius: "12px",
-        backgroundColor: "#4AE3A6",
       }}
       elevation={4}
     >
