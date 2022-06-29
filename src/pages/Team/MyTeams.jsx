@@ -8,27 +8,27 @@ import {
 import { Box, Container } from "@mui/system";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase-config";
-import Loading from "../../modules/Loading";
 
 export default function MyTeams() {
   const [teams, setTeams] = React.useState([]);
+  let navigate = useNavigate();
 
   useEffect(() => {
     const teamsCollectionRef = collection(db, "UserTeam");
-    const teamsQ = query(
-      teamsCollectionRef,
-      where("uid", "==", auth.currentUser.uid)
-    );
-    getDocs(teamsQ).then((docs) => {
-      setTeams(docs.docs);
-    });
+    if (auth.currentUser) {
+      const teamsQ = query(
+        teamsCollectionRef,
+        where("uid", "==", "" || auth.currentUser.uid)
+      );
+      getDocs(teamsQ).then((docs) => {
+        setTeams(docs.docs);
+      });
+    } else {
+      navigate("/login");
+    }
   }, []);
-
-  if (teams.length === 0) {
-    return <Loading />;
-  }
 
   return (
     <Container>

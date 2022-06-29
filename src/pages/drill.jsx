@@ -46,19 +46,19 @@ export default function Drill() {
           <Grid item xs={12} md={6}>
             {drill && (
               <div>
-                <Typography variant="h4">{drill.data().name}</Typography>
+                <Typography variant="h3">{drill.data().name}</Typography>
                 <Divider />
-                <Typography variant="h4">Vad?</Typography>
+                <Typography variant="h5">Vad?</Typography>
                 <Typography variant="body1">
                   {drill.data().type} - {drill.data().what}{" "}
                 </Typography>
-                <Typography variant="h4">Varför?</Typography>
+                <Typography variant="h5">Varför?</Typography>
                 <Typography variant="body1">{drill.data().why}</Typography>
-                <Typography variant="h4">Hur?</Typography>
+                <Typography variant="h5">Hur?</Typography>
                 <Typography variant="body1">{drill.data().how}</Typography>
-                <Typography variant="h4">Organisation</Typography>
+                <Typography variant="h5">Organisation</Typography>
                 <Typography variant="body1">{drill.data().org}</Typography>
-                <Typography variant="h4">Anvisningar</Typography>
+                <Typography variant="h5">Anvisningar</Typography>
                 <Typography variant="body1">{drill.data().desc}</Typography>
               </div>
             )}
@@ -69,9 +69,9 @@ export default function Drill() {
                 className="img img-thumbnail"
                 src={drill.data().imgLink}
                 alt={drill.id}
-                width={"auto"}
-                height={"100%"}
+                width={"100%"}
                 loading="lazy"
+                style={{ borderRadius: "12px" }}
               />
             )}
           </Grid>
