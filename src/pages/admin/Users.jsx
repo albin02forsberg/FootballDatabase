@@ -12,9 +12,6 @@ export default function Users() {
   const [user, setUser] = React.useState();
   const [users, setUsers] = React.useState();
 
-  if (!user && !users) {
-    <Loading />;
-  }
   // Check if user is logged in and is owner
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -51,7 +48,7 @@ export default function Users() {
     <Container>
       <Box mb={3} style={{ width: "auto", height: "500px" }}>
         <Typography variant="h4">Användare</Typography>
-        {users && (
+        {(users && user && (
           <DataGrid
             columns={[
               {
@@ -92,7 +89,7 @@ export default function Users() {
               })
             }
           />
-        )}
+        )) || <Loading />}
       </Box>
       {/* <Table>
         <TableHead>

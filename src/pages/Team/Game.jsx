@@ -96,13 +96,9 @@ export default function Game() {
     });
   }, [gameId, id, checkedPlayers]);
 
-  if (!game || !players) {
-    <Loading />;
-  }
-
   return (
     <Container>
-      {game && (
+      {(game && players && (
         <>
           <Box mb={3}>
             <Typography variant="h4">
@@ -247,7 +243,7 @@ export default function Game() {
             </Button>
           </Box>
         </>
-      )}
+      )) || <Loading />}
       {/* <Box style={{ width: "100%", height: "600px" }}>
         <DataGrid
           columns={[

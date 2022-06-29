@@ -1,4 +1,13 @@
-import { faHome, faInfo, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faInfo,
+  faUser,
+  faBars,
+  faPersonRunning,
+  faPhone,
+  faAlignJustify,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box,
@@ -49,23 +58,25 @@ export default function Header({ user, signOut }) {
       <Box
         sx={{
           display: "flex",
+          justifyContent: "space-between",
           width: "auto",
         }}
         style={{ padding: "1rem 1rem" }}
       >
         <Box
-          component="span"
+          component={Link}
+          to="/"
           sx={{ display: { xs: "none", md: "block" }, flexGrow: 1 }}
         >
-          <img src="./logo-black.png" alt="logo" style={{ width: "60px" }} />
+          <img src="./logo-white.png" alt="logo" style={{ width: "60px" }} />
         </Box>
-        {/* <ButtonBase
+        <ButtonBase
           sx={{ borderRadius: "12px", overflow: "hidden" }}
-          style={{ margin: "0 10px ", width: "75px" }}
+          style={{ margin: "0 10px ", width: "60px" }}
           onClick={toggleDrawer(false)}
         >
           <FontAwesomeIcon icon={faBars} style={{ color: "white" }} />
-        </ButtonBase> */}
+        </ButtonBase>
         <ButtonBase
           sx={{ borderRadius: "12px", overflow: "hidden" }}
           onClick={handleClick}
@@ -157,26 +168,86 @@ export default function Header({ user, signOut }) {
           )}
         </Popper>
         <Drawer open={openDrawer} onClose={toggleDrawer(false)}>
-          <Paper elevation={8} style={{ height: "100%" }}>
+          <Paper elevation={8} style={{ height: "100%", padding: "0" }}>
             <List>
               <ButtonBase
+                onClick={toggleDrawer(false)}
                 component={Link}
                 to="/"
                 style={{
                   display: "flex",
                   flexDirection: "column",
+                  padding: "2rem",
                 }}
               >
-                <FontAwesomeIcon icon={faHome} width={"100px"} />
+                <FontAwesomeIcon icon={faHome} />
               </ButtonBase>
               <Divider />
               <ButtonBase
+                onClick={toggleDrawer(false)}
+                component={Link}
+                to="/drills"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "2rem",
+                }}
+              >
+                <FontAwesomeIcon icon={faPersonRunning} />
+              </ButtonBase>
+              <Divider />
+              <ButtonBase
+                onClick={toggleDrawer(false)}
+                component={Link}
+                to="/sessions"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "2rem",
+                }}
+              >
+                <FontAwesomeIcon icon={faAlignJustify} />
+              </ButtonBase>
+              <Divider />
+              <ButtonBase
+                onClick={toggleDrawer(false)}
+                component={Link}
+                to="/myteams"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "2rem",
+                }}
+              >
+                <FontAwesomeIcon icon={faUsers} />
+              </ButtonBase>
+              <Divider />
+              <ButtonBase
+                onClick={toggleDrawer(false)}
                 component={Link}
                 to="/about"
-                style={{ display: "flex", flexDirection: "column" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "2rem",
+                }}
               >
                 <FontAwesomeIcon icon={faInfo} width={"100px"} />
               </ButtonBase>
+              <Divider />
+              <ButtonBase
+                onClick={toggleDrawer(false)}
+                component={Link}
+                to="/contact"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "2rem",
+                }}
+              >
+                <FontAwesomeIcon icon={faPhone} />
+              </ButtonBase>
+              <Divider />
             </List>
           </Paper>
         </Drawer>

@@ -59,7 +59,7 @@ export default function Home() {
   }, []);
 
   if (!news.length) {
-    <Loading />;
+    return <Loading />;
   }
 
   return (

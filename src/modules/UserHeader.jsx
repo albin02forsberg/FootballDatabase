@@ -1,20 +1,18 @@
-import { Avatar, Button, ButtonGroup, Paper, Typography } from "@mui/material";
+import { Avatar, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase-config";
+import React from "react";
 
 export default function UserHeader({ drills, user, signOut }) {
-  const [currentUser, setCurrentUser] = React.useState();
-  let navigate = useNavigate();
+  // const [currentUser, setCurrentUser] = React.useState();
+  // let navigate = useNavigate();
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setCurrentUser(user);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       setCurrentUser(user);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <Paper
@@ -24,6 +22,7 @@ export default function UserHeader({ drills, user, signOut }) {
         justifyContent: "center",
         justifyItems: "center",
         borderRadius: "12px",
+        backgroundImage: "linear-gradient(to right, #5A4AE3, #4AE3A6, #5A4AE3)",
       }}
       elevation={4}
     >
@@ -46,14 +45,15 @@ export default function UserHeader({ drills, user, signOut }) {
         Gick med: {user.data().joined}
       </Typography>
       <Box>
-        {(currentUser && currentUser.uid === user.id && (
+        {/* {(currentUser && currentUser.uid === user.id && (
           <ButtonGroup
             variant="contained"
-            aria-label="outlined primary button group"
+            aria-label="outlined secondary button group"
             align="center"
             fullWidth={true}
           >
             <Button
+              variant="outlined"
               onClick={() => {
                 navigate("/profile");
               }}
@@ -64,7 +64,7 @@ export default function UserHeader({ drills, user, signOut }) {
               Logga ut
             </Button>
           </ButtonGroup>
-        )) || <></>}
+        )) || <></>} */}
       </Box>
     </Paper>
   );
