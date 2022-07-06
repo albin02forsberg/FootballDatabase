@@ -69,32 +69,33 @@ export default function Home() {
       </Box>
       <Stack spacing={2}>
         {news.map((newsItem) => (
-          <Link
-            to={`/news/${newsItem.id}`}
-            key={newsItem.id}
-            style={{ textDecoration: "none", color: "inherit" }}
+          <Card
+            component={Link}
+            to={"/news/" + newsItem.id}
+            style={{ borderRadius: "12px", textDecoration: "none" }}
           >
-            <Card>
-              <Paper elevation={3}>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography variant="h5">
-                      {newsItem.data().title}
-                    </Typography>
-                    <Typography variant="body1">
-                      {newsItem.data().description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Typography variant="body1">
-                      {calculateTime(newsItem.data().created.seconds)} -{" "}
-                      {newsItem.data().uname}
-                    </Typography>
-                  </CardActions>
-                </CardActionArea>
-              </Paper>
-            </Card>
-          </Link>
+            <Paper elevation={4} style={{ borderRadius: "12px" }}>
+              <CardActionArea>
+                <CardContent>
+                  <Typography variant="h5" style={{ textDecoration: "none" }}>
+                    {newsItem.data().title}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    style={{ textDecoration: "none" }}
+                  >
+                    {newsItem.data().content}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Typography variant="body1">
+                    {calculateTime(newsItem.data().created.seconds)} -{" "}
+                    {newsItem.data().uname}
+                  </Typography>
+                </CardActions>
+              </CardActionArea>
+            </Paper>
+          </Card>
         ))}
       </Stack>
       <Box mb={3}>

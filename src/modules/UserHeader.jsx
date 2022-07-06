@@ -34,14 +34,19 @@ export default function UserHeader({ drills, user, signOut }) {
       {/* <div className="user-image">
         <img src={user.data().photo} alt={user.data().uname} />
       </div> */}
-      <Typography variant="h5" component="h2" align="center" gutterBottom>
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+        style={{ color: "rgb(10, 10, 10)" }}
+      >
         {user.data().name}
       </Typography>
 
-      <Typography variant="p" gutterBottom align="center">
+      <Typography variant="h6" gutterBottom align="center">
         Antal övningar: {drills}
       </Typography>
-      <Typography variant="p" gutterBottom align="center">
+      <Typography variant="h6" gutterBottom align="center">
         Gick med: {user.data().joined}
       </Typography>
       <Box>

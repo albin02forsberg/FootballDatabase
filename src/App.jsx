@@ -224,6 +224,13 @@ const Game = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const Register = lazy(() => {
+  return Promise.all([
+    import("./pages/Register"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
@@ -324,6 +331,14 @@ function App() {
             element={
               <Suspense fallback={<Loading />}>
                 <Login setIsAuth={setIsAuth} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Register setIsAuth={setIsAuth} />
               </Suspense>
             }
           />

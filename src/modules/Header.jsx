@@ -88,7 +88,7 @@ export default function Header({ user, signOut }) {
             // onClick={handleLeftDrawerToggle}
             color="inherit"
           >
-            {user ? (
+            {user && user.photo ? (
               (console.log(user),
               (
                 <img

@@ -98,6 +98,8 @@ export default function User({ signOut }) {
         {user && (
           <Typography variant="h4">{user.data().name}s övningar</Typography>
         )}
+        <Divider style={{ marginBottom: "8pt" }} />
+
         <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
           {drills &&
             drills.map((drill) => {

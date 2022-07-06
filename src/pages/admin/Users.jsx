@@ -88,6 +88,9 @@ export default function Users() {
                 };
               })
             }
+            onRowDoubleClick={(row) => {
+              navigate(`/user/${row.id}`);
+            }}
           />
         )) || <Loading />}
       </Box>

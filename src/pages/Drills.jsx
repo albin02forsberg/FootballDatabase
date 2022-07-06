@@ -29,7 +29,7 @@ export default function Drills() {
     const drillQ = query(
       collection(db, "drills"),
       orderBy("created", "desc"),
-      limit(8)
+      limit(12)
     );
     getDocs(drillQ).then((docs) => {
       setDrills(docs.docs);
@@ -40,7 +40,7 @@ export default function Drills() {
     const drillQ = query(
       collection(db, "drills"),
       orderBy("created", "desc"),
-      limit(8),
+      limit(12),
       startAfter(drills[drills.length - 1])
     );
     getDocs(drillQ).then((docs) => {
