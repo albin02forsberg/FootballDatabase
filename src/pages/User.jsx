@@ -1,8 +1,8 @@
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { useParams, Link } from "react-router-dom";
 import { db } from "../firebase-config";
 import Loading from "../modules/Loading";
-import { useQuery, useQueries } from "react-query";
+import { useQuery } from "react-query";
 
 import {
   query,
@@ -43,9 +43,6 @@ const UserHeader = lazy(() => {
 export default function User({ signOut }) {
   // get another users data
   const { uid } = useParams();
-  const [user, setUser] = React.useState(null);
-  const [drills, setDrills] = React.useState(null);
-  const [sessions, setSessions] = React.useState(null);
 
   // useEffect(() => {
   //   const userCollectionRef = collection(db, "users");
@@ -86,36 +83,29 @@ export default function User({ signOut }) {
     const userCollectionRef = collection(db, "users");
     const userRef = doc(userCollectionRef, uid);
     const u = await getDoc(userRef);
-    setUser(u);
     document.title = u.data().name;
     return u;
   });
 
-  const { data: drillsData, status: drillsStatus } = useQuery(
-    `${uid}-drills`,
-    async () => {
-      const drillQ = query(
-        collection(db, "drills"),
-        where("uid", "==", uid),
-        orderBy("created", "desc")
-      );
-      const drills = await getDocs(drillQ);
-      return drills.docs;
-    }
-  );
+  const { data: drillsData } = useQuery(`${uid}-drills`, async () => {
+    const drillQ = query(
+      collection(db, "drills"),
+      where("uid", "==", uid),
+      orderBy("created", "desc")
+    );
+    const drills = await getDocs(drillQ);
+    return drills.docs;
+  });
 
-  const { data: sessionsData, status: sessionsStatus } = useQuery(
-    `${uid}-sessions`,
-    async () => {
-      const sessionQ = query(
-        collection(db, "sessions"),
-        where("uid", "==", uid),
-        orderBy("created", "desc")
-      );
-      const sessions = await getDocs(sessionQ);
-      return sessions.docs;
-    }
-  );
+  const { data: sessionsData } = useQuery(`${uid}-sessions`, async () => {
+    const sessionQ = query(
+      collection(db, "sessions"),
+      where("uid", "==", uid),
+      orderBy("created", "desc")
+    );
+    const sessions = await getDocs(sessionQ);
+    return sessions.docs;
+  });
 
   if (status === "loading") {
     return <Loading />;

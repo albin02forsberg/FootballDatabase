@@ -13,7 +13,7 @@ import React, { Suspense, useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase-config";
 import Loading from "../modules/Loading";
-import { useQuery, useInfiniteQuery, getNextPageParam } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
 
 const DrillCard = lazy(() => {
@@ -27,18 +27,18 @@ export default function Drills() {
   const [drills, setDrills] = React.useState([]);
   const { ref, inView } = useInView();
 
-  async function fetchData() {
-    const drillQ = query(
-      collection(db, "drills"),
-      orderBy("created", "desc"),
-      limit(6)
-    );
+  // async function fetchData() {
+  //   const drillQ = query(
+  //     collection(db, "drills"),
+  //     orderBy("created", "desc"),
+  //     limit(6)
+  //   );
 
-    const drills = await getDocs(drillQ);
-    console.log(drills.docs);
-    setDrills(drills.docs);
-    return drills.docs;
-  }
+  //   const drills = await getDocs(drillQ);
+  //   console.log(drills.docs);
+  //   setDrills(drills.docs);
+  //   return drills.docs;
+  // }
 
   const fetchMore = async () => {
     const drillQ = query(
@@ -58,23 +58,23 @@ export default function Drills() {
   }, []);
 
   // Use infinite query to fetch more drills when user scrolls to the bottom of the page
-  const { data, status, isFetching, fetchNextPage, hasNextPage } =
-    useInfiniteQuery(
-      "drills",
-      async ({ pageParam = 1 }) => {
-        const drillQ = query(
-          collection(db, "drills"),
-          orderBy("created", "desc")
-        );
+  const { data, status, fetchNextPage } = useInfiniteQuery(
+    "drills",
+    async ({ pageParam = 1 }) => {
+      const drillQ = query(
+        collection(db, "drills"),
+        orderBy("created", "desc")
+      );
 
-        const drills = await getDocs(drillQ);
-        return drills.docs;
-      },
-      {
-        getNextPageParam: (lastPage) => lastPage.nextId,
-        refetchOnWindowFocus: false,
-      }
-    );
+      const drills = await getDocs(drillQ);
+      return drills.docs;
+    },
+    {
+      getNextPageParam: (lastPage) => lastPage.nextId,
+      refetchOnWindowFocus: false,
+      refetchInterval: 1000 * 60,
+    }
+  );
 
   useEffect(() => {
     if (inView) {
