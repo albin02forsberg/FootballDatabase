@@ -7,6 +7,10 @@ import Loading from "./modules/Loading";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient();
 
 const Home = lazy(() => {
   return Promise.all([
@@ -295,253 +299,256 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Header user={user} signOut={signOut} />
-        </Suspense>
-        {/* <Nav isAuth={isAuth} signOut={signOut} user={user} /> */}
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Home />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <Suspense fallback={<Loading />}>
-                <About />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/contact"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Contact />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Login setIsAuth={setIsAuth} />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Register setIsAuth={setIsAuth} />
-              </Suspense>
-            }
-          />
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Header user={user} signOut={signOut} />
+          </Suspense>
+          {/* <Nav isAuth={isAuth} signOut={signOut} user={user} /> */}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Home />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <About />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Contact />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Login setIsAuth={setIsAuth} />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Register setIsAuth={setIsAuth} />
+                </Suspense>
+              }
+            />
 
-          <Route
-            path="/drills"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Drills />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/sessions"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Sessions />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/createDrill"
-            element={
-              <Suspense fallback={<Loading />}>
-                <CreateDrill />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/createSession"
-            element={
-              <Suspense fallback={<Loading />}>
-                <CreateSession />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/createNews"
-            element={
-              <Suspense fallback={<Loading />}>
-                <CreateNews />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/myteams"
-            element={
-              <Suspense fallback={<Loading />}>
-                <MyTeams />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/privacy"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Privacy />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Admin />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin/users"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Users />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin/drills"
-            element={
-              <Suspense fallback={<Loading />}>
-                <AdminDrills />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin/clubs"
-            element={
-              <Suspense fallback={<Loading />}>
-                <AdminClubs />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin/createclub"
-            element={
-              <Suspense fallback={<Loading />}>
-                <CreateClub />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/addplayer/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <AddPlayer />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/club/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Club />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/addgame/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <AddGame />
-              </Suspense>
-            }
-          />
+            <Route
+              path="/drills"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Drills />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/sessions"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Sessions />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/createDrill"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <CreateDrill />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/createSession"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <CreateSession />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/createNews"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <CreateNews />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/myteams"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <MyTeams />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/privacy"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Privacy />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Admin />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Users />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/admin/drills"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <AdminDrills />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/admin/clubs"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <AdminClubs />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/admin/createclub"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <CreateClub />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/addplayer/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <AddPlayer />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/club/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Club />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/addgame/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <AddGame />
+                </Suspense>
+              }
+            />
 
-          <Route
-            path="/drill/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Drill />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/session/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Session />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/user/:uid"
-            element={
-              <Suspense fallback={<Loading />}>
-                <User signOut={signOut} />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/player/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Player />
-              </Suspense>
-            }
-          />
+            <Route
+              path="/drill/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Drill />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/session/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Session />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/user/:uid"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <User signOut={signOut} />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/player/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Player />
+                </Suspense>
+              }
+            />
 
-          <Route
-            path="/news/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <News />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/team/:id"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Team />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/drill/:id/edit"
-            element={
-              <Suspense fallback={<Loading />}>
-                <EditDrill />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/team/:id/game/:gameId"
-            element={
-              <Suspense fallback={<Loading />}>
-                <Game />
-              </Suspense>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <Suspense fallback={<Loading />}>
-                <NotFound />
-              </Suspense>
-            }
-          />
-        </Routes>
-        {/* <MobileNav isAuth={isAuth} signOut={signOut} user={user} /> */}
-        {/* <Box mt={8}></Box> */}
-      </Router>
-    </ThemeProvider>
+            <Route
+              path="/news/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <News />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/team/:id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Team />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/drill/:id/edit"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <EditDrill />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/team/:id/game/:gameId"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <Game />
+                </Suspense>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <NotFound />
+                </Suspense>
+              }
+            />
+          </Routes>
+          {/* <MobileNav isAuth={isAuth} signOut={signOut} user={user} /> */}
+          {/* <Box mt={8}></Box> */}
+        </Router>
+        <ReactQueryDevtools />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
