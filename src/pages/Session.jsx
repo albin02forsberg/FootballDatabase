@@ -1,4 +1,4 @@
-import { Divider, List, ListItemButton, Typography } from "@mui/material";
+import { List, ListItemButton, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import {
   collection,
@@ -8,10 +8,11 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase-config";
 import Loading from "../modules/Loading";
+import { useQuery } from "react-query";
 
 const SessionDrill = lazy(() => {
   return Promise.all([
@@ -22,69 +23,91 @@ const SessionDrill = lazy(() => {
 
 export default function Session() {
   const { id } = useParams();
-  const [session, setSession] = React.useState();
-  const [drills, setDrills] = React.useState();
+
+  const { data: sessionData, status } = useQuery(["session", id], () => {
+    return getDoc(doc(collection(db, "sessions"), id)).then((s) => {
+      return s.data();
+    });
+  });
+
+  const { data: drillsData, status: drillsStatus } = useQuery(
+    ["drills", id],
+    () => {
+      return getDocs(
+        query(
+          collection(db, "drills"),
+          where("__name__", "in", sessionData.drills)
+        )
+      );
+    },
+    {
+      enabled: !!sessionData,
+    }
+  );
 
   // Get session data and drills from firebase
-  useEffect(() => {
-    // Get session data from firebase and get drills from firebase with
-    // the drills imgLink
-    const sessionCollectionRef = collection(db, "sessions");
-    const sessionRef = doc(sessionCollectionRef, id);
-    getDoc(sessionRef).then((doc) => {
-      document.title = doc.data().name;
-      setSession(doc.data());
-      // In order of the array
-      const drillQ = query(
-        collection(db, "drills"),
-        where("__name__", "in", doc.data().drills)
-      );
-      getDocs(drillQ).then((docs) => {
-        setDrills(docs.docs);
-      });
-    });
-  }, [id]);
+  // useEffect(() => {
+  //   // Get session data from firebase and get drills from firebase with
+  //   // the drills imgLink
+  //   const sessionCollectionRef = collection(db, "sessions");
+  //   const sessionRef = doc(sessionCollectionRef, id);
+  //   getDoc(sessionRef).then((doc) => {
+  //     document.title = doc.data().name;
+  //     setSession(doc.data());
+  //     // In order of the array
+  //     const drillQ = query(
+  //       collection(db, "drills"),
+  //       where("__name__", "in", doc.data().drills)
+  //     );
+  //     getDocs(drillQ).then((docs) => {
+  //       setDrills(docs.docs);
+  //     });
+  //   });
+  // }, [id]);
 
-  if (!session) {
+  if (status === "loading" || drillsStatus === "loading") {
     return <Loading />;
   }
 
   return (
     <Container>
       <Box>
-        {session && (
-          <Box>
-            <Typography variant="h4">{session.name}</Typography>
-            {/* <button className="btn btn-primary disabled">
+        <Box>
+          <Typography variant="h3">{sessionData.name}</Typography>
+          {/* <button className="btn btn-primary disabled">
               Exportera till pdf
             </button> */}
-          </Box>
-        )}
+        </Box>
       </Box>
       <Box>
         <div className="card">
           <Typography variant="h5">Passets övningar</Typography>
           <List>
-            {drills &&
-              drills.map((drill) => (
-                <Link to={`/drill/${drill.id}`} key={drill.id}>
-                  <ListItemButton key={drill.id}>
-                    {drill.data().name}
-                  </ListItemButton>
-                </Link>
+            {drillsData &&
+              drillsData.docs.map((drill) => (
+                <ListItemButton
+                  key={drill.id}
+                  to={`/drill/${drill.id}`}
+                  component={Link}
+                >
+                  <Typography variant="body1">{drill.data().name}</Typography>
+                </ListItemButton>
               ))}
           </List>
         </div>
-        {session && <p>Antal övningar: {session.drills.length}</p>}
+        <Typography variant="overline">
+          Antal övningar: {sessionData.drills.length}
+        </Typography>
         <hr />
       </Box>
-      {drills &&
-        drills.map((drill) => (
-          <Suspense fallback={<Loading />}>
-            <SessionDrill key={drill.id} drill={drill} session={session} />
-            <Divider />
-          </Suspense>
-        ))}
+      <Box>
+        {drillsData &&
+          drillsData.docs.map((drill) => (
+            <Suspense key={drill.id} fallback={<Loading />}>
+              <SessionDrill drill={drill} />
+            </Suspense>
+          ))}
+      </Box>
     </Container>
   );
 }
