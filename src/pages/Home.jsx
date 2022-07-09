@@ -43,7 +43,7 @@ export default function Home() {
       </Box>
       <Stack spacing={2}>
         {newsData.docs.map((newsItem) => (
-          <Paper key={newsItem.id}>
+          <Paper key={newsItem.id} style={{ borderRadius: "12px" }}>
             <Card
               component={Link}
               to={"/news/" + newsItem.id}

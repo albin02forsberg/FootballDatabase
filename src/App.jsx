@@ -4,6 +4,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import React from "react";
 import { auth, db } from "./firebase-config";
 import Loading from "./modules/Loading";
+import User from "./pages/User";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
@@ -95,12 +96,12 @@ const Privacy = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-const User = lazy(() => {
-  return Promise.all([
-    import("./pages/User"),
-    new Promise((resolve) => setTimeout(resolve, 500)),
-  ]).then(([moduleExports]) => moduleExports);
-});
+// const User = lazy(() => {
+//   return Promise.all([
+//     import("./pages/User"),
+//     new Promise((resolve) => setTimeout(resolve, 500)),
+//   ]).then(([moduleExports]) => moduleExports);
+// });
 
 const Player = lazy(() => {
   return Promise.all([
@@ -235,6 +236,13 @@ const Register = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
+const GetUser = lazy(() => {
+  return Promise.all([
+    import("./modules/GetUser"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
@@ -302,9 +310,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <Router>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <Header user={user} signOut={signOut} />
           </Suspense>
+          {user && (
+            <Suspense fallback={<Loading />}>
+              <GetUser uid={user.uid} />
+            </Suspense>
+          )}
+
           {/* <Nav isAuth={isAuth} signOut={signOut} user={user} /> */}
           <Routes>
             <Route

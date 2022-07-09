@@ -43,42 +43,6 @@ const UserHeader = lazy(() => {
 export default function User({ signOut }) {
   // get another users data
   const { uid } = useParams();
-  const [drillLen, setDrillLen] = React.useState(0);
-
-  // useEffect(() => {
-  //   const userCollectionRef = collection(db, "users");
-  //   const userRef = doc(userCollectionRef, uid);
-  //   getDoc(userRef)
-  //     .then((u) => {
-  //       setUser(u);
-  //       document.title = u.data().name;
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  //   // getDocs from firsestore where the creator.uid is equal to the uid
-  //   // setDrills to the drills
-
-  //   const drillQ = query(
-  //     collection(db, "drills"),
-  //     where("uid", "==", uid),
-  //     orderBy("created", "desc")
-  //   );
-
-  //   getDocs(drillQ).then((docs) => {
-  //     setDrills(docs.docs);
-  //   });
-
-  //   const sessionQ = query(
-  //     collection(db, "sessions"),
-  //     where("uid", "==", uid),
-  //     orderBy("created", "desc")
-  //   );
-
-  //   getDocs(sessionQ).then((docs) => {
-  //     setSessions(docs.docs);
-  //   });
-  // }, [uid]);
 
   const { data, status } = useQuery(["User", uid], async () => {
     const userCollectionRef = collection(db, "users");
@@ -88,16 +52,18 @@ export default function User({ signOut }) {
     return u;
   });
 
-  const { data: drillsData } = useQuery(["user drills", uid], async () => {
-    const drillQ = query(
-      collection(db, "drills"),
-      where("uid", "==", uid),
-      orderBy("created", "desc")
-    );
-    const drills = await getDocs(drillQ);
-    setDrillLen(drills.docs.length);
-    return drills.docs;
-  });
+  const { data: drillsData, status: drillsStatus } = useQuery(
+    ["user drills", uid],
+    async () => {
+      const drillQ = query(
+        collection(db, "drills"),
+        where("uid", "==", uid),
+        orderBy("created", "desc")
+      );
+      const drills = await getDocs(drillQ);
+      return drills.docs;
+    }
+  );
 
   const { data: sessionsData } = useQuery(["user sessions", uid], async () => {
     const sessionQ = query(
@@ -109,7 +75,7 @@ export default function User({ signOut }) {
     return sessions.docs;
   });
 
-  if (status === "loading") {
+  if (status === "loading" || drillsStatus === "loading") {
     return <Loading />;
   }
 
@@ -118,7 +84,11 @@ export default function User({ signOut }) {
       <Box mb={3}>
         {
           <Suspense fallback={<Loading />}>
-            <UserHeader user={data} drills={drillLen} signOut={signOut} />
+            <UserHeader
+              user={data}
+              drills={drillsData.length}
+              signOut={signOut}
+            />
           </Suspense>
         }
       </Box>
