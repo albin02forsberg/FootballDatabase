@@ -43,6 +43,7 @@ const UserHeader = lazy(() => {
 export default function User({ signOut }) {
   // get another users data
   const { uid } = useParams();
+  const [drillLen, setDrillLen] = React.useState(0);
 
   // useEffect(() => {
   //   const userCollectionRef = collection(db, "users");
@@ -94,6 +95,7 @@ export default function User({ signOut }) {
       orderBy("created", "desc")
     );
     const drills = await getDocs(drillQ);
+    setDrillLen(drills.docs.length);
     return drills.docs;
   });
 
@@ -116,7 +118,7 @@ export default function User({ signOut }) {
       <Box mb={3}>
         {
           <Suspense fallback={<Loading />}>
-            <UserHeader user={data} signOut={signOut} />
+            <UserHeader user={data} drills={drillLen} signOut={signOut} />
           </Suspense>
         }
       </Box>
