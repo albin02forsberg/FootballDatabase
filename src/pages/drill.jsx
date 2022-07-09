@@ -10,7 +10,7 @@ import { useQuery } from "react-query";
 export default function data() {
   const { id } = useParams();
 
-  const { data, status } = useQuery(id, () => {
+  const { data, status } = useQuery(["Drill", id], () => {
     return getDoc(doc(collection(db, "drills"), id));
   });
 

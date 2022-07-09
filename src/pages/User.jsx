@@ -79,7 +79,7 @@ export default function User({ signOut }) {
   //   });
   // }, [uid]);
 
-  const { data, status } = useQuery(uid, async () => {
+  const { data, status } = useQuery(["User", uid], async () => {
     const userCollectionRef = collection(db, "users");
     const userRef = doc(userCollectionRef, uid);
     const u = await getDoc(userRef);
@@ -87,7 +87,7 @@ export default function User({ signOut }) {
     return u;
   });
 
-  const { data: drillsData } = useQuery(`${uid}-drills`, async () => {
+  const { data: drillsData } = useQuery(["user drills", uid], async () => {
     const drillQ = query(
       collection(db, "drills"),
       where("uid", "==", uid),
@@ -97,7 +97,7 @@ export default function User({ signOut }) {
     return drills.docs;
   });
 
-  const { data: sessionsData } = useQuery(`${uid}-sessions`, async () => {
+  const { data: sessionsData } = useQuery(["user sessions", uid], async () => {
     const sessionQ = query(
       collection(db, "sessions"),
       where("uid", "==", uid),
