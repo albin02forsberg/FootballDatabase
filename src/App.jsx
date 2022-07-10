@@ -7,7 +7,7 @@ import Loading from "./modules/Loading";
 import User from "./pages/User";
 import "./App.css";
 import { collection, doc, getDoc } from "firebase/firestore";
-import { createTheme, CssBaseline } from "@mui/material";
+import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
