@@ -7,28 +7,20 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import React, { useEffect } from "react";
+import { collection, getDocs, orderBy } from "firebase/firestore";
+import React from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
 import Loading from "../modules/Loading";
+import { useQuery } from "react-query";
 // import calculateTime from "../scripts/calculateTime";
 
 export default function Sessions() {
-  const [sessions, setSessions] = React.useState(null);
+  const { data: sessionsData, status } = useQuery("sessions", () => {
+    return getDocs(collection(db, "sessions"), orderBy("createdAt", "desc"));
+  });
 
-  useEffect(() => {
-    document.title = "Träningspass";
-    const sessionQ = query(
-      collection(db, "sessions"),
-      orderBy("created", "desc")
-    );
-    getDocs(sessionQ).then((docs) => {
-      setSessions(docs.docs);
-    });
-  }, []);
-
-  if (!sessions) {
+  if (status === "loading") {
     return <Loading />;
   }
 
@@ -49,22 +41,18 @@ export default function Sessions() {
         </Button>
       </Box>
       <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
-        {sessions.map((session) => {
+        {sessionsData.docs.map((session) => {
           return (
-            <Card>
-              <Link to={`/session/${session.id}`}>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography variant="h5">{session.data().name}</Typography>
-                    <Typography variant="body1">
-                      {session.data().desc}
-                    </Typography>
-                    <Typography variant="body1">
-                      Antal övningar {session.data().drills.length}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Link>
+            <Card component={Link} to={"/session/" + session.id}>
+              <CardActionArea>
+                <CardContent>
+                  <Typography variant="h5">{session.data().name}</Typography>
+                  <Typography variant="body1">{session.data().desc}</Typography>
+                  <Typography variant="body1">
+                    Antal övningar {session.data().drills.length}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
             </Card>
           );
         })}
