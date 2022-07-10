@@ -5,8 +5,9 @@ import React from "react";
 import { auth, db } from "./firebase-config";
 import Loading from "./modules/Loading";
 import User from "./pages/User";
+import "./App.css";
 import { collection, doc, getDoc } from "firebase/firestore";
-import { createTheme } from "@mui/material";
+import { createTheme, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -302,6 +303,28 @@ function App() {
         light: "#E34A4A",
         dark: "#E34A4A",
         contrastText: "#fff",
+      },
+    },
+    typography: {
+      fontFamily: "Roboto, sans-serif",
+      fontSize: 14,
+      fontWeight: 400,
+      fontStyle: "normal",
+      lineHeight: 1.5,
+      letterSpacing: 0,
+      color: "#000",
+    },
+    components: {
+      // Change paper
+      MuiPaper: {
+        root: {
+          backgroundColor: "#fff",
+          borderRadius: "12px",
+          boxShadow:
+            "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+          padding: "1rem",
+          margin: "200px",
+        },
       },
     },
   });

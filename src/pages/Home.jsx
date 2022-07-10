@@ -28,7 +28,7 @@ export default function Home() {
     return getDocs(
       collection(db, "news"),
       limit(6),
-      orderBy("createdAt", "desc")
+      orderBy("createdAt", "asc")
     );
   });
 
@@ -38,53 +38,73 @@ export default function Home() {
 
   return (
     <Container>
-      <Box mb={3}>
-        <Typography variant="h4">Nyheter</Typography>
-      </Box>
-      <Stack spacing={2}>
-        {newsData.docs.map((newsItem) => (
-          <Paper key={newsItem.id} style={{ borderRadius: "12px" }}>
-            <Card
-              component={Link}
-              to={"/news/" + newsItem.id}
-              style={{ borderRadius: "12px", textDecoration: "none" }}
-            >
-              <Paper elevation={4} style={{ borderRadius: "12px" }}>
-                <CardActionArea>
-                  <CardContent>
-                    <Typography variant="h5" style={{ textDecoration: "none" }}>
-                      {newsItem.data().title}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      style={{ textDecoration: "none" }}
-                    >
-                      {newsItem.data().content}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Typography variant="body1">
-                      {calculateTime(newsItem.data().created.seconds)} -{" "}
-                      {newsItem.data().uname}
-                    </Typography>
-                  </CardActions>
-                </CardActionArea>
-              </Paper>
-            </Card>
-          </Paper>
-        ))}
-      </Stack>
-      <Box mb={3}>
-        <Typography variant="h4">Rekommenderade övningar</Typography>
-      </Box>
-      <Masonry columns={{ md: 4, sm: 1 }}>
-        {recDrills &&
-          recDrills.docs.map((drill) => (
-            <Suspense fallback={<Loading />}>
-              <DrillCard drill={drill} />
-            </Suspense>
+      <Paper
+        style={{
+          padding: "20px",
+          backgroundColor: "rgba(255,255,255,0.5)",
+          borderRadius: "12px",
+        }}
+      >
+        <Box mb={3}>
+          <Typography variant="h4">Nyheter</Typography>
+        </Box>
+        <Stack spacing={2}>
+          {newsData.docs.map((newsItem) => (
+            <Paper key={newsItem.id} style={{ borderRadius: "12px" }}>
+              <Card
+                component={Link}
+                to={"/news/" + newsItem.id}
+                style={{ borderRadius: "12px", textDecoration: "none" }}
+              >
+                <Paper elevation={4} style={{ borderRadius: "12px" }}>
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography
+                        variant="h5"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {newsItem.data().title}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {newsItem.data().content}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Typography variant="caption">
+                        {calculateTime(newsItem.data().created.seconds)} -{" "}
+                        {newsItem.data().uname}
+                      </Typography>
+                    </CardActions>
+                  </CardActionArea>
+                </Paper>
+              </Card>
+            </Paper>
           ))}
-      </Masonry>
+        </Stack>
+      </Paper>
+      <Paper
+        style={{
+          padding: "20px",
+          backgroundColor: "rgba(255,255,255,0.5)",
+          marginTop: "12px",
+          borderRadius: "12px",
+        }}
+      >
+        <Box mb={3}>
+          <Typography variant="h4">Rekommenderade övningar</Typography>
+        </Box>
+        <Masonry columns={{ md: 4, sm: 1 }}>
+          {recDrills &&
+            recDrills.docs.map((drill) => (
+              <Suspense fallback={<Loading />}>
+                <DrillCard drill={drill} />
+              </Suspense>
+            ))}
+        </Masonry>
+      </Paper>
     </Container>
   );
 }

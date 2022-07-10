@@ -6,8 +6,8 @@
     --tertiary-color: #D3E34A;
     --tertiary-color2: #E34A87;
     --accent-color: #E3A64A;
-    --dark-color: #2F2F2F;
-    --light-color: #F2F2F2;
+    --dark-color: #232323;
+    --light-color: #eeeeee;
 }
 
 * {
@@ -20,6 +20,7 @@ body {
     padding: 0;
     font-size: 16px;
     color: var(--dark-color);
+    /* linear gradient with opacity */
     background-color: var(--light-color);
 }
 
