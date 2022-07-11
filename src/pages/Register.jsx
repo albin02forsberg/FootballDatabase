@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Paper, TextField, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { doc, setDoc } from "firebase/firestore";
 import React from "react";
@@ -51,50 +51,59 @@ export default function Register() {
 
   return (
     <Container>
-      <Box
+      <Paper
         style={{
-          width: "75%",
-          margin: "auto",
-          display: "flex",
-          flexDirection: "column",
+          padding: "2rem",
+          margin: "2rem",
+          borderRadius: "1rem",
+          backgroundColor: "#fafafa",
         }}
       >
-        <Typography variant="h4">Registrera</Typography>
-        <Box mt={2} />
-        <TextField
-          label="E-post"
-          onChange={(e) => {
-            setEmail(e.target.value);
+        <Box
+          style={{
+            width: "75%",
+            margin: "auto",
+            display: "flex",
+            flexDirection: "column",
           }}
-        />
-        <Box mt={2} />
-        <TextField
-          label="Namn"
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        />
-        <Box mt={2} />
-        <TextField
-          label="Lösenord"
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <Box mt={2} />
-        <TextField
-          label="Bekräfta lösenord"
-          type="password"
-          onChange={(e) => {
-            setPasswordConfirm(e.target.value);
-          }}
-        />
-        <Box mt={2} />
-        <Button variant="container" onClick={handleSubmit}>
-          Registrera
-        </Button>
-      </Box>
+        >
+          <Typography variant="h4">Registrera</Typography>
+          <Box mt={2} />
+          <TextField
+            label="E-post"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <Box mt={2} />
+          <TextField
+            label="Namn"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          />
+          <Box mt={2} />
+          <TextField
+            label="Lösenord"
+            type="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <Box mt={2} />
+          <TextField
+            label="Bekräfta lösenord"
+            type="password"
+            onChange={(e) => {
+              setPasswordConfirm(e.target.value);
+            }}
+          />
+          <Box mt={2} />
+          <Button variant="container" primary onClick={handleSubmit}>
+            Registrera
+          </Button>
+        </Box>
+      </Paper>
     </Container>
   );
 }

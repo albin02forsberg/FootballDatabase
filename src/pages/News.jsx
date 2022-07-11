@@ -2,6 +2,7 @@ import {
   Button,
   Divider,
   FormControl,
+  Paper,
   TextField,
   Typography,
 } from "@mui/material";
@@ -75,51 +76,61 @@ export default function News() {
 
   return (
     <Container>
-      <Box>
-        <Typography variant="h4">{articleData.data().title}</Typography>
-        <Divider />
-        <Typography variant="body1">{articleData.data().content}</Typography>
-        <Typography variant="body1">
-          Skrivet av:{" "}
-          <Link to={"/user/" + articleData.data().uid}>
-            {articleData.data().uname}
-          </Link>{" "}
-        </Typography>
-        <Divider />
-      </Box>
-      <Box>
-        <FormControl fullWidth>
-          <Typography variant="h6">Kommentera</Typography>
-          <Box mb={2} />
-          <TextField
-            field="comment"
-            label="Kommentar"
-            onChange={(e) => {
-              setComment(e.target.value);
-            }}
-          />
-          <Box mb={2} />
-          <Button onClick={postComment}>Kommentera</Button>
-        </FormControl>
-      </Box>
-      <Box>
-        <Typography variant="h6">Kommentarer</Typography>
-        <Divider />
-        {commentsStatus === "loading" && <Loading />}
-        {commentsStatus === "error" && (
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          borderRadius: "1rem",
+          backgroundColor: "#fafafa",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box>
+          <Typography variant="h4">{articleData.data().title}</Typography>
+          <Divider />
+          <Typography variant="body1">{articleData.data().content}</Typography>
           <Typography variant="body1">
-            Något gick fel, försök igen senare.
+            Skrivet av:{" "}
+            <Link to={"/user/" + articleData.data().uid}>
+              {articleData.data().uname}
+            </Link>{" "}
           </Typography>
-        )}
-        {commentsStatus === "success" &&
-          commentsData.docs.map((comment) => {
-            return (
-              <Suspense fallback={<Loading />}>
-                <Comment key={comment.id} comment={comment.data()} />
-              </Suspense>
-            );
-          })}
-      </Box>
+          <Divider />
+        </Box>
+        <Box>
+          <FormControl fullWidth>
+            <Typography variant="h6">Kommentera</Typography>
+            <Box mb={2} />
+            <TextField
+              field="comment"
+              label="Kommentar"
+              onChange={(e) => {
+                setComment(e.target.value);
+              }}
+            />
+            <Box mb={2} />
+            <Button onClick={postComment}>Kommentera</Button>
+          </FormControl>
+        </Box>
+        <Box>
+          <Typography variant="h6">Kommentarer</Typography>
+          <Divider />
+          {commentsStatus === "loading" && <Loading />}
+          {commentsStatus === "error" && (
+            <Typography variant="body1">
+              Något gick fel, försök igen senare.
+            </Typography>
+          )}
+          {commentsStatus === "success" &&
+            commentsData.docs.map((comment) => {
+              return (
+                <Suspense fallback={<Loading />}>
+                  <Comment key={comment.id} comment={comment.data()} />
+                </Suspense>
+              );
+            })}
+        </Box>
+      </Paper>
     </Container>
   );
 }

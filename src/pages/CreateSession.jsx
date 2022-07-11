@@ -16,6 +16,7 @@ import {
   InputLabel,
   ListSubheader,
   MenuItem,
+  Paper,
   Select,
   Table,
   TableBody,
@@ -71,107 +72,120 @@ export default function CreateSession() {
 
   return (
     <Container>
-      <Box mb={3}>
-        <Typography variant="h4">Skapa pass</Typography>
-      </Box>
-      <FormControl fullWidth margin="normal">
-        <TextField
-          label="Namn"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </FormControl>
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="what">Nivå</InputLabel>
-        <Select label="Nivå" onChange={(e) => setDifficulty(e.target.value)}>
-          <MenuItem value="3 mot 3">3 mot 3</MenuItem>
-          <MenuItem value="5 mot 5">5 mot 5</MenuItem>
-          <MenuItem value="7 mot 7">7 mot 7</MenuItem>
-          <MenuItem value="9 mot 9">9 mot 9</MenuItem>
-          <MenuItem value="11 mot 11">11 mot 11</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl fullWidth margin="normal">
-        <InputLabel id="what">Typ</InputLabel>
-        <Select label="Typ" onChange={(e) => setType(e.target.value)}>
-          <ListSubheader component="div">Anfallsspel</ListSubheader>
-          <MenuItem value="Speluppbyggnad">Speluppbyggnad</MenuItem>
-          <MenuItem value="Kontring">Kontring</MenuItem>
-          <MenuItem value="Komma till avslut och göra mål">
-            Komma till avslut och göra mål
-          </MenuItem>
-          <ListSubheader component="div">Försvarsspel</ListSubheader>
-          <MenuItem value="Förhindra speluppbyggnad">
-            Förhindra speluppbyggnad
-          </MenuItem>
-          <MenuItem value="Återerövring av bollen">
-            Återerövring av bollen
-          </MenuItem>
-          <MenuItem value="Förhindra och rädda avslut">
-            Förhindra och rädda avslut
-          </MenuItem>
-          <ListSubheader component="div">Fotbollsfys</ListSubheader>
-          <MenuItem value="Explosiv träning">Explosiv träning</MenuItem>
-          <MenuItem value="Förbättra och behålla återhämtningsförmågan mellan fotbollsaktioner">
-            Förbättra och behålla återhämtningsförmågan mellan fotbollsaktioner
-          </MenuItem>
-          <MenuItem value="Fotbollsstyrka">Fotbollsstyrka</MenuItem>
-          <MenuItem value="Fotbollsrörlighet">Fotbollsrörlighet</MenuItem>
-          <MenuItem value="Fotbollskoordination">Fotbollskoordination</MenuItem>
-          <MenuItem value="Lek">Lek</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl fullWidth margin="normal">
-        <TextField
-          label="Beskrivning"
-          value={desc}
-          multiline
-          onChange={(e) => setDesc(e.target.value)}
-        />
-      </FormControl>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box mb={3}>
+          <Typography variant="h4">Skapa pass</Typography>
+        </Box>
+        <FormControl fullWidth margin="normal">
+          <TextField
+            label="Namn"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </FormControl>
+        <FormControl fullWidth margin="normal">
+          <InputLabel id="what">Nivå</InputLabel>
+          <Select label="Nivå" onChange={(e) => setDifficulty(e.target.value)}>
+            <MenuItem value="3 mot 3">3 mot 3</MenuItem>
+            <MenuItem value="5 mot 5">5 mot 5</MenuItem>
+            <MenuItem value="7 mot 7">7 mot 7</MenuItem>
+            <MenuItem value="9 mot 9">9 mot 9</MenuItem>
+            <MenuItem value="11 mot 11">11 mot 11</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl fullWidth margin="normal">
+          <InputLabel id="what">Typ</InputLabel>
+          <Select label="Typ" onChange={(e) => setType(e.target.value)}>
+            <ListSubheader component="div">Anfallsspel</ListSubheader>
+            <MenuItem value="Speluppbyggnad">Speluppbyggnad</MenuItem>
+            <MenuItem value="Kontring">Kontring</MenuItem>
+            <MenuItem value="Komma till avslut och göra mål">
+              Komma till avslut och göra mål
+            </MenuItem>
+            <ListSubheader component="div">Försvarsspel</ListSubheader>
+            <MenuItem value="Förhindra speluppbyggnad">
+              Förhindra speluppbyggnad
+            </MenuItem>
+            <MenuItem value="Återerövring av bollen">
+              Återerövring av bollen
+            </MenuItem>
+            <MenuItem value="Förhindra och rädda avslut">
+              Förhindra och rädda avslut
+            </MenuItem>
+            <ListSubheader component="div">Fotbollsfys</ListSubheader>
+            <MenuItem value="Explosiv träning">Explosiv träning</MenuItem>
+            <MenuItem value="Förbättra och behålla återhämtningsförmågan mellan fotbollsaktioner">
+              Förbättra och behålla återhämtningsförmågan mellan
+              fotbollsaktioner
+            </MenuItem>
+            <MenuItem value="Fotbollsstyrka">Fotbollsstyrka</MenuItem>
+            <MenuItem value="Fotbollsrörlighet">Fotbollsrörlighet</MenuItem>
+            <MenuItem value="Fotbollskoordination">
+              Fotbollskoordination
+            </MenuItem>
+            <MenuItem value="Lek">Lek</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl fullWidth margin="normal">
+          <TextField
+            label="Beskrivning"
+            value={desc}
+            multiline
+            onChange={(e) => setDesc(e.target.value)}
+          />
+        </FormControl>
 
-      <Box mb={3}>
-        <Typography variant="h6">Välj övningar</Typography>
-      </Box>
-      <TableContainer>
-        <Table aria-label="simple table">
-          <TableBody>
-            {drills.map((drill) => (
-              <TableRow key={drill.id}>
-                <TableCell component="th" scope="row">
-                  {drill.data().name}
-                </TableCell>
-                <TableCell align="right">
-                  <Select
-                    value={selectedDrills.includes(drill.id)}
-                    onChange={(e) => {
-                      if (e.target.value) {
-                        setSelectedDrills([...selectedDrills, drill.id]);
-                      } else {
-                        setSelectedDrills(
-                          selectedDrills.filter((id) => id !== drill.id)
-                        );
-                      }
-                    }}
-                  >
-                    <MenuItem value={true}>Välj</MenuItem>
-                    <MenuItem value={false}>Avvälj</MenuItem>
-                  </Select>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <FormControl fullWidth margin="normal">
-        <Button
-          onClick={createSession}
-          variant="contained"
-          disabled={!name || !difficulty || !type || !selectedDrills.length}
-        >
-          Skapa pass
-        </Button>
-      </FormControl>
+        <Box mb={3}>
+          <Typography variant="h6">Välj övningar</Typography>
+        </Box>
+        <TableContainer>
+          <Table aria-label="simple table">
+            <TableBody>
+              {drills.map((drill) => (
+                <TableRow key={drill.id}>
+                  <TableCell component="th" scope="row">
+                    {drill.data().name}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Select
+                      value={selectedDrills.includes(drill.id)}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          setSelectedDrills([...selectedDrills, drill.id]);
+                        } else {
+                          setSelectedDrills(
+                            selectedDrills.filter((id) => id !== drill.id)
+                          );
+                        }
+                      }}
+                    >
+                      <MenuItem value={true}>Välj</MenuItem>
+                      <MenuItem value={false}>Avvälj</MenuItem>
+                    </Select>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <FormControl fullWidth margin="normal">
+          <Button
+            onClick={createSession}
+            variant="contained"
+            disabled={!name || !difficulty || !type || !selectedDrills.length}
+          >
+            Skapa pass
+          </Button>
+        </FormControl>
+      </Paper>
     </Container>
 
     // <div className="container">

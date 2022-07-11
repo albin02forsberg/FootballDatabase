@@ -1,4 +1,4 @@
-import { List, ListItemButton, Typography } from "@mui/material";
+import { List, ListItemButton, Paper, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import {
   collection,
@@ -71,16 +71,21 @@ export default function Session() {
 
   return (
     <Container>
-      <Box>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <Box>
-          <Typography variant="h3">{sessionData.name}</Typography>
-          {/* <button className="btn btn-primary disabled">
-              Exportera till pdf
-            </button> */}
+          <Box>
+            <Typography variant="h3">{sessionData.name}</Typography>
+          </Box>
         </Box>
-      </Box>
-      <Box>
-        <div className="card">
+        <Box>
           <Typography variant="h5">Passets övningar</Typography>
           <List>
             {drillsData &&
@@ -94,12 +99,26 @@ export default function Session() {
                 </ListItemButton>
               ))}
           </List>
-        </div>
-        <Typography variant="overline">
-          Antal övningar: {sessionData.drills.length}
-        </Typography>
-        <hr />
-      </Box>
+          <Typography variant="overline">
+            Antal övningar: {sessionData.drills.length}
+          </Typography>
+          <hr />
+        </Box>
+      </Paper>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box>
+          <Typography variant="h5">Beskrivning</Typography>
+          <Typography variant="body1">{sessionData.desc}</Typography>
+        </Box>
+      </Paper>
       <Box>
         {drillsData &&
           drillsData.docs.map((drill) => (

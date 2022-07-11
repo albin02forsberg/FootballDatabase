@@ -3,6 +3,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  Paper,
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
@@ -32,32 +33,42 @@ export default function MyTeams() {
 
   return (
     <Container>
-      <Box mb={3}>
-        <Typography variant="h4">Mina lag (Beta)</Typography>
-      </Box>
-      <Box mb={3}>
-        {teams.length > 0 ? (
-          <List>
-            {teams.map((team) => (
-              <>
-                <ListItem>
-                  <ListItemButton
-                    component={Link}
-                    to={`/team/${team.data().teamId}`}
-                  >
-                    <Typography variant="h6">
-                      {team.data().club} - {team.data().name}
-                    </Typography>
-                  </ListItemButton>
-                </ListItem>
-                <Divider />
-              </>
-            ))}
-          </List>
-        ) : (
-          <Typography variant="h6">Du är inte med i något lag</Typography>
-        )}
-      </Box>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box mb={3}>
+          <Typography variant="h4">Mina lag (Beta)</Typography>
+        </Box>
+        <Box mb={3}>
+          {teams.length > 0 ? (
+            <List>
+              {teams.map((team) => (
+                <>
+                  <ListItem>
+                    <ListItemButton
+                      component={Link}
+                      to={`/team/${team.data().teamId}`}
+                    >
+                      <Typography variant="h6">
+                        {team.data().club} - {team.data().name}
+                      </Typography>
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider />
+                </>
+              ))}
+            </List>
+          ) : (
+            <Typography variant="h6">Du är inte med i något lag</Typography>
+          )}
+        </Box>
+      </Paper>
     </Container>
   );
 }

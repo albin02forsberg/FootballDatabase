@@ -369,8 +369,8 @@ export default function Canvas({ setImg }) {
         </ToggleButtonGroup>
         <Divider />
       </FormControl>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={0}>
+        <Grid item xs={6} sm={6}>
           <canvas
             id="canvas"
             width={canvasWidth + "px"}
@@ -382,7 +382,7 @@ export default function Canvas({ setImg }) {
             className="canvas"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Box mb={2}>
             <Typography variant="h6">Välj spelare</Typography>
           </Box>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import { doc, updateDoc } from "firebase/firestore";
 import { Box, Container } from "@mui/system";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Paper, TextField, Typography } from "@mui/material";
 
 export default function Login({ setIsAuth }) {
   let navigate = useNavigate();
@@ -74,57 +74,72 @@ export default function Login({ setIsAuth }) {
 
   return (
     <Container>
-      <Box
+      <Paper
         style={{
-          width: "75%",
-          margin: "auto",
+          padding: "2rem",
+          margin: "2rem",
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <Typography variant="h4">Logga in</Typography>
-        <Box mt={2} />
-        <TextField
-          label="E-post"
-          onChange={(e) => {
-            setEmail(e.target.value);
+        <Box
+          style={{
+            width: "75%",
+            margin: "auto",
+            display: "flex",
+            flexDirection: "column",
           }}
-        />
-        <Box mt={2} />
-        <TextField
-          label="Lösenord"
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <Box mt={2} />
-        <Button variant="container" onClick={signIn}>
-          Logga in
-        </Button>
-        <Button variant="contained" color="primary" onClick={signInWithGoogle}>
-          Logga in med Google
-        </Button>
-      </Box>
-      <Box
-        style={{
-          width: "75%",
-          margin: "1rem auto",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <Typography variant="body1">
-          Har du inte ett konto?{" "}
+        >
+          <Typography variant="h4">Logga in</Typography>
+          <Box mt={2} />
+          <TextField
+            label="E-post"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <Box mt={2} />
+          <TextField
+            label="Lösenord"
+            type="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <Box mt={2} />
+          <Button variant="container" onClick={signIn}>
+            Logga in
+          </Button>
           <Button
             variant="contained"
             color="primary"
-            onClick={() => navigate("/register")}
+            onClick={signInWithGoogle}
           >
-            Skapa konto
+            Logga in med Google
           </Button>
-        </Typography>
-      </Box>
+        </Box>
+        <Box
+          style={{
+            width: "75%",
+            margin: "1rem auto",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography variant="body1">
+            Har du inte ett konto?{" "}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate("/register")}
+            >
+              Skapa konto
+            </Button>
+          </Typography>
+        </Box>
+      </Paper>
     </Container>
   );
 }

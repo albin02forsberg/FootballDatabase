@@ -17,6 +17,7 @@ import { Masonry } from "@mui/lab";
 import { Box, Container } from "@mui/system";
 import {
   Divider,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -81,62 +82,92 @@ export default function User({ signOut }) {
 
   return (
     <Container>
-      <Box mb={3}>
-        {
-          <Suspense fallback={<Loading />}>
-            <UserHeader
-              user={data}
-              drills={drillsData.length}
-              signOut={signOut}
-            />
-          </Suspense>
-        }
-      </Box>
-      <Box mb={3}>
-        <Typography variant="h4">{data.data().name}s övningar</Typography>
-        <Divider style={{ marginBottom: "8pt" }} />
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box mb={3}>
+          {
+            <Suspense fallback={<Loading />}>
+              <UserHeader
+                user={data}
+                drills={drillsData.length}
+                signOut={signOut}
+              />
+            </Suspense>
+          }
+        </Box>
+      </Paper>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box mb={3}>
+          <Typography variant="h4">{data.data().name}s övningar</Typography>
+          <Divider style={{ marginBottom: "8pt" }} />
 
-        <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
-          {drillsData &&
-            drillsData.map((drill) => (
-              <Suspense fallback={<Loading />}>
-                <DrillCard drill={drill} />
-              </Suspense>
-            ))}
-        </Masonry>
-      </Box>
-      <Divider />
-      <Box mb={3}>
-        <Typography variant="h5">{data.data().name + "s pass"}</Typography>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Namn</TableCell>
-                <TableCell>Typ</TableCell>
-                <TableCell>Nivå</TableCell>
-                <TableCell>Antal övningar</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sessionsData &&
-                sessionsData.map((session) => (
-                  <TableRow key={session.id}>
-                    <TableCell>
-                      <Link to={`/session/${session.id}`}>
-                        {session.data().name}
-                      </Link>
-                    </TableCell>
-                    <TableCell>{session.data().type}</TableCell>
+          <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
+            {drillsData &&
+              drillsData.map((drill) => (
+                <Suspense fallback={<Loading />}>
+                  <DrillCard drill={drill} />
+                </Suspense>
+              ))}
+          </Masonry>
+        </Box>
+        <Divider />
+      </Paper>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box mb={3}>
+          <Typography variant="h5">{data.data().name + "s pass"}</Typography>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Namn</TableCell>
+                  <TableCell>Typ</TableCell>
+                  <TableCell>Nivå</TableCell>
+                  <TableCell>Antal övningar</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {sessionsData &&
+                  sessionsData.map((session) => (
+                    <TableRow key={session.id}>
+                      <TableCell>
+                        <Link to={`/session/${session.id}`}>
+                          {session.data().name}
+                        </Link>
+                      </TableCell>
+                      <TableCell>{session.data().type}</TableCell>
 
-                    <TableCell>{session.data().level}</TableCell>
-                    <TableCell>{session.data().drills.length}</TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
+                      <TableCell>{session.data().level}</TableCell>
+                      <TableCell>{session.data().drills.length}</TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Paper>
     </Container>
   );
 }

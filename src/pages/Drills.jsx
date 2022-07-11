@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Stack, Typography } from "@mui/material";
+import { Box, Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import { Masonry } from "@mui/lab";
 import { Container } from "@mui/system";
 import {
@@ -96,47 +96,53 @@ export default function Drills() {
 
   return (
     <Container>
-      <Box mb={3}></Box>
-      <Box mb={3}>
-        <Typography variant="h4">Övningar</Typography>
-        {auth && auth.currentUser && (
-          <Button
-            variant="contained"
-            color="primary"
-            component={Link}
-            to="/createdrill"
-          >
-            Skapa ny övning
-          </Button>
-        )}
-      </Box>
-      <Box>
-        <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
-          {
-            // For every page in the data, render a drill card
-            data.pages.map((page) => {
-              return page.map((drill) => {
-                return (
-                  <Suspense key={drill.id} fallback={<Loading />}>
-                    <DrillCard drill={drill} />
-                  </Suspense>
-                );
-              });
-            })
-          }
-        </Masonry>
-      </Box>
-      <Stack spacing={2}>
-        <Divider />
-        <Stack spacing={3}>
-          <Button onClick={fetchMore} variant="contained" ref={ref} disabled>
-            Ladda fler
-          </Button>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box mb={3}>
+          <Typography variant="h4">Övningar</Typography>
+          {auth && auth.currentUser && (
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/createdrill"
+            >
+              Skapa ny övning
+            </Button>
+          )}
+        </Box>
+        <Box>
+          <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
+            {
+              // For every page in the data, render a drill card
+              data.pages.map((page) => {
+                return page.map((drill) => {
+                  return (
+                    <Suspense key={drill.id} fallback={<Loading />}>
+                      <DrillCard drill={drill} />
+                    </Suspense>
+                  );
+                });
+              })
+            }
+          </Masonry>
+        </Box>
+        <Stack spacing={2}>
+          <Divider />
+          <Stack spacing={3}>
+            <Button onClick={fetchMore} variant="contained" ref={ref} disabled>
+              Ladda fler
+            </Button>
+          </Stack>
         </Stack>
-      </Stack>
-      <Box mb={10}></Box>
-      <Box mb={3}></Box>
-      <Box mb={3}></Box>
+      </Paper>
     </Container>
   );
 }

@@ -10,6 +10,7 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
+  Grid,
   Paper,
   Stack,
   Typography,
@@ -20,14 +21,14 @@ import { useQuery } from "react-query";
 
 export default function Home() {
   const { data: recDrills, status } = useQuery("recommendedDrills", () => {
-    const q = query(collection(db, "drills"), limit(8));
+    const q = query(collection(db, "drills"), limit(4));
     return getDocs(q);
   });
 
   const { data: newsData, status: newsStatus } = useQuery("news", () => {
     return getDocs(
       collection(db, "news"),
-      limit(6),
+      limit(3),
       orderBy("createdAt", "asc")
     );
   });
@@ -40,71 +41,127 @@ export default function Home() {
     <Container>
       <Paper
         style={{
-          padding: "20px",
-          backgroundColor: "rgba(255,255,255,0.5)",
-          borderRadius: "12px",
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Box mb={3}>
-          <Typography variant="h4">Nyheter</Typography>
+          <Masonry columns={{ md: 2, sm: 1 }}>
+            <Card variant="outlined" component={Link} to="/drills">
+              <CardActionArea>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Övningar
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Här kan du läsa om alla övningar som finns i vår databas.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+            <Card variant="outlined" component={Link} to="/sessions">
+              <CardActionArea>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Träningspass
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Här kan du läsa om alla träningspass som finns i vår
+                    databas.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Masonry>
         </Box>
-        <Stack spacing={2}>
-          {newsData.docs.map((newsItem) => (
-            <Paper key={newsItem.id} style={{ borderRadius: "12px" }}>
-              <Card
-                component={Link}
-                to={"/news/" + newsItem.id}
-                style={{ borderRadius: "12px", textDecoration: "none" }}
-              >
-                <Paper elevation={4} style={{ borderRadius: "12px" }}>
-                  <CardActionArea>
-                    <CardContent>
-                      <Typography
-                        variant="h5"
-                        style={{ textDecoration: "none" }}
-                      >
-                        {newsItem.data().title}
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        style={{ textDecoration: "none" }}
-                      >
-                        {newsItem.data().content}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Typography variant="caption">
-                        {calculateTime(newsItem.data().created.seconds)} -{" "}
-                        {newsItem.data().uname}
-                      </Typography>
-                    </CardActions>
-                  </CardActionArea>
+      </Paper>
+      <Grid container spacing={3} columns={{ xs: 4, md: 12 }}>
+        <Grid item xs>
+          <Paper
+            style={{
+              padding: "1rem",
+              margin: "1rem",
+              backgroundColor: "#fafafa",
+              borderRadius: "0.5rem",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <Box mb={3}>
+              <Typography variant="h4">Rekommenderade övningar</Typography>
+            </Box>
+            <Masonry columns={{ md: 2, sm: 1 }}>
+              {recDrills &&
+                recDrills.docs.map((drill) => (
+                  <Suspense fallback={<Loading />}>
+                    <DrillCard drill={drill} />
+                  </Suspense>
+                ))}
+            </Masonry>
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper
+            style={{
+              padding: "1rem",
+              margin: "1rem",
+              backgroundColor: "#fafafa",
+              borderRadius: "0.5rem",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <Box mb={3}>
+              <Typography variant="h4">Nyheter</Typography>
+            </Box>
+            <Stack spacing={2}>
+              {newsData.docs.map((newsItem) => (
+                <Paper key={newsItem.id} style={{ borderRadius: "12px" }}>
+                  <Card
+                    component={Link}
+                    to={"/news/" + newsItem.id}
+                    style={{ borderRadius: "12px", textDecoration: "none" }}
+                  >
+                    <Paper elevation={4} style={{ borderRadius: "12px" }}>
+                      <CardActionArea>
+                        <CardContent>
+                          <Typography
+                            variant="h5"
+                            style={{ textDecoration: "none" }}
+                          >
+                            {newsItem.data().title}
+                          </Typography>
+                          <Typography
+                            variant="body1"
+                            style={{ textDecoration: "none" }}
+                          >
+                            {newsItem.data().content}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Typography variant="caption">
+                            {calculateTime(newsItem.data().created.seconds)} -{" "}
+                            {newsItem.data().uname}
+                          </Typography>
+                        </CardActions>
+                      </CardActionArea>
+                    </Paper>
+                  </Card>
                 </Paper>
-              </Card>
-            </Paper>
-          ))}
-        </Stack>
-      </Paper>
-      <Paper
-        style={{
-          padding: "20px",
-          backgroundColor: "rgba(255,255,255,0.5)",
-          marginTop: "12px",
-          borderRadius: "12px",
-        }}
-      >
-        <Box mb={3}>
-          <Typography variant="h4">Rekommenderade övningar</Typography>
-        </Box>
-        <Masonry columns={{ md: 4, sm: 1 }}>
-          {recDrills &&
-            recDrills.docs.map((drill) => (
-              <Suspense fallback={<Loading />}>
-                <DrillCard drill={drill} />
-              </Suspense>
-            ))}
-        </Masonry>
-      </Paper>
+              ))}
+            </Stack>
+          </Paper>
+        </Grid>
+      </Grid>
     </Container>
   );
 }

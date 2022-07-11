@@ -318,12 +318,11 @@ function App() {
       // Change paper
       MuiPaper: {
         root: {
-          backgroundColor: "#fff",
-          borderRadius: "12px",
-          boxShadow:
-            "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
           padding: "1rem",
-          margin: "200px",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
         },
       },
     },
