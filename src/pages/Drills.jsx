@@ -25,56 +25,51 @@ const DrillCard = lazy(() => {
 
 export default function Drills() {
   const [drills, setDrills] = React.useState([]);
-  const { ref, inView } = useInView();
-
-  // async function fetchData() {
-  //   const drillQ = query(
-  //     collection(db, "drills"),
-  //     orderBy("created", "desc"),
-  //     limit(6)
-  //   );
-
-  //   const drills = await getDocs(drillQ);
-  //   console.log(drills.docs);
-  //   setDrills(drills.docs);
-  //   return drills.docs;
-  // }
 
   const fetchMore = async () => {
-    const drillQ = query(
-      collection(db, "drills"),
-      orderBy("created", "desc"),
-      limit(12),
-      startAfter(drills[drills.length - 1])
-    );
-    const dri = await getDocs(drillQ);
-    setDrills([...drills, ...dri.docs]);
-    console.log(drills);
-    return dri.docs;
+    if (drills.length === 0) {
+      const drillQ = query(
+        collection(db, "drills"),
+        orderBy("created", "desc"),
+        limit(8)
+      );
+
+      const drills = await getDocs(drillQ);
+      setDrills(drills.docs);
+      return drills.docs;
+    } else {
+      const drillQ = query(
+        collection(db, "drills"),
+        orderBy("created", "desc"),
+        limit(8),
+        // start after the last drill in data
+        startAfter(drills[drills.length - 1])
+      );
+      const dri = await getDocs(drillQ);
+      setDrills([...drills, ...dri.docs]);
+      console.log(drills.length);
+      return dri.docs;
+    }
   };
+  const { status, fetchNextPage, isFetching } = useInfiniteQuery(
+    "drills",
+    fetchMore,
+    // if inView is true, fetch more data
+    {
+      getNextPageParam: (lastPage, page) => {
+        return page + 1;
+      },
+      // no need to refetch if the data is already loaded
+    }
+  );
+
+  const { ref, inView } = useInView();
 
   useEffect(() => {
     document.title = "Övningar";
   }, []);
 
   // Use infinite query to fetch more drills when user scrolls to the bottom of the page
-  const { data, status, fetchNextPage } = useInfiniteQuery(
-    "drills",
-    async ({ pageParam = 1 }) => {
-      const drillQ = query(
-        collection(db, "drills"),
-        orderBy("created", "desc")
-      );
-
-      const drills = await getDocs(drillQ);
-      return drills.docs;
-    },
-    {
-      getNextPageParam: (lastPage) => lastPage.nextId,
-      refetchOnWindowFocus: false,
-      refetchInterval: 1000 * 60,
-    }
-  );
 
   useEffect(() => {
     if (inView) {
@@ -86,13 +81,9 @@ export default function Drills() {
     return <Loading />;
   }
 
-  if (status === "success") {
-    console.log(data);
-  }
-
-  if (status === "error") {
-    return <div>Error</div>;
-  }
+  // if (status === "error") {
+  //   return <div>Error</div>;
+  // }
 
   return (
     <Container>
@@ -106,7 +97,7 @@ export default function Drills() {
         }}
       >
         <Box mb={3}>
-          <Typography variant="h4">Övningar</Typography>
+          <Typography variant="h4">Övningar </Typography>
           {auth && auth.currentUser && (
             <Button
               variant="contained"
@@ -119,27 +110,39 @@ export default function Drills() {
           )}
         </Box>
         <Box>
-          <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
-            {
-              // For every page in the data, render a drill card
-              data.pages.map((page) => {
-                return page.map((drill) => {
-                  return (
-                    <Suspense key={drill.id} fallback={<Loading />}>
-                      <DrillCard drill={drill} />
-                    </Suspense>
-                  );
-                });
-              })
-            }
+          <Masonry columns={{ md: 4, sm: 1 }} spacing={{ md: 3, sm: 0 }}>
+            {drills.map((drill) => (
+              <Suspense key={drill.id} fallback={<Loading />}>
+                <DrillCard drill={drill} />
+              </Suspense>
+            ))}
+            {isFetching && <Loading />}
           </Masonry>
         </Box>
         <Stack spacing={2}>
           <Divider />
           <Stack spacing={3}>
-            <Button onClick={fetchMore} variant="contained" ref={ref} disabled>
-              Ladda fler
-            </Button>
+            {isFetching && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={fetchNextPage}
+                ref={ref}
+              >
+                Ladda fler
+              </Button>
+            )}
+            {!isFetching && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={fetchNextPage}
+                disabled
+                ref={ref}
+              >
+                Inga fler övningar
+              </Button>
+            )}
           </Stack>
         </Stack>
       </Paper>

@@ -86,17 +86,35 @@ export default function News() {
         }}
       >
         <Box>
-          <Typography variant="h4">{articleData.data().title}</Typography>
-          <Divider />
-          <Typography variant="body1">{articleData.data().content}</Typography>
-          <Typography variant="body1">
-            Skrivet av:{" "}
-            <Link to={"/user/" + articleData.data().uid}>
-              {articleData.data().uname}
-            </Link>{" "}
-          </Typography>
-          <Divider />
+          {articleStauts === "loading" && <Loading />}
+          {articleStauts === "success" && (
+            <>
+              <Typography variant="h4">{articleData.data().title}</Typography>
+              <Typography variant="body1">
+                {articleData.data().content}
+              </Typography>
+              <Divider />
+              <Typography
+                variant="body1"
+                component={Link}
+                to={"/user/" + articleData.data().uid}
+              >
+                Skapad av: {articleData.data().uname}
+              </Typography>
+              <Divider />
+            </>
+          )}
         </Box>
+      </Paper>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          borderRadius: "1rem",
+          backgroundColor: "#fafafa",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <Box>
           <FormControl fullWidth>
             <Typography variant="h6">Kommentera</Typography>
@@ -104,6 +122,7 @@ export default function News() {
             <TextField
               field="comment"
               label="Kommentar"
+              value={comment}
               onChange={(e) => {
                 setComment(e.target.value);
               }}
@@ -112,6 +131,16 @@ export default function News() {
             <Button onClick={postComment}>Kommentera</Button>
           </FormControl>
         </Box>
+      </Paper>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          borderRadius: "1rem",
+          backgroundColor: "#fafafa",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <Box>
           <Typography variant="h6">Kommentarer</Typography>
           <Divider />

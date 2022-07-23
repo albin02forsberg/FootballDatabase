@@ -159,7 +159,7 @@ export default function User({ signOut }) {
                       </TableCell>
                       <TableCell>{session.data().type}</TableCell>
 
-                      <TableCell>{session.data().level}</TableCell>
+                      <TableCell>{session.data().difficulty}</TableCell>
                       <TableCell>{session.data().drills.length}</TableCell>
                     </TableRow>
                   ))}

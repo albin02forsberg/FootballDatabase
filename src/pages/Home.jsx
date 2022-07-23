@@ -48,7 +48,7 @@ export default function Home() {
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Box mb={3}>
+        <Box>
           <Masonry columns={{ md: 2, sm: 1 }}>
             <Card variant="outlined" component={Link} to="/drills">
               <CardActionArea>

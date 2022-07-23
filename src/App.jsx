@@ -146,12 +146,12 @@ const Header = lazy(() => {
   ]).then(([moduleExports]) => moduleExports);
 });
 
-// const Footer = lazy(() => {
-//   return Promise.all([
-//     import("./modules/Footer"),
-//     new Promise((resolve) => setTimeout(resolve, 500)),
-//   ]).then(([moduleExports]) => moduleExports);
-// });
+const Footer = lazy(() => {
+  return Promise.all([
+    import("./modules/Footer"),
+    new Promise((resolve) => setTimeout(resolve, 500)),
+  ]).then(([moduleExports]) => moduleExports);
+});
 
 const NotFound = lazy(() => {
   return Promise.all([
@@ -581,6 +581,7 @@ function App() {
           </Routes>
           {/* <MobileNav isAuth={isAuth} signOut={signOut} user={user} /> */}
           {/* <Box mt={8}></Box> */}
+          <Footer />
         </Router>
         <ReactQueryDevtools />
       </ThemeProvider>

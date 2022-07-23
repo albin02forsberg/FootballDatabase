@@ -1,79 +1,118 @@
+import { List, ListItem, Paper, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import React from "react";
 
 export default function Privacy() {
   return (
-    <div className="container">
-      <div className="row">
-        <h1>Privacy Policy for fotbollsträning.se</h1>
-
-        <p>
+    <Container>
+      <Paper
+        style={{
+          padding: "1rem",
+          margin: "1rem",
+          backgroundColor: "#fafafa",
+          borderRadius: "0.5rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Typography variant="h3">
+          Privacy Policy for fotbollsträning.se
+        </Typography>
+        <Typography variant="body1">
           At fotbollsträning.se, accessible from fotbollsträning.se, one of our
           main priorities is the privacy of our visitors. This Privacy Policy
           document contains types of information that is collected and recorded
           by fotbollsträning.se and how we use it.
-        </p>
+        </Typography>
 
-        <p>
+        <Typography variant="body1">
           If you have additional questions or require more information about our
-          Privacy Policy, do not hesitate to contact us.
-        </p>
+          Privacy Policy, do not hesitate to contact us through email at
+          <a href="mailto:albin02forsberg@gmail.com"> albin02forsberg@gmail</a>.
+        </Typography>
 
-        <p>
+        <Typography variant="body1">
           This Privacy Policy applies only to our online activities and is valid
           for visitors to our website with regards to the information that they
           shared and/or collect in fotbollsträning.se. This policy is not
           applicable to any information collected offline or via channels other
-          than this website. Our Privacy Policy was created with the help of the
-          <a href="https://h-supertools.com/web/privacy-policy-generator/">
-            H-supertools Privacy Policy Generator
-          </a>
-          .
-        </p>
+          than this website.
+        </Typography>
 
-        <h2>Consent</h2>
+        <Typography variant="h4">Consent</Typography>
 
-        <p>
+        <Typography variant="body1">
           By using our website, you hereby consent to our Privacy Policy and
           agree to its terms.
-        </p>
+        </Typography>
 
-        <h2>Information we collect</h2>
+        <Typography variant="h4">Information we collect</Typography>
 
-        <p>
+        <Typography variant="body1">
           The personal information that you are asked to provide, and the
           reasons why you are asked to provide it, will be made clear to you at
           the point we ask you to provide your personal information.
-        </p>
-        <p>
+        </Typography>
+
+        <Typography variant="body1">
           If you contact us directly, we may receive additional information
           about you such as your name, email address, phone number, the contents
           of the message and/or attachments you may send us, and any other
           information you may choose to provide.
-        </p>
-        <p>
+        </Typography>
+
+        <Typography variant="body1">
           When you register for an Account, we may ask for your contact
           information, including items such as name, company name, address,
           email address, and telephone number.
-        </p>
+        </Typography>
 
-        <h2>How we use your information</h2>
+        <Typography variant="h4">How we use your information</Typography>
 
-        <p>We use the information we collect in various ways, including to:</p>
+        <Typography variant="body1">
+          We use the information we collect in various ways, including to:
+        </Typography>
 
-        <ul>
-          <li>Provide, operate, and maintain our website</li>
-          <li>Improve, personalize, and expand our website</li>
-          <li>Understand and analyze how you use our website</li>
-          <li>Develop new products, services, features, and functionality</li>
-          <li>
-            Communicate with you, either directly or through one of our
-            partners, including for customer service, to provide you with
-            updates and other information relating to the website, and for
-            marketing and promotional purposes
-          </li>
-          <li>Send you emails</li>
-          <li>Find and prevent fraud</li>
-        </ul>
+        <List>
+          <ListItem>
+            <Typography variant="body1">
+              - Provide, operate, and maintain our website
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="body1">
+              - Provide, operate, and maintain our website
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="body1">
+              - Improve, personalize, and expand our website
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="body1">
+              - Understand and analyze how you use our website
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="body1">
+              - Develop new products, services, features, and functionality
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="body1">
+              - Communicate with you, either directly or through one of our
+              partners, including for customer service, to provide you with
+              updates and other information relating to the website, and for
+              marketing and promotional purposes
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="body1">- Send you emails</Typography>
+          </ListItem>
+          <ListItem>
+            <Typography variant="body1">- Find and prevent fraud</Typography>
+          </ListItem>
+        </List>
 
         <h2>Log Files</h2>
 
@@ -253,7 +292,7 @@ export default function Privacy() {
           will do our best efforts to promptly remove such information from our
           records.
         </p>
-      </div>
-    </div>
+      </Paper>
+    </Container>
   );
 }

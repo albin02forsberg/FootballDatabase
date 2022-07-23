@@ -2,6 +2,7 @@
 
 :root {
     --primary-color: #5A4AE3;
+    --primary-color-trans: #4a3ac3ae;
     --secondary-color: #4AE3A6;
     --tertiary-color: #d4e34aa3;
     --tertiary-color2: #E34A87;
@@ -21,7 +22,7 @@ body {
     font-size: 16px;
     color: var(--dark-color);
     /* linear gradient with opacity */
-    background: linear-gradient(to right, var(--tertiary-color), var(--light-color), var(--tertiary-color));
+    background: linear-gradient(to right, var(--primary-color-trans), var(--light-color), var(--primary-color-trans));
 }
 
 p {
