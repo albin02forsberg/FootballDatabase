@@ -12,7 +12,7 @@ import calculateTime from "../scripts/calculateTime";
 export default function DrillCard({ drill, showCreator }) {
   return (
     // Create mui card
-    <Paper elevation={2} style={{ borderRadius: "12px" }}>
+    <Paper elevation={2} style={{ borderRadius: "12px", marginBottom: "12pt" }}>
       <Card style={{ borderRadius: "12px" }}>
         <CardActionArea component={Link} to={"/drill/" + drill.id}>
           <CardHeader

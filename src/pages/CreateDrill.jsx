@@ -69,7 +69,7 @@ export default function CreateDrill() {
       <Paper
         style={{
           padding: "1rem",
-          margin: "1rem",
+          margin: "0.5rem",
           backgroundColor: "#fafafa",
           borderRadius: "0.5rem",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
@@ -171,7 +171,7 @@ export default function CreateDrill() {
       <Paper
         style={{
           padding: "1rem",
-          margin: "1rem",
+          margin: "0.5rem",
           backgroundColor: "#fafafa",
           borderRadius: "0.5rem",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
@@ -184,7 +184,7 @@ export default function CreateDrill() {
       <Paper
         style={{
           padding: "1rem",
-          margin: "1rem",
+          margin: "0.5rem",
           backgroundColor: "#fafafa",
           borderRadius: "0.5rem",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",

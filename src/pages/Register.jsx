@@ -54,7 +54,7 @@ export default function Register() {
       <Paper
         style={{
           padding: "2rem",
-          margin: "2rem",
+          margin: "0.5rem",
           borderRadius: "1rem",
           backgroundColor: "#fafafa",
         }}

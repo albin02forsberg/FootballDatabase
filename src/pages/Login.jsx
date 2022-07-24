@@ -77,7 +77,7 @@ export default function Login({ setIsAuth }) {
       <Paper
         style={{
           padding: "2rem",
-          margin: "2rem",
+          margin: "0.5rem",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
