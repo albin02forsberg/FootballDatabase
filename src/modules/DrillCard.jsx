@@ -1,41 +1,56 @@
 import {
+  Button,
   Card,
   CardActionArea,
+  CardActions,
   CardHeader,
   CardMedia,
   Paper,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import calculateTime from "../scripts/calculateTime";
 
-export default function DrillCard({ drill, showCreator }) {
+export default function DrillCard({ drill, id, showCreator }) {
   return (
     // Create mui card
-    <Paper elevation={2} style={{ borderRadius: "12px", marginBottom: "12pt" }}>
-      <Card style={{ borderRadius: "12px" }}>
-        <CardActionArea component={Link} to={"/drill/" + drill.id}>
-          <CardHeader
-            title={
-              <Link
-                to={`/drill/${drill.id}`}
-                style={{ color: "black", textDecoration: "none" }}
-              >
-                {drill.data().name}
-              </Link>
-            }
-            subheader={calculateTime(drill.data().created.seconds)}
-          />
-          <CardMedia
-            image={drill.data().imgLink}
-            title={drill.data().title}
-            height="auto"
-            component="img"
-            style={{ borderRadius: "12px" }}
-          />
-        </CardActionArea>
-      </Card>
-    </Paper>
+    <Card style={{ borderRadius: "12px", padding: "0" }}>
+      <CardActionArea component={Link} to={"/drill/" + id}>
+        <CardHeader
+          title={
+            <Link
+              to={`/drill/${id}`}
+              style={{ color: "black", textDecoration: "none" }}
+            >
+              {drill.name}
+            </Link>
+          }
+        />
+        <CardMedia
+          image={drill.imgLink}
+          title={drill.title}
+          height="auto"
+          component="img"
+          style={{ borderRadius: "12px" }}
+        />
+      </CardActionArea>
+      {showCreator && (
+        <CardActions>
+          <Button
+            size="small"
+            color="primary"
+            component={Link}
+            to={"/user/" + drill.uid}
+          >
+            {drill.uname}
+          </Button>
+          <Typography variant="caption">
+            {calculateTime(drill.created.seconds)}
+          </Typography>
+        </CardActions>
+      )}
+    </Card>
 
     // <div className="col mx-auto">
     //   <div className="card mb">

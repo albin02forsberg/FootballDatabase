@@ -24,44 +24,52 @@ const DrillCard = lazy(() => {
 });
 
 export default function Drills() {
-  const [drills, setDrills] = React.useState([]);
-
-  const fetchMore = async () => {
-    if (drills.length === 0) {
-      const drillQ = query(
-        collection(db, "drills"),
-        orderBy("created", "desc"),
-        limit(8)
-      );
-
-      const drills = await getDocs(drillQ);
-      setDrills(drills.docs);
-      return drills.docs;
-    } else {
-      const drillQ = query(
-        collection(db, "drills"),
-        orderBy("created", "desc"),
-        limit(8),
-        // start after the last drill in data
-        startAfter(drills[drills.length - 1])
-      );
-      const dri = await getDocs(drillQ);
-      setDrills([...drills, ...dri.docs]);
-      console.log(drills.length);
-      return dri.docs;
-    }
-  };
-  const { status, fetchNextPage, isFetching } = useInfiniteQuery(
+  const { data, status, isFetching, fetchNextPage } = useInfiniteQuery(
     "drills",
-    fetchMore,
-    // if inView is true, fetch more data
+    async ({ pageParam = null }) => {
+      // const q = query(
+      //   collection(db, "drills"),
+      //   orderBy("created", "desc"),
+      //   limit(10),
+      //   // If there is a pageParam, we must start after it
+      //   pageParam ? startAfter(pageParam) : undefined
+      // );
+
+      if (pageParam) {
+        const q = query(
+          collection(db, "drills"),
+          orderBy("created", "desc"),
+          startAfter(pageParam),
+          limit(10)
+        );
+        return await getDocs(q);
+      } else {
+        const q = query(
+          collection(db, "drills"),
+          orderBy("created", "desc"),
+          limit(10)
+        );
+        return await getDocs(q);
+      }
+    },
     {
-      getNextPageParam: (lastPage, page) => {
-        return page + 1;
+      getNextPageParam: (lastPage, pages) => {
+        return lastPage.docs[lastPage.docs.length - 1];
       },
-      // no need to refetch if the data is already loaded
     }
   );
+
+  // const { data, status, fetchNextPage, isFetching } = useInfiniteQuery(
+  //   "drills",
+  //   fetchMore(data),
+  //   // if inView is true, fetch more data
+  //   {
+  //     getNextPageParam: (lastPage, page) => {
+  //       return page + 1;
+  //     },
+  //     // no need to refetch if the data is already loaded
+  //   }
+  // );
 
   const { ref, inView } = useInView();
 
@@ -111,11 +119,20 @@ export default function Drills() {
         </Box>
         <Box>
           <Masonry columns={{ md: 4, sm: 1 }} spacing={{ md: 3, sm: 0 }}>
-            {drills.map((drill) => (
-              <Suspense key={drill.id} fallback={<Loading />}>
-                <DrillCard drill={drill} />
-              </Suspense>
-            ))}
+            {data.pages.map((page) => {
+              return page.docs.map((doc) => {
+                return (
+                  <Suspense key={doc.id} fallback={<Loading />}>
+                    <DrillCard
+                      drill={doc.data()}
+                      id={doc.id}
+                      showCreator={true}
+                    />
+                  </Suspense>
+                );
+              });
+            })}
+
             {isFetching && <Loading />}
           </Masonry>
         </Box>

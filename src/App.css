@@ -22,10 +22,17 @@ body {
     font-size: 16px;
     color: var(--dark-color);
     /* linear gradient with opacity */
-    background: linear-gradient(to right, var(--primary-color-trans), var(--light-color), var(--primary-color-trans));
+    background-color: var(--primary-color-trans);
 }
 
-p {
+.MuiPaper-root {
+    padding: 1rem;
+    margin: .5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.Mui p {
     white-space: pre-line;
 }
 

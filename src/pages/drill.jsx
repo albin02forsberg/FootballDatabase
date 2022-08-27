@@ -1,17 +1,16 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { collection, doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase-config";
 import Loading from "../modules/Loading";
 import { Box, Container } from "@mui/system";
 import { Divider, Grid, Paper, Typography } from "@mui/material";
 import { useQuery } from "react-query";
+import { getDrill } from "../api/api";
 
 export default function data() {
   const { id } = useParams();
 
   const { data, status } = useQuery(["Drill", id], () => {
-    return getDoc(doc(collection(db, "drills"), id));
+    return getDrill(id);
   });
 
   if (status === "loading") {

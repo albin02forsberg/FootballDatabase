@@ -39,18 +39,15 @@ export default function Home() {
 
   return (
     <Container>
-      <Paper
-        style={{
-          padding: "1rem",
-          margin: "0.5rem",
-          backgroundColor: "#fafafa",
-          borderRadius: "0.5rem",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <Paper>
         <Box>
           <Masonry columns={{ md: 2, sm: 1 }}>
-            <Card variant="outlined" component={Link} to="/drills">
+            <Card
+              variant="outlined"
+              component={Link}
+              to="/drills"
+              style={{ padding: "0" }}
+            >
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -66,7 +63,12 @@ export default function Home() {
                 </CardContent>
               </CardActionArea>
             </Card>
-            <Card variant="outlined" component={Link} to="/sessions">
+            <Card
+              variant="outlined"
+              component={Link}
+              to="/sessions"
+              style={{ padding: "0" }}
+            >
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -88,15 +90,7 @@ export default function Home() {
       </Paper>
       <Grid container spacing={3} columns={{ xs: 4, md: 12 }}>
         <Grid item xs>
-          <Paper
-            style={{
-              padding: "1rem",
-              margin: "0.5rem",
-              backgroundColor: "#fafafa",
-              borderRadius: "0.5rem",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-            }}
-          >
+          <Paper>
             <Box mb={3}>
               <Typography variant="h4">Rekommenderade övningar</Typography>
             </Box>
@@ -104,59 +98,55 @@ export default function Home() {
               {recDrills &&
                 recDrills.docs.map((drill) => (
                   <Suspense fallback={<Loading />}>
-                    <DrillCard drill={drill} />
+                    <DrillCard
+                      drill={drill.data()}
+                      id={drill.id}
+                      showCreator={true}
+                    />
                   </Suspense>
                 ))}
             </Masonry>
           </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper
-            style={{
-              padding: "1rem",
-              margin: "0.5rem",
-              backgroundColor: "#fafafa",
-              borderRadius: "0.5rem",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-            }}
-          >
+          <Paper>
             <Box mb={3}>
               <Typography variant="h4">Nyheter</Typography>
             </Box>
             <Stack spacing={2}>
               {newsData.docs.map((newsItem) => (
-                <Paper key={newsItem.id} style={{ borderRadius: "12px" }}>
-                  <Card
-                    component={Link}
-                    to={"/news/" + newsItem.id}
-                    style={{ borderRadius: "12px", textDecoration: "none" }}
-                  >
-                    <Paper elevation={4} style={{ borderRadius: "12px" }}>
-                      <CardActionArea>
-                        <CardContent>
-                          <Typography
-                            variant="h5"
-                            style={{ textDecoration: "none" }}
-                          >
-                            {newsItem.data().title}
-                          </Typography>
-                          <Typography
-                            variant="body1"
-                            style={{ textDecoration: "none" }}
-                          >
-                            {newsItem.data().content}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <Typography variant="caption">
-                            {calculateTime(newsItem.data().created.seconds)} -{" "}
-                            {newsItem.data().uname}
-                          </Typography>
-                        </CardActions>
-                      </CardActionArea>
-                    </Paper>
-                  </Card>
-                </Paper>
+                <Card
+                  component={Link}
+                  to={"/news/" + newsItem.id}
+                  style={{
+                    borderRadius: "12px",
+                    textDecoration: "none",
+                    padding: "0",
+                  }}
+                >
+                  <CardActionArea>
+                    <CardContent>
+                      <Typography
+                        variant="h5"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {newsItem.data().title}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {newsItem.data().content}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Typography variant="caption">
+                        {calculateTime(newsItem.data().created.seconds)} -{" "}
+                        {newsItem.data().uname}
+                      </Typography>
+                    </CardActions>
+                  </CardActionArea>
+                </Card>
               ))}
             </Stack>
           </Paper>
