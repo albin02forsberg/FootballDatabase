@@ -1,5 +1,4 @@
-import { Avatar, Paper, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Avatar, Typography } from "@mui/material";
 import React from "react";
 
 export default function UserHeader({ drills, user, signOut }) {
