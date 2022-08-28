@@ -14,25 +14,21 @@ export const getDrill = async(id) => {
     return await getDoc(doc(collection(db, "drills"), id));
 };
 
-export const getDrills = async(drill = null) => {
-    if (!drill) {
-        const drillQ = query(
+export const getDrills = async(pageParam = null) => {
+    if (pageParam) {
+        const q = query(
             collection(db, "drills"),
             orderBy("created", "desc"),
-            limit(8)
+            startAfter(pageParam),
+            limit(10)
         );
-
-        const drills = await getDocs(drillQ);
-        return drills.docs;
+        return await getDocs(q);
     } else {
-        const drillQ = query(
+        const q = query(
             collection(db, "drills"),
             orderBy("created", "desc"),
-            limit(8),
-            // start after the last drill in data
-            startAfter(drill)
+            limit(10)
         );
-        const dri = await getDocs(drillQ);
-        return dri.docs;
+        return await getDocs(q);
     }
 };

@@ -9,6 +9,7 @@ import {
   query,
   startAfter,
 } from "firebase/firestore";
+import { getDrills } from "../api/api";
 import React, { Suspense, useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase-config";
@@ -27,30 +28,7 @@ export default function Drills() {
   const { data, status, isFetching, fetchNextPage } = useInfiniteQuery(
     "drills",
     async ({ pageParam = null }) => {
-      // const q = query(
-      //   collection(db, "drills"),
-      //   orderBy("created", "desc"),
-      //   limit(10),
-      //   // If there is a pageParam, we must start after it
-      //   pageParam ? startAfter(pageParam) : undefined
-      // );
-
-      if (pageParam) {
-        const q = query(
-          collection(db, "drills"),
-          orderBy("created", "desc"),
-          startAfter(pageParam),
-          limit(10)
-        );
-        return await getDocs(q);
-      } else {
-        const q = query(
-          collection(db, "drills"),
-          orderBy("created", "desc"),
-          limit(10)
-        );
-        return await getDocs(q);
-      }
+      return getDrills(pageParam);
     },
     {
       getNextPageParam: (lastPage, pages) => {
@@ -58,18 +36,6 @@ export default function Drills() {
       },
     }
   );
-
-  // const { data, status, fetchNextPage, isFetching } = useInfiniteQuery(
-  //   "drills",
-  //   fetchMore(data),
-  //   // if inView is true, fetch more data
-  //   {
-  //     getNextPageParam: (lastPage, page) => {
-  //       return page + 1;
-  //     },
-  //     // no need to refetch if the data is already loaded
-  //   }
-  // );
 
   const { ref, inView } = useInView();
 
