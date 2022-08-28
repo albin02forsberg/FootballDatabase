@@ -1,18 +1,10 @@
 import { Box, Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import { Masonry } from "@mui/lab";
 import { Container } from "@mui/system";
-import {
-  collection,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  startAfter,
-} from "firebase/firestore";
 import { getDrills } from "../api/api";
 import React, { Suspense, useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
-import { auth, db } from "../firebase-config";
+import { auth } from "../firebase-config";
 import Loading from "../modules/Loading";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
