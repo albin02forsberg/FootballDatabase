@@ -1,6 +1,4 @@
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import React, { Suspense } from "react";
-import { db } from "../firebase-config";
 import { Link } from "react-router-dom";
 import calculateTime from "../scripts/calculateTime";
 import Loading from "../modules/Loading";
@@ -18,19 +16,16 @@ import {
 import DrillCard from "../modules/DrillCard";
 import { Masonry } from "@mui/lab";
 import { useQuery } from "react-query";
+import { getNews, getRecommendedDrills } from "../api/api";
 
 export default function Home() {
-  const { data: recDrills, status } = useQuery("recommendedDrills", () => {
-    const q = query(collection(db, "drills"), limit(4));
-    return getDocs(q);
-  });
+  const { data: recDrills, status } = useQuery(
+    "recommendedDrills",
+    getRecommendedDrills
+  );
 
   const { data: newsData, status: newsStatus } = useQuery("news", () => {
-    return getDocs(
-      collection(db, "news"),
-      limit(3),
-      orderBy("createdAt", "asc")
-    );
+    return getNews();
   });
 
   if (status === "loading" || newsStatus === "loading") {

@@ -32,3 +32,22 @@ export const getDrills = async(pageParam = null) => {
         return await getDocs(q);
     }
 };
+
+export const getRecommendedDrills = async() => {
+    // Get 3 random drills
+    const q = query(
+        collection(db, "drills"),
+        orderBy("created", "desc"),
+        limit(4)
+    );
+    return await getDocs(q);
+};
+
+export const getNews = async(count = 3) => {
+    const q = query(
+        collection(db, "news"),
+        limit(count),
+        orderBy("created", "desc")
+    );
+    return await getDocs(q);
+};
