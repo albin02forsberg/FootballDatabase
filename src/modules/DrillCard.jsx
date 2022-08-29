@@ -35,7 +35,12 @@ export default function DrillCard({ drill, id, showCreator }) {
         />
       </CardActionArea>
       {showCreator && (
-        <CardActions>
+        <CardActions
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <Button
             size="small"
             color="primary"
