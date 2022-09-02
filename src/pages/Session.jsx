@@ -45,26 +45,6 @@ export default function Session() {
     }
   );
 
-  // Get session data and drills from firebase
-  // useEffect(() => {
-  //   // Get session data from firebase and get drills from firebase with
-  //   // the drills imgLink
-  //   const sessionCollectionRef = collection(db, "sessions");
-  //   const sessionRef = doc(sessionCollectionRef, id);
-  //   getDoc(sessionRef).then((doc) => {
-  //     document.title = doc.data().name;
-  //     setSession(doc.data());
-  //     // In order of the array
-  //     const drillQ = query(
-  //       collection(db, "drills"),
-  //       where("__name__", "in", doc.data().drills)
-  //     );
-  //     getDocs(drillQ).then((docs) => {
-  //       setDrills(docs.docs);
-  //     });
-  //   });
-  // }, [id]);
-
   if (status === "loading" || drillsStatus === "loading") {
     return <Loading />;
   }
