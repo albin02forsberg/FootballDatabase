@@ -7,6 +7,7 @@ import {
     orderBy,
     query,
     startAfter,
+    where,
 } from "firebase/firestore";
 import { db } from "../firebase-config";
 
@@ -50,4 +51,14 @@ export const getNews = async(count = 3) => {
         orderBy("created", "desc")
     );
     return await getDocs(q);
+};
+
+
+export const getUserDrills = async(uid) => {
+    const drillQ = query(
+        collection(db, "drills"),
+        where("uid", "==", uid),
+        orderBy("created", "desc")
+    );
+    return await getDocs(drillQ);
 };

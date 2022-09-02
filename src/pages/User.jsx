@@ -26,6 +26,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { getUserDrills } from "../api/api";
 
 const DrillCard = lazy(() => {
   return Promise.all([
@@ -55,14 +56,8 @@ export default function User({ signOut }) {
 
   const { data: drillsData, status: drillsStatus } = useQuery(
     ["user drills", uid],
-    async () => {
-      const drillQ = query(
-        collection(db, "drills"),
-        where("uid", "==", uid),
-        orderBy("created", "desc")
-      );
-      const drills = await getDocs(drillQ);
-      return drills.docs;
+    (uid) => {
+      return getUserDrills(uid);
     }
   );
 
