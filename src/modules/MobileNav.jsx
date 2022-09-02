@@ -15,7 +15,10 @@ export default function MobileNav({ user, isAuth }) {
   const [state, setState] = useState(1);
 
   return (
-    <Paper sx={{ position: "fixed", bottom: 0, width: "100%" }}>
+    <Paper
+      sx={{ position: "fixed", bottom: 0, width: "100%" }}
+      style={{ padding: "0" }}
+    >
       <BottomNavigation
         value={state}
         onChange={(e, newValue) => setState(newValue)}

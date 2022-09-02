@@ -52,6 +52,7 @@ export default function Header({ user, signOut }) {
         marginBottom: "20px",
         width: "96vw",
         backgroundColor: "#5A4AE3",
+        padding: 0,
       }}
     >
       {/* logo & toggler button */}
@@ -120,7 +121,7 @@ export default function Header({ user, signOut }) {
         >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
-              <Paper elevation={8} style={{ width: "200px" }}>
+              <Paper elevation={8} style={{ width: "200px", padding: "0" }}>
                 <List>
                   {user && (
                     <>
@@ -168,88 +169,86 @@ export default function Header({ user, signOut }) {
           )}
         </Popper>
         <Drawer open={openDrawer} onClose={toggleDrawer(false)}>
-          <Paper elevation={8} style={{ height: "100%", padding: "0" }}>
-            <List>
-              <ButtonBase
-                onClick={toggleDrawer(false)}
-                component={Link}
-                to="/"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "2rem",
-                }}
-              >
-                <FontAwesomeIcon icon={faHome} />
-              </ButtonBase>
-              <Divider />
-              <ButtonBase
-                onClick={toggleDrawer(false)}
-                component={Link}
-                to="/drills"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "2rem",
-                }}
-              >
-                <FontAwesomeIcon icon={faPersonRunning} />
-              </ButtonBase>
-              <Divider />
-              <ButtonBase
-                onClick={toggleDrawer(false)}
-                component={Link}
-                to="/sessions"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "2rem",
-                }}
-              >
-                <FontAwesomeIcon icon={faAlignJustify} />
-              </ButtonBase>
-              <Divider />
-              <ButtonBase
-                onClick={toggleDrawer(false)}
-                component={Link}
-                to="/myteams"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "2rem",
-                }}
-              >
-                <FontAwesomeIcon icon={faUsers} />
-              </ButtonBase>
-              <Divider />
-              <ButtonBase
-                onClick={toggleDrawer(false)}
-                component={Link}
-                to="/about"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "2rem",
-                }}
-              >
-                <FontAwesomeIcon icon={faInfo} width={"100px"} />
-              </ButtonBase>
-              <Divider />
-              <ButtonBase
-                onClick={toggleDrawer(false)}
-                component={Link}
-                to="/contact"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: "2rem",
-                }}
-              >
-                <FontAwesomeIcon icon={faPhone} />
-              </ButtonBase>
-              <Divider />
-            </List>
-          </Paper>
+          <List>
+            <ButtonBase
+              onClick={toggleDrawer(false)}
+              component={Link}
+              to="/"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "2rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faHome} />
+            </ButtonBase>
+            <Divider />
+            <ButtonBase
+              onClick={toggleDrawer(false)}
+              component={Link}
+              to="/drills"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "2rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faPersonRunning} />
+            </ButtonBase>
+            <Divider />
+            <ButtonBase
+              onClick={toggleDrawer(false)}
+              component={Link}
+              to="/sessions"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "2rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faAlignJustify} />
+            </ButtonBase>
+            <Divider />
+            <ButtonBase
+              onClick={toggleDrawer(false)}
+              component={Link}
+              to="/myteams"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "2rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faUsers} />
+            </ButtonBase>
+            <Divider />
+            <ButtonBase
+              onClick={toggleDrawer(false)}
+              component={Link}
+              to="/about"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "2rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faInfo} width={"100px"} />
+            </ButtonBase>
+            <Divider />
+            <ButtonBase
+              onClick={toggleDrawer(false)}
+              component={Link}
+              to="/contact"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "2rem",
+              }}
+            >
+              <FontAwesomeIcon icon={faPhone} />
+            </ButtonBase>
+            <Divider />
+          </List>
         </Drawer>
       </Box>
     </Paper>

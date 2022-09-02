@@ -116,11 +116,11 @@ export default function User({ signOut }) {
           <Typography variant="h4">{data.data().name}s övningar</Typography>
           <Divider style={{ marginBottom: "8pt" }} />
 
-          <Masonry columns={{ md: 4, sm: 1 }} spacing={3}>
+          <Masonry columns={{ md: 4, sm: 1 }} spacing={{ md: 3, sm: 0 }}>
             {drillsData &&
               drillsData.map((drill) => (
                 <Suspense fallback={<Loading />}>
-                  <DrillCard drill={drill} />
+                  <DrillCard drill={drill.data()} id={drill.id} />
                 </Suspense>
               ))}
           </Masonry>

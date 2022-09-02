@@ -1,5 +1,4 @@
-import { Avatar, Paper, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Avatar, Typography } from "@mui/material";
 import React from "react";
 
 export default function UserHeader({ drills, user, signOut }) {
@@ -15,7 +14,7 @@ export default function UserHeader({ drills, user, signOut }) {
   // }, []);
 
   return (
-    <Paper
+    <div
       style={{
         display: "flex",
         flexDirection: "column",
@@ -23,17 +22,14 @@ export default function UserHeader({ drills, user, signOut }) {
         justifyItems: "center",
         borderRadius: "12px",
         backgroundImage: "linear-gradient(to right, #5A4AE3, #4AE3A6, #5A4AE3)",
+        padding: 0,
       }}
-      elevation={4}
     >
       <Avatar
         src={user.data().photo}
         alt={user.data().name}
         sx={{ width: "100px", height: "100px", margin: "20px auto" }}
       />
-      {/* <div className="user-image">
-        <img src={user.data().photo} alt={user.data().uname} />
-      </div> */}
       <Typography
         variant="h4"
         align="center"
@@ -49,28 +45,6 @@ export default function UserHeader({ drills, user, signOut }) {
       <Typography variant="h6" gutterBottom align="center">
         Gick med: {user.data().joined}
       </Typography>
-      <Box>
-        {/* {(currentUser && currentUser.uid === user.id && (
-          <ButtonGroup
-            variant="contained"
-            aria-label="outlined secondary button group"
-            align="center"
-            fullWidth={true}
-          >
-            <Button
-              variant="outlined"
-              onClick={() => {
-                navigate("/profile");
-              }}
-            >
-              Redigera profil
-            </Button>
-            <Button onClick={signOut} color="error">
-              Logga ut
-            </Button>
-          </ButtonGroup>
-        )) || <></>} */}
-      </Box>
-    </Paper>
+    </div>
   );
 }
