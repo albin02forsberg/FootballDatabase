@@ -39,9 +39,9 @@ export default function UserHeader({ drills, user, signOut }) {
         {user.data().name}
       </Typography>
 
-      <Typography variant="h6" gutterBottom align="center">
+      {/* <Typography variant="h6" gutterBottom align="center">
         Antal övningar: {drills}
-      </Typography>
+      </Typography> */}
       <Typography variant="h6" gutterBottom align="center">
         Gick med: {user.data().joined}
       </Typography>

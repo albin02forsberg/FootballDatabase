@@ -60,5 +60,6 @@ export const getUserDrills = async(uid) => {
         where("uid", "==", uid),
         orderBy("created", "desc")
     );
-    return await getDocs(drillQ);
+    const drills = await getDocs(drillQ);
+    return drills.docs;
 };

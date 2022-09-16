@@ -56,8 +56,8 @@ export default function User({ signOut }) {
 
   const { data: drillsData, status: drillsStatus } = useQuery(
     ["user drills", uid],
-    (uid) => {
-      return getUserDrills(uid);
+    async (uid) => {
+      return await getUserDrills(uid.queryKey[1]);
     }
   );
 
@@ -87,15 +87,9 @@ export default function User({ signOut }) {
         }}
       >
         <Box mb={3}>
-          {
-            <Suspense fallback={<Loading />}>
-              <UserHeader
-                user={data}
-                drills={drillsData.length}
-                signOut={signOut}
-              />
-            </Suspense>
-          }
+          <Suspense fallback={<Loading />}>
+            <UserHeader user={data} signOut={signOut} />
+          </Suspense>
         </Box>
       </Paper>
       <Paper

@@ -75,6 +75,12 @@ export default function Users() {
                 label: "Gick med",
                 flex: 1,
               },
+              {
+                name: "Senast inloggad",
+                field: "lastLogin",
+                label: "Senast inloggad",
+                flex: 1,
+              },
             ]}
             rows={
               users &&
@@ -85,6 +91,7 @@ export default function Users() {
                   email: user.email,
                   role: user.role,
                   joined: user.joined,
+                  lastSignedIn: user.lastSignedInTime,
                 };
               })
             }
