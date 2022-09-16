@@ -69,7 +69,7 @@ export default function Drills() {
               variant="contained"
               color="primary"
               component={Link}
-              to="/createdrill"
+              to="/drills/add"
             >
               Skapa ny övning
             </Button>

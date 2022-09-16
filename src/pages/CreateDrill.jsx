@@ -168,28 +168,12 @@ export default function CreateDrill() {
           />
         </FormControl>
       </Paper>
-      <Paper
-        style={{
-          padding: "1rem",
-          margin: "0.5rem",
-          backgroundColor: "#fafafa",
-          borderRadius: "0.5rem",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <Paper>
         <Suspense fallback={<Loading />}>
           <Canvas setImg={setImg} />
         </Suspense>
       </Paper>
-      <Paper
-        style={{
-          padding: "1rem",
-          margin: "0.5rem",
-          backgroundColor: "#fafafa",
-          borderRadius: "0.5rem",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <Paper>
         <Box>
           <Button
             variant="contained"

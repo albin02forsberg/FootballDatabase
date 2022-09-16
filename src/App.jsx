@@ -401,7 +401,7 @@ function App() {
               }
             />
             <Route
-              path="/createDrill"
+              path="/drills/add"
               element={
                 <Suspense fallback={<Loading />}>
                   <CreateDrill />
@@ -409,7 +409,7 @@ function App() {
               }
             />
             <Route
-              path="/createSession"
+              path="/sessions/add"
               element={
                 <Suspense fallback={<Loading />}>
                   <CreateSession />
@@ -417,7 +417,7 @@ function App() {
               }
             />
             <Route
-              path="/createNews"
+              path="/news/add"
               element={
                 <Suspense fallback={<Loading />}>
                   <CreateNews />
