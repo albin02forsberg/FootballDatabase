@@ -88,7 +88,7 @@ export default function User({ signOut }) {
       >
         <Box mb={3}>
           <Suspense fallback={<Loading />}>
-            <UserHeader user={data} signOut={signOut} />
+            <UserHeader user={data} signOut={signOut} drills={drillsData} />
           </Suspense>
         </Box>
       </Paper>

@@ -13,6 +13,12 @@ export default function UserHeader({ drills, user, signOut }) {
   //   });
   // }, []);
 
+  // Format Tue, 05 Jul 2022 16:58:18 GMT to 05 Jul 2022
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return d.toLocaleDateString();
+  };
+
   return (
     <div
       style={{
@@ -39,11 +45,11 @@ export default function UserHeader({ drills, user, signOut }) {
         {user.data().name}
       </Typography>
 
-      {/* <Typography variant="h6" gutterBottom align="center">
-        Antal övningar: {drills}
-      </Typography> */}
       <Typography variant="h6" gutterBottom align="center">
-        Gick med: {user.data().joined}
+        Antal övningar: {drills.length}
+      </Typography>
+      <Typography variant="h6" gutterBottom align="center">
+        Medlem sedan {formatDate(user.data().joined)}
       </Typography>
     </div>
   );
