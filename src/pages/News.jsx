@@ -76,15 +76,7 @@ export default function News() {
 
   return (
     <Container>
-      <Paper
-        style={{
-          padding: "1rem",
-          margin: "0.5rem",
-          borderRadius: "1rem",
-          backgroundColor: "#fafafa",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <Paper>
         <Box>
           {articleStauts === "loading" && <Loading />}
           {articleStauts === "success" && (
@@ -106,15 +98,7 @@ export default function News() {
           )}
         </Box>
       </Paper>
-      <Paper
-        style={{
-          padding: "1rem",
-          margin: "0.5rem",
-          borderRadius: "1rem",
-          backgroundColor: "#fafafa",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <Paper>
         <Box>
           <FormControl fullWidth>
             <Typography variant="h6">Kommentera</Typography>
@@ -132,15 +116,7 @@ export default function News() {
           </FormControl>
         </Box>
       </Paper>
-      <Paper
-        style={{
-          padding: "1rem",
-          margin: "0.5rem",
-          borderRadius: "1rem",
-          backgroundColor: "#fafafa",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <Paper>
         <Box>
           <Typography variant="h6">Kommentarer</Typography>
           <Divider />
