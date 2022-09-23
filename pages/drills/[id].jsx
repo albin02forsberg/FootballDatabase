@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import Loading from "../../modules/loading";
+import Loading from "../../modules/Loading";
 import { Box, Container } from "@mui/system";
 import { Divider, Grid, Paper, Typography } from "@mui/material";
 import { useQuery } from "react-query";

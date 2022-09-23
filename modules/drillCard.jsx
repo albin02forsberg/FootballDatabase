@@ -16,7 +16,6 @@ export default function DrillCard({ drill, id, showCreator }) {
       <CardActionArea>
         <Link href={"/drills/" + id}>
           <CardMedia
-            title={drill.title}
             image={drill.imgLink}
             height="auto"
             component="img"

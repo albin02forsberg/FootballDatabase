@@ -1,4 +1,4 @@
-import Nav from "../modules/nav";
+import Nav from "../modules/Nav";
 import "../styles/globals.css";
 import { Hydrate, QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";

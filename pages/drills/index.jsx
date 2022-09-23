@@ -5,16 +5,11 @@ import { getDrills } from "../../api/api";
 import React, { Suspense, useEffect, lazy } from "react";
 import Link from "next/link";
 import { auth } from "../../firebase-config";
-import Loading from "../../modules/loading";
+import Loading from "../../modules/Loading";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
+import DrillCard from "../../modules/DrillCard";
 
-const DrillCard = lazy(() => {
-  return Promise.all([
-    import("../../modules/DrillCard"),
-    new Promise((resolve) => setTimeout(resolve, 500)),
-  ]).then(([moduleExports]) => moduleExports);
-});
 
 export default function Drills() {
   const { data, status, isFetching, fetchNextPage } = useInfiniteQuery(

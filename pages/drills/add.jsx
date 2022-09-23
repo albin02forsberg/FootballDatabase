@@ -2,7 +2,7 @@ import React, { useEffect, lazy, Suspense } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../firebase-config";
 import { useRouter } from "next/router";
-import Loading from "../../modules/loading";
+import Loading from "../../modules/Loading";
 import {
   Button,
   Container,
