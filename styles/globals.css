@@ -1,0 +1,60 @@
+/* Create variables with color theme */
+
+:root {
+    --primary-color: #5A4AE3;
+    --primary-color-trans: #4a3ac3ae;
+    --secondary-color: #4AE3A6;
+    --tertiary-color: #d4e34aa3;
+    --tertiary-color2: #E34A87;
+    --accent-color: #E3A64A;
+    --dark-color: #232323;
+    --light-color: #eeeeee;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: var(--dark-color);
+    /* linear gradient with opacity */
+    background-color: var(--primary-color-trans);
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.MuiPaper-root {
+    padding: 1rem;
+    margin: .5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    animation: fade 0.2s ease-in-out;
+}
+
+.Mui p {
+    white-space: pre-line;
+}
+
+.MuiTypography-root {
+    white-space: pre-line;
+}
