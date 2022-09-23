@@ -2,7 +2,7 @@ import React, { useEffect, lazy, Suspense } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../firebase-config";
 import { useRouter } from "next/router";
-import Loading from "../../modules/Loading";
+import Loading from "../../components/Loading";
 import {
   Button,
   Container,
@@ -19,7 +19,7 @@ import { Box } from "@mui/system";
 
 const Canvas = lazy(() => {
   return Promise.all([
-    import("../../modules/canvas"),
+    import("../../components/canvas"),
     new Promise((resolve) => setTimeout(resolve, 500)),
   ]).then(([moduleExports]) => moduleExports);
 });

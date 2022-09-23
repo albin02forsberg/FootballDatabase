@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Link } from "next/link";
 import calculateTime from "../api/calculateTime";
-import Loading from "../modules/Loading";
+import Loading from "../components/Loading";
 import { Box, Container } from "@mui/system";
 import {
   Card,
@@ -13,7 +13,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import DrillCard from "../modules/DrillCard";
+import DrillCard from "../components/DrillCard";
 import { Masonry } from "@mui/lab";
 import { useQuery } from "react-query";
 import { getNews, getRecommendedDrills } from "../api/api";

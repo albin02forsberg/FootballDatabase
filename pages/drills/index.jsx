@@ -5,10 +5,10 @@ import { getDrills } from "../../api/api";
 import React, { Suspense, useEffect, lazy } from "react";
 import Link from "next/link";
 import { auth } from "../../firebase-config";
-import Loading from "../../modules/Loading";
+import Loading from "../../components/Loading";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
-import DrillCard from "../../modules/DrillCard";
+import DrillCard from "../../components/DrillCard";
 
 
 export default function Drills() {
