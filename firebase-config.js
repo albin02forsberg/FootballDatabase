@@ -11,14 +11,14 @@ import { getStorage } from "firebase/storage";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-    apiKey: process.env.APIKEY,
-    authDomain: process.env.AUTHDOMAIN,
-    databaseURL: process.env.DATABASEURL,
-    projectId: process.env.PROJECTID,
-    storageBucket: process.env.STORAGEBUCKET,
-    messagingSenderId: process.env.MESSAGINGSENDERID,
-    appId: process.env.APPID,
-    measurementId: process.env.MEASUREMENTID,
+    apiKey: "AIzaSyAlrnk49_0Oc_E53r1TdyopIyuSfqws0ZI",
+    authDomain: "footballdatabase-437cb.firebaseapp.com",
+    databaseURL: "https://footballdatabase-437cb-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "footballdatabase-437cb",
+    storageBucket: "footballdatabase-437cb.appspot.com",
+    messagingSenderId: "1037002500127",
+    appId: "1:1037002500127:web:29e5e2dc8b3ae35f2c8d2a",
+    measurementId: "G-Q3750YWHYD",
 };
 
 // Initialize Firebase
