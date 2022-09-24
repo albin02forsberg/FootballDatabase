@@ -1,0 +1,38 @@
+/* Create variables with color theme */
+
+@keyframes slide {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.MuiPaper-root {
+    padding: 1rem;
+    margin: .5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    animation: fade 0.2s ease-in-out;
+}
+
+.Mui p {
+    white-space: pre-line;
+}
+
+.MuiTypography-root {
+    white-space: pre-line;
+}
+
+
+/* GOOGLE BUTTON */
