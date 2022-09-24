@@ -10,7 +10,6 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - environment: Firebase
       - uses: actions/checkout@v2
       - run: npm ci && npm run build && npm run prod
       - uses: FirebaseExtended/action-hosting-deploy@v0
