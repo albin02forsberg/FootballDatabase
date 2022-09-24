@@ -33,6 +33,13 @@ export default function DrillCard({ drill, id, showCreator }) {
           <Typography variant="caption">
             {calculateTime(drill.created.seconds)}
           </Typography>
+          <Typography
+            variant="caption"
+            component={Link}
+            href={"/user/" + drill.uid}
+          >
+            {drill.uname}
+          </Typography>
         </CardActions>
       )}
     </Card>

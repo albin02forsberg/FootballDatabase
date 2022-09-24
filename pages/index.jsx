@@ -37,13 +37,8 @@ export default function Home() {
       <Paper>
         <Box>
           <Masonry columns={{ md: 2, sm: 1 }}>
-            <Card
-              variant="outlined"
-              // component={Link}
-              // href="/drills"
-              style={{ padding: "0" }}
-            >
-              <CardActionArea>
+            <Card variant="outlined" style={{ padding: "0" }}>
+              <CardActionArea component={Link} href="/drills">
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                     Övningar
