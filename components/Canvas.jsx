@@ -172,13 +172,13 @@ export default function Canvas({ setImg }) {
       ctxRef.current.stroke();
     } else if (tool === "ball") {
       let ball = new Image();
-      ball.src = "./ball.svg";
+      ball.src = "/ball.svg";
       ball.onload = () => {
         ctxRef.current.drawImage(ball, offsetX - 7, offsetY - 7, 15, 15);
       };
     } else if (tool === "cone") {
       let cone = new Image();
-      cone.src = "./cone.svg";
+      cone.src = "/cone.svg";
       cone.onload = () => {
         ctxRef.current.drawImage(cone, offsetX - 7, offsetY - 7, 20, 20);
       };
@@ -262,7 +262,7 @@ export default function Canvas({ setImg }) {
       );
 
       let img = new Image();
-      img.src = "./playerwayball.svg";
+      img.src = "/playerwayball.svg";
       img.onload = () => {
         // Draw the image rotated towards end
         ctxRef.current.translate(startX, startY);

@@ -60,7 +60,7 @@ export default function CreateDrill() {
       uid: auth.currentUser.uid,
       created: new Date(),
     }).then((doc) => {
-      navigate("/drill/" + doc.id);
+      router.push("/drill/" + doc.id);
     });
   };
 

@@ -34,50 +34,6 @@ export default function Home() {
 
   return (
     <>
-      <Paper>
-        <Box>
-          <Masonry columns={{ md: 2, sm: 1 }}>
-            <Card variant="outlined" style={{ padding: "0" }}>
-              <CardActionArea component={Link} href="/drills">
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Övningar
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    Här kan du läsa om alla övningar som finns i vår databas.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-            <Card
-              variant="outlined"
-              // component={Link}
-              // href="/sessions"
-              style={{ padding: "0" }}
-            >
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Träningspass
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    Här kan du läsa om alla träningspass som finns i vår
-                    databas.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Masonry>
-        </Box>
-      </Paper>
       <Grid container spacing={3} columns={{ xs: 4, md: 12 }}>
         <Grid item xs>
           <Paper>

@@ -2,6 +2,7 @@ import {
   Card,
   CardActionArea,
   CardActions,
+  CardHeader,
   CardMedia,
   Typography,
 } from "@mui/material";
@@ -13,6 +14,8 @@ export default function DrillCard({ drill, id, showCreator }) {
   return (
     // Create mui card
     <Card style={{ borderRadius: "12px", padding: "0" }}>
+      <CardHeader title={drill.name} />
+
       <CardActionArea>
         <Link href={"/drills/" + id}>
           <CardMedia

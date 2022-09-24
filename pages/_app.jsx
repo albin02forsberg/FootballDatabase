@@ -1,13 +1,14 @@
-import Nav from "../components/Nav";
+import Header from "../components/Header";
 import "../styles/globals.css";
 import { Hydrate, QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Container } from "@mui/material";
+import { BottomNavigation, Container, Typography } from "@mui/material";
 import { auth } from "../firebase-config";
 const queryClient = new QueryClient();
 import { useEffect, useState } from "react";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
+import Nav from "../components/Nav";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -52,10 +53,11 @@ function MyApp({ Component, pageProps }) {
     <>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <Nav user={user} signOut={signOut} />
+          <Header user={user} signOut={signOut} />
           <Container>
             <Component {...pageProps} />
           </Container>
+          {/* <Nav /> */}
           <ReactQueryDevtools />
         </Hydrate>
       </QueryClientProvider>
