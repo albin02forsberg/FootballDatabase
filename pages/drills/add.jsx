@@ -19,7 +19,7 @@ import { Box } from "@mui/system";
 
 const Canvas = lazy(() => {
   return Promise.all([
-    import("../../components/canvas"),
+    import("../../components/Canvas"),
     new Promise((resolve) => setTimeout(resolve, 500)),
   ]).then(([moduleExports]) => moduleExports);
 });
