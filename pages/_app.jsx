@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import Nav from "../components/Nav";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -53,6 +54,10 @@ function MyApp({ Component, pageProps }) {
     <>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
+          <Script
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5245364068743927"
+            crossorigin="anonymous"
+          />
           <Header user={user} signOut={signOut} />
           <Container>
             <Component {...pageProps} />

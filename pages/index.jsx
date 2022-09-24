@@ -43,14 +43,12 @@ export default function Home() {
             <Masonry columns={{ md: 2, sm: 1 }}>
               {recDrills &&
                 recDrills.docs.map((drill) => (
-                  <Suspense fallback={<Loading />} key={drill.id}>
-                    <DrillCard
-                      drill={drill.data()}
-                      id={drill.id}
-                      showCreator={true}
-                      key={drill.id}
-                    />
-                  </Suspense>
+                  <DrillCard
+                    drill={drill.data()}
+                    id={drill.id}
+                    showCreator={true}
+                    key={drill.id}
+                  />
                 ))}
             </Masonry>
           </Paper>
