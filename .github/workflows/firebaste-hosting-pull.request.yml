@@ -13,6 +13,7 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
       env: 
         APIKEY: ${{secrets.APIKEY}}
+        AUTHDOMAIN: ${{secrets.AUTHDOMAIN}}
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FOOTBALLDATABASE_437CB }}'
