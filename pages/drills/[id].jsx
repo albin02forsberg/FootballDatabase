@@ -6,10 +6,21 @@ import { Divider, Grid, Paper, Typography } from "@mui/material";
 import { useQuery, prefetchQuery, QueryClient } from "react-query";
 import { getDrill } from "../../api/api";
 import { async } from "@firebase/util";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
-function Drill({ data }) {
+function Drill() {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data, status } = useQuery(["drill", id], async () => {
+    return await (await getDrill(id)).data();
+  });
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
   return (
     <Paper>
       <Box>
@@ -48,37 +59,6 @@ function Drill({ data }) {
       </Box>
     </Paper>
   );
-}
-
-export async function getStaticPaths() {
-  const querySnapshot = await getDocs(collection(db, "drills"));
-  const paths = querySnapshot.docs.map((doc) => ({
-    params: { id: doc.id },
-  }));
-
-  return { paths, fallback: true };
-}
-
-
-export async function getStaticProps(context) {
-  const { id } = context.params;
-  const data = await (await getDoc(doc(db, "drills", id))).data();
-
-  return {
-    props: {
-      data: {
-        name: data.name,
-        creator: data.uname,
-        desc: data.desc,
-        how: data.how,
-        imgLink: data.imgLink,
-        org: data.org,
-        type: data.type,
-        what: data.what,
-        why: data.why,
-      },
-    },
-  };
 }
 
 export default Drill;

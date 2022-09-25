@@ -171,31 +171,31 @@ export default function Header({ user, signOut }) {
         </Popper>
         <Drawer open={openDrawer} onClose={toggleDrawer(false)}>
           <List>
-            <ButtonBase
-              onClick={toggleDrawer(false)}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                padding: "2rem",
-              }}
-            >
-              <Link href="/">
+            <Link href="/">
+              <ButtonBase
+                onClick={toggleDrawer(false)}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "2rem",
+                }}
+              >
                 <FontAwesomeIcon icon={faHome} />
-              </Link>
-            </ButtonBase>
+              </ButtonBase>
+            </Link>
             <Divider />
-            <ButtonBase
-              onClick={toggleDrawer(false)}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                padding: "2rem",
-              }}
-            >
-              <Link href="/drills">
+            <Link href="/drills">
+              <ButtonBase
+                onClick={toggleDrawer(false)}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "2rem",
+                }}
+              >
                 <FontAwesomeIcon icon={faPersonRunning} />
-              </Link>
-            </ButtonBase>
+              </ButtonBase>
+            </Link>
             {/* <Divider />
             <ButtonBase
               onClick={toggleDrawer(false)}
