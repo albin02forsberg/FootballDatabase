@@ -6,7 +6,7 @@ import { Divider, Grid, Paper, Typography } from "@mui/material";
 import { useQuery, prefetchQuery, QueryClient } from "react-query";
 import { getDrill } from "../../api/api";
 import { async } from "@firebase/util";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import Head from "next/head";
 
@@ -66,7 +66,16 @@ function Drill({ data }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticPaths() {
+  const querySnapshot = await getDocs(collection(db, "drills"));
+  const paths = querySnapshot.docs.map((doc) => ({
+    params: { id: doc.id },
+  }));
+
+  return { paths, fallback: true };
+}
+
+export async function getStaticProps(context) {
   const id = context.params.id;
   const drillRef = doc(db, "drills", id);
   const drillSnap = await getDoc(drillRef);
