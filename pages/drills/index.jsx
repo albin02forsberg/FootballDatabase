@@ -9,6 +9,7 @@ import Loading from "../../components/Loading";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
 import DrillCard from "../../components/DrillCard";
+import Head from "next/head";
 
 
 export default function Drills() {
@@ -48,6 +49,10 @@ export default function Drills() {
 
   return (
     <Container>
+      <Head>
+        <title>Övningar</title>
+        <meta name="description" content="Övningar" />
+      </Head>
       <Paper
         style={{
           padding: "1rem",

@@ -8,21 +8,26 @@ import { getDrill } from "../../api/api";
 import { async } from "@firebase/util";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
+import Head from "next/head";
 
-function Drill() {
+function Drill({ data }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, status } = useQuery(["drill", id], async () => {
-    return await (await getDrill(id)).data();
-  });
+  // const { data, status } = useQuery(["drill", id], async () => {
+  //   return await (await getDrill(id)).data();
+  // });
 
-  if (status === "loading") {
-    return <Loading />;
-  }
+  // if (status === "loading") {
+  //   return <Loading />;
+  // }
 
   return (
     <Paper>
+      <Head>
+        <title>{data.name}</title>
+        <meta name="description" content={data.desc} />
+      </Head>
       <Box>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
@@ -59,6 +64,29 @@ function Drill() {
       </Box>
     </Paper>
   );
+}
+
+export async function getServerSideProps(context) {
+  const id = context.params.id;
+  const drillRef = doc(db, "drills", id);
+  const drillSnap = await getDoc(drillRef);
+  const drill = drillSnap.data();
+
+  return {
+    props: {
+      data: {
+        name: drill.name,
+        type: drill.type,
+        difficulty: drill.difficulty,
+        what: drill.what,
+        why: drill.why,
+        how: drill.how,
+        org: drill.org,
+        desc: drill.desc,
+        imgLink: drill.imgLink,
+      },
+    },
+  };
 }
 
 export default Drill;

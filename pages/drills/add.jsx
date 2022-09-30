@@ -16,6 +16,7 @@ import {
   Paper,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import Head from "next/head";
 
 const Canvas = lazy(() => {
   return Promise.all([
@@ -66,6 +67,10 @@ export default function CreateDrill() {
 
   return (
     <Container>
+      <Head>
+        <title>Skapa övning</title>
+        <meta name="description" content="Skapa övning" />
+      </Head>
       <Paper
         style={{
           padding: "1rem",
