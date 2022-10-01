@@ -20,6 +20,7 @@ export default function DrillCard({ drill, id, showCreator }) {
         <Link href={"/drills/" + id}>
           <CardMedia
             image={drill.imgLink}
+            alt={drill.id}
             height="auto"
             component="img"
             style={{ borderRadius: "12px" }}

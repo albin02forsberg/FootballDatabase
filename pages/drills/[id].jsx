@@ -11,14 +11,7 @@ import { db } from "../../firebase-config";
 import Head from "next/head";
 
 function Drill(data) {
-  // const { data, status } = useQuery(["drill", id], async () => {
-  //   return await (await getDrill(id)).data();
-  // });
-
-  // if (status === "loading") {
-  //   return <Loading />;
-  // }
-
+  console.log(data);
   return (
     <Paper>
       <Head>

@@ -15,7 +15,6 @@ export default function Login({ setIsAuth }) {
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
-        console.log(result.user);
         setIsAuth(true);
         localStorage.setItem("isAuth", true);
 

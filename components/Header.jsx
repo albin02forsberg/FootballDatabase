@@ -95,14 +95,11 @@ export default function Header({ user, signOut }) {
             color="inherit"
           >
             {user && user.photo ? (
-              (console.log(user),
-              (
-                <img
-                  src={user.photo}
-                  alt="avatar"
-                  style={{ width: "100%", height: "100%" }}
-                />
-              ))
+              <img
+                src={user.photo}
+                alt="avatar"
+                style={{ width: "100%", height: "100%" }}
+              />
             ) : (
               <FontAwesomeIcon icon={faUser} />
             )}
