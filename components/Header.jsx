@@ -1,28 +1,3 @@
-import {
-  faHome,
-  // faInfo,
-  faUser,
-  faBars,
-  faPersonRunning,
-  // faPhone,
-  // faAlignJustify,
-  // faUsers,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Box,
-  Avatar,
-  ButtonBase,
-  Popper,
-  Fade,
-  Paper,
-  ListItem,
-  List,
-  Drawer,
-  Typography,
-  Divider,
-} from "@mui/material";
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
