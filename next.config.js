@@ -2,7 +2,6 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    distDir: "build",
     exportPathMap: async function(
         defaultPathMap, { dev, dir, outDir, distDir, buildId }
     ) {
