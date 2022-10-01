@@ -70,73 +70,25 @@ export default function Login({ setIsAuth }) {
   });
 
   return (
-    <Container>
-      <Paper
-        style={{
-          padding: "2rem",
-          margin: "0.5rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Box
-          style={{
-            width: "75%",
-            margin: "auto",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography variant="h4">Logga in</Typography>
-          <Box mt={2} />
-          <TextField
-            label="E-post"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <Box mt={2} />
-          <TextField
-            label="Lösenord"
-            type="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <Box mt={2} />
-          <Button variant="container" onClick={signIn}>
-            Logga in
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={signInWithGoogle}
-          >
-            Logga in med Google
-          </Button>
-        </Box>
-        <Box
-          style={{
-            width: "75%",
-            margin: "1rem auto",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography variant="body1">
-            Har du inte ett konto?{" "}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => navigate("/register")}
-            >
-              Skapa konto
-            </Button>
-          </Typography>
-        </Box>
-      </Paper>
-    </Container>
+    <section class="h-100 gradient-form">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-xl-10">
+            <div class="card rounded-3 text-black">
+              <div class="card-body p-md-5">
+                <div class="row justify-content-center">
+                  <button
+                    className="btn btn-primary"
+                    onClick={signInWithGoogle}
+                  >
+                    Logga in med Google
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

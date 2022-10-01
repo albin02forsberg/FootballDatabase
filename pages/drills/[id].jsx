@@ -9,48 +9,53 @@ import { async } from "@firebase/util";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import Head from "next/head";
+import Image from "next/image";
 
 function Drill(data) {
   // console.log(data);
   return (
-    <Paper>
-      <Head>
-        <title>{data.name}</title>
-        <meta name="description" content={data.desc} />
-      </Head>
-      <Box>
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={6}>
-            <div>
-              <Typography variant="h3">{data.name}</Typography>
-              <Divider />
-              <Typography variant="h5">Vad?</Typography>
-              <Typography variant="body1">
-                {data.type} - {data.what}{" "}
-              </Typography>
-              <Typography variant="h5">Varför?</Typography>
-              <Typography variant="body1">{data.why}</Typography>
-              <Typography variant="h5">Hur?</Typography>
-              <Typography variant="body1">{data.how}</Typography>
-              <Typography variant="h5">Organisation</Typography>
-              <Typography variant="body1">{data.org}</Typography>
-              <Typography variant="h5">Anvisningar</Typography>
-              <Typography variant="body1">{data.desc}</Typography>
+    <section class="py-5">
+      <div class="container px-5 my-5">
+        <div class="row gx-5 justify-content-center">
+          <div class="col-lg-6">
+            <div class="text-center mb-5">
+              <h1 class="fw-bolder">{data.name}</h1>
+              <p class="lead fw-normal text-muted mb-0">{data.type}</p>
             </div>
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </div>
+        </div>
+        <div class="row gx-5">
+          <div
+            class="col-lg-6 order-lg-last"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <img
-              className="img img-thumbnail"
+              class="img-fluid rounded-3 mb-5"
               src={data.imgLink}
-              alt={data.id}
-              width={"100%"}
-              loading="lazy"
-              style={{ borderRadius: "12px" }}
+              alt="..."
             />
-          </Grid>
-        </Grid>
-      </Box>
-    </Paper>
+          </div>
+          <div className="col-lg-6">
+            <h2 class="">Vad?</h2>
+            <p class="lead fw-normal text-muted mb-4">
+              {data.type} - {data.what}
+            </p>
+            <h2>Varför?</h2>
+            <p class="lead fw-normal text-muted mb-4">{data.why}</p>
+            <h2 className="">Hur?</h2>
+            <p class="lead fw-normal text-muted mb-4">{data.how}</p>
+            <h2>Organisation</h2>
+            <p class="lead fw-normal text-muted mb-4">{data.org}</p>
+            <h2 className="">Instruktioner</h2>
+            <p class="lead fw-normal text-muted mb-4">{data.desc}</p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

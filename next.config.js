@@ -11,11 +11,9 @@ const nextConfig = {
             "/about": { page: "/about" },
         };
     },
-};
-
-module.exports = {
-    nextConfig,
     images: {
-        unoptimized: true,
+        unoptimized: false,
     },
 };
+
+module.exports = nextConfig;

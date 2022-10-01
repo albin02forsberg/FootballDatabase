@@ -1,51 +1,43 @@
-import {
-  Card,
-  CardActionArea,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  Typography,
-} from "@mui/material";
 import React from "react";
 import Link from "next/link";
 import calculateTime from "../api/calculateTime";
 
 export default function DrillCard({ drill, id, showCreator }) {
   return (
-    // Create mui card
-    <Card style={{ borderRadius: "12px", padding: "0" }}>
-      <CardHeader title={drill.name} />
-
-      <CardActionArea>
-        <Link href={"/drills/" + id}>
-          <CardMedia
-            image={drill.imgLink}
-            alt={drill.id}
-            height="auto"
-            component="img"
-            style={{ borderRadius: "12px" }}
-          />
-        </Link>
-      </CardActionArea>
-      {showCreator && (
-        <CardActions
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography variant="caption">
+    <div className="card rounded-3">
+      <div className="card-img-top">
+        <img
+          src={drill.imgLink}
+          alt={drill.name}
+          className="img-fluid"
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+      <div className="card-body">
+        <h5 className="card-title">{drill.name}</h5>
+        <p className="card-text">{drill.description}</p>
+        {showCreator && (
+          <Link href={`/user/${drill.uid}`} className="card-text">
+            <small className="text-muted">{drill.uname}</small>
+          </Link>
+        )}
+      </div>
+      <div
+        className="card-footer"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <p className="card-text">
+          <small className="text-muted">
             {calculateTime(drill.created.seconds)}
-          </Typography>
-          <Typography
-            variant="caption"
-            component={Link}
-            href={"/user/" + drill.uid}
-          >
-            {drill.uname}
-          </Typography>
-        </CardActions>
-      )}
-    </Card>
+          </small>
+        </p>
+        <Link href={`/drills/${id}`}>
+          <a className="btn btn-primary">Öppna</a>
+        </Link>
+      </div>
+    </div>
   );
 }

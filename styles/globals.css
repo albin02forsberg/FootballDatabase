@@ -58,3 +58,8 @@ body {
 .MuiTypography-root {
     white-space: pre-line;
 }
+
+.Mui-container {
+    padding: 0;
+    width: 100%;
+}

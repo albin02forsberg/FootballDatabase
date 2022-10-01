@@ -10,6 +10,9 @@ import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import Nav from "../components/Nav";
 import Script from "next/script";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from "../components/Footer";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -58,10 +61,14 @@ function MyApp({ Component, pageProps }) {
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5245364068743927"
             crossorigin="anonymous"
           />
+          <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+          <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" />
+
           <Header user={user} signOut={signOut} />
-          <Container>
+          <div class="d-flex flex-column h-100" style={{ minHeight: "90vh" }}>
             <Component {...pageProps} />
-          </Container>
+          </div>
+          <Footer />
           {/* <Nav /> */}
           <ReactQueryDevtools />
         </Hydrate>

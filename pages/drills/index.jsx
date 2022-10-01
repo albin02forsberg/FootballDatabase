@@ -48,76 +48,55 @@ export default function Drills() {
   // }
 
   return (
-    <Container>
+    <>
       <Head>
         <title>Övningar</title>
-        <meta name="description" content="Övningar" />
+        <meta name="description" content="Här finns våra övningar" />
       </Head>
-      <Paper
-        style={{
-          padding: "1rem",
-          margin: "0.5rem",
-          backgroundColor: "#fafafa",
-          borderRadius: "0.5rem",
-          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <Box mb={3}>
-          <Typography variant="h4">Övningar </Typography>
-          {auth && auth.currentUser && (
-            <Link href="/drills/add" passHref>
-              <Button variant="contained" color="primary">
-                Lägg till övning
-              </Button>
-            </Link>
-          )}
-        </Box>
-        <Box>
-          <Masonry columns={{ md: 4, sm: 1 }} spacing={{ md: 3, sm: 0 }}>
+      <section class="py-5">
+        <div class="container px-5 my-5">
+          <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6">
+              <div class="text-center mb-5">
+                <h1 class="fw-bolder">Övningar</h1>
+                <p class="lead fw-normal text-muted mb-0"></p>
+                {auth.currentUser && (
+                  <Link href="/drills/add">
+                    <Button variant="contained">Lägg till ny övning</Button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container px-5 my-5">
+          <Masonry
+            columns={{ xs: 1, sm: 2, md: 4 }}
+            spacing={2}
+            style={{ display: "flex", width: "100%", padding: 0, margin: 0 }}
+          >
             {data.pages.map((page) => {
               return page.docs.map((doc) => {
                 return (
-                  <Suspense key={doc.id} fallback={<Loading />}>
-                    <DrillCard
-                      drill={doc.data()}
-                      id={doc.id}
-                      showCreator={true}
-                    />
-                  </Suspense>
+                  <DrillCard
+                    drill={doc.data()}
+                    id={doc.id}
+                    showCreator={true}
+                  />
                 );
               });
             })}
-
-            {isFetching && <Loading />}
           </Masonry>
-        </Box>
-        <Stack spacing={2}>
-          <Divider />
-          <Stack spacing={3}>
-            {isFetching && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={fetchNextPage}
-                ref={ref}
-              >
-                Ladda fler
-              </Button>
-            )}
-            {!isFetching && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={fetchNextPage}
-                disabled
-                ref={ref}
-              >
+          <div ref={ref}>
+            {isFetching && <Loading />}
+            {data.pages[data.pages.length - 1].docs.length < 10 && (
+              <Typography variant="h6" align="center">
                 Inga fler övningar
-              </Button>
+              </Typography>
             )}
-          </Stack>
-        </Stack>
-      </Paper>
-    </Container>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
