@@ -11,7 +11,7 @@ import { db } from "../../firebase-config";
 import Head from "next/head";
 
 function Drill(data) {
-  console.log(data);
+  // console.log(data);
   return (
     <Paper>
       <Head>
@@ -54,33 +54,25 @@ function Drill(data) {
   );
 }
 
-export async function getStaticProps(context) {
-  const id = context.params.id;
-  const drillRef = doc(db, "drills", id);
-  const drillSnap = await getDoc(drillRef);
-  const drill = drillSnap.data();
-
+export async function getServerSideProps(context) {
+  const { id } = context.query;
+  const docRef = doc(db, "drills", id);
+  const docSnap = await getDoc(docRef);
+  const data = docSnap.data();
+  console.log(data);
   return {
     props: {
-      name: drill.name,
-      type: drill.type,
-      what: drill.what,
-      why: drill.why,
-      how: drill.how,
-      org: drill.org,
-      desc: drill.desc,
-      imgLink: drill.imgLink,
+      name: data.name,
+      type: data.type,
+      what: data.what,
+      why: data.why,
+      how: data.how,
+      org: data.org,
+      desc: data.desc,
+      imgLink: data.imgLink,
     },
   };
 }
 
-export async function getStaticPaths() {
-  const querySnapshot = await getDrills();
-  const paths = querySnapshot.docs.map((doc) => ({
-    params: { id: doc.id },
-  }));
-
-  return { paths, fallback: true };
-}
 
 export default Drill;
