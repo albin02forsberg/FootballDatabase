@@ -68,7 +68,7 @@ export default function CreateDrill() {
   return (
     <Container>
       <Head>
-        <title>Skapa övning</title>
+        <title>Skapa övning | Fotbollsträning.se</title>
         <meta name="description" content="Skapa övning" />
       </Head>
       <Paper

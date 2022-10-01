@@ -50,7 +50,7 @@ export default function Drills() {
   return (
     <>
       <Head>
-        <title>Övningar</title>
+        <title>Övningar | Fotbollsträning.se</title>
         <meta name="description" content="Här finns våra övningar" />
       </Head>
       <section class="py-5">

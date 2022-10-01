@@ -3,22 +3,6 @@ import Image from "next/image";
 import React from "react";
 
 export default function Header({ user, signOut }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
-  const [openDrawer, setOpenDrawer] = React.useState(false);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    setOpen((prev) => !prev);
-  };
-
-  const toggleDrawer = (open) => (event) => {
-    setOpenDrawer(!openDrawer);
-  };
-
-  const canBeOpen = open && Boolean(anchorEl);
-  const id = canBeOpen ? "transition-popper" : undefined;
-
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container px-5">
@@ -54,8 +38,13 @@ export default function Header({ user, signOut }) {
               </Link>
             </li>
             <li class="nav-item">
+              <Link href="/drills">
+                <a class="nav-link">Drills</a>
+              </Link>
+            </li>
+            <li class="nav-item">
               <Link href="/about">
-                <a class="nav-link">About</a>
+                <a class="nav-link disabled">About</a>
               </Link>
             </li>
             <li class="nav-item">
@@ -63,11 +52,19 @@ export default function Header({ user, signOut }) {
                 <a class="nav-link disabled">Contact</a>
               </Link>
             </li>
-            <li class="nav-item">
-              <Link href="/drills">
-                <a class="nav-link">Drills</a>
-              </Link>
-            </li>
+            {user ? (
+              <li class="nav-item">
+                <Link href={`/user/${user.uid}`}>
+                  <a class="nav-link">{user.name}</a>
+                </Link>
+              </li>
+            ) : (
+              <li class="nav-item">
+                <Link href="/login">
+                  <a class="nav-link">Login</a>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
