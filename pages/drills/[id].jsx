@@ -4,16 +4,13 @@ import Loading from "../../components/Loading";
 import { Box, Container } from "@mui/system";
 import { Divider, Grid, Paper, Typography } from "@mui/material";
 import { useQuery, prefetchQuery, QueryClient } from "react-query";
-import { getDrill } from "../../api/api";
+import { getDrill, getDrills } from "../../api/api";
 import { async } from "@firebase/util";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import Head from "next/head";
 
-function Drill({ data }) {
-  const router = useRouter();
-  const { id } = router.query;
-
+function Drill(data) {
   // const { data, status } = useQuery(["drill", id], async () => {
   //   return await (await getDrill(id)).data();
   // });
@@ -49,30 +46,19 @@ function Drill({ data }) {
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            {data && (
-              <img
-                className="img img-thumbnail"
-                src={data.imgLink}
-                alt={data.id}
-                width={"100%"}
-                loading="lazy"
-                style={{ borderRadius: "12px" }}
-              />
-            )}
+            <img
+              className="img img-thumbnail"
+              src={data.imgLink}
+              alt={data.id}
+              width={"100%"}
+              loading="lazy"
+              style={{ borderRadius: "12px" }}
+            />
           </Grid>
         </Grid>
       </Box>
     </Paper>
   );
-}
-
-export async function getStaticPaths() {
-  const querySnapshot = await getDocs(collection(db, "drills"));
-  const paths = querySnapshot.docs.map((doc) => ({
-    params: { id: doc.id },
-  }));
-
-  return { paths, fallback: true };
 }
 
 export async function getStaticProps(context) {
@@ -83,19 +69,25 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      data: {
-        name: drill.name,
-        type: drill.type,
-        difficulty: drill.difficulty,
-        what: drill.what,
-        why: drill.why,
-        how: drill.how,
-        org: drill.org,
-        desc: drill.desc,
-        imgLink: drill.imgLink,
-      },
+      name: drill.name,
+      type: drill.type,
+      what: drill.what,
+      why: drill.why,
+      how: drill.how,
+      org: drill.org,
+      desc: drill.desc,
+      imgLink: drill.imgLink,
     },
   };
+}
+
+export async function getStaticPaths() {
+  const querySnapshot = await getDrills();
+  const paths = querySnapshot.docs.map((doc) => ({
+    params: { id: doc.id },
+  }));
+
+  return { paths, fallback: true };
 }
 
 export default Drill;
