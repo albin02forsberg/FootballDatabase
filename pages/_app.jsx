@@ -8,9 +8,10 @@ const queryClient = new QueryClient();
 import { useEffect, useState } from "react";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
-import Nav from "../components/Nav";
 import Script from "next/script";
 import Footer from "../components/Footer";
+import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
