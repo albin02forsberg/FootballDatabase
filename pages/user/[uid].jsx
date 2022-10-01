@@ -15,42 +15,15 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { Masonry } from "@mui/lab";
-import { Box, Container } from "@mui/system";
-import {
-  Divider,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
 import { getUserDrills } from "../../api/api";
 import DrillCard from "../../components/DrillCard";
 import UserHeader from "../../components/UserHeader";
 import Head from "next/head";
 
-export default function User({ signOut }) {
+export default function User(data) {
   // get another users data
   const router = useRouter();
   const { uid } = router.query;
-
-  const { data, status } = useQuery(["User", uid], async () => {
-    const userCollectionRef = collection(db, "users");
-    const userRef = doc(userCollectionRef, uid);
-    const u = await getDoc(userRef);
-    return u;
-  });
-
-  const { data: drillsData, status: drillsStatus } = useQuery(
-    ["user drills", uid],
-    async (uid) => {
-      const drills = await getUserDrills(uid.queryKey[1]);
-      return drills;
-    }
-  );
 
   const { data: sessionsData } = useQuery(["user sessions", uid], async () => {
     const sessionQ = query(
@@ -62,101 +35,99 @@ export default function User({ signOut }) {
     return sessions.docs;
   });
 
-  if (status === "loading" || drillsStatus === "loading") {
-    return <Loading />;
-  }
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return d.toLocaleDateString();
+  };
+
+  console.log(data);
 
   return (
     <>
       <Head>
-        <title>{data.data().name} | Fotbollsträning.se</title>
+        <title>{data.user.name} | Fotbollsträning.se</title>
         <meta
           name="description"
-          content={`Här kan du se ${data.data().name}s profil`}
+          content={`Här kan du se ${data.user.name}s profil`}
         />
       </Head>
-      <Container>
-        <Paper
-          style={{
-            padding: "1rem",
-            margin: "0.5rem",
-            backgroundColor: "#fafafa",
-            borderRadius: "0.5rem",
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <Box mb={3}>
-            <Suspense fallback={<Loading />}>
-              <UserHeader user={data} signOut={signOut} drills={drillsData} />
-            </Suspense>
-          </Box>
-        </Paper>
-        <Paper
-          style={{
-            padding: "1rem",
-            margin: "0.5rem",
-            backgroundColor: "#fafafa",
-            borderRadius: "0.5rem",
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <Box mb={3}>
-            <Typography variant="h4">{data.data().name}s övningar</Typography>
-            <Divider style={{ marginBottom: "8pt" }} />
 
-            <Masonry columns={{ md: 4, sm: 1 }} spacing={{ md: 3, sm: 0 }}>
-              {drillsData &&
-                drillsData.map((drill) => (
-                  <Suspense fallback={<Loading />}>
-                    <DrillCard drill={drill.data()} id={drill.id} />
-                  </Suspense>
-                ))}
-            </Masonry>
-          </Box>
-          <Divider />
-        </Paper>
-        <Paper
-          style={{
-            padding: "1rem",
-            margin: "0.5rem",
-            backgroundColor: "#fafafa",
-            borderRadius: "0.5rem",
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <Box mb={3}>
-            <Typography variant="h5">{data.data().name + "s pass"}</Typography>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Namn</TableCell>
-                    <TableCell>Typ</TableCell>
-                    <TableCell>Nivå</TableCell>
-                    <TableCell>Antal övningar</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {sessionsData &&
-                    sessionsData.map((session) => (
-                      <TableRow key={session.id}>
-                        <TableCell>
-                          <Link href={`/session/${session.id}`}>
-                            {session.data().name}
-                          </Link>
-                        </TableCell>
-                        <TableCell>{session.data().type}</TableCell>
+      <header class="bg-dark py-5">
+        <div class="container px-5">
+          <div class="row gx-5 align-items-center justify-content-center">
+            <div class="col-lg-8 col-xl-7 col-xxl-6">
+              <div class="my-5 text-center">
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-center mb-5">
+                  <img src={data.user.photo} class="rounded-circle img-fluid" />
+                </div>
+                <h1 class="display-5 fw-bolder text-white mb-2 justify-content-center">
+                  {data.user.name}
+                </h1>
+                <p class="lead fw-normal text-white-50 mb-2">
+                  Medlem sedan {formatDate(data.user.joined)}
+                </p>
+                <p class="lead fw-normal text-white-50 ">
+                  {data.drills.length} övningar
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
 
-                        <TableCell>{session.data().difficulty}</TableCell>
-                        <TableCell>{session.data().drills.length}</TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
-        </Paper>
-      </Container>
+      <section class="py-5">
+        <div class="container px-5 my-5">
+          <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6">
+              <div class="text-center mb-5">
+                <h1 class="fw-bolder">Övningar</h1>
+                <p class="lead fw-normal text-muted mb-0"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container px-5 my-5">
+          <Masonry
+            columns={{ xs: 1, sm: 2, md: 4 }}
+            spacing={2}
+            style={{ display: "flex", width: "100%", padding: 0, margin: 0 }}
+          >
+            {data.drills.map((drill) => (
+              <DrillCard drill={drill} id={drill.id} />
+            ))}
+          </Masonry>
+        </div>
+      </section>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { uid } = context.query;
+  console.log(uid);
+
+  const userCollectionRef = collection(db, "users");
+  const userRef = doc(userCollectionRef, uid);
+  const u = await getDoc(userRef);
+
+  const drills = await getUserDrills(uid);
+
+  return {
+    props: {
+      user: u.data(),
+      drills: drills.map((d) => {
+        return {
+          id: d.id,
+          name: d.data().name,
+          type: d.data().type,
+          imgLink: d.data().imgLink,
+          desc: d.data().desc,
+          created: {
+            seconds: d.data().created.seconds,
+          },
+          uid: d.data().uid,
+        };
+      }),
+    },
+  };
 }
