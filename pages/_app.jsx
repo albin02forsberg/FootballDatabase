@@ -11,6 +11,7 @@ import { db } from "../firebase-config";
 import Script from "next/script";
 import Footer from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Head from "next/head";
 // import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function MyApp({ Component, pageProps }) {
@@ -56,6 +57,14 @@ function MyApp({ Component, pageProps }) {
     <>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
+          <Head>
+            <title>Fotbollsträning.se</title>
+            <meta
+              name="description"
+              content="Här kan du hitta massor av fotbollsträningar för alla åldrar och nivåer. Du kan även skapa egna träningar och spara dem i din profil."
+            />
+            <link rel="icon" href="/logo.jpeg" />
+          </Head>
           <Script
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5245364068743927"
             crossorigin="anonymous"
