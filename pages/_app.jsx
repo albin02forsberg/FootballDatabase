@@ -5,14 +5,44 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { BottomNavigation, Container, Typography } from "@mui/material";
 import { auth } from "../firebase-config";
 const queryClient = new QueryClient();
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import Script from "next/script";
 import Footer from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import Loading from "../components/Loading";
 // import "bootstrap/dist/js/bootstrap.bundle.min";
+
+function Load() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = (url) => url !== router.asPath && setLoading(true);
+    const handleComplete = (url) => url === router.asPath && setLoading(false);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  });
+
+  return (
+    loading && (
+      <div className="loading">
+        <Loading />
+      </div>
+    )
+  );
+}
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -74,6 +104,7 @@ function MyApp({ Component, pageProps }) {
 
           <Header user={user} signOut={signOut} />
           <div class="d-flex flex-column h-100" style={{ minHeight: "90vh" }}>
+            <Load />
             <Component {...pageProps} />
           </div>
           <Footer />

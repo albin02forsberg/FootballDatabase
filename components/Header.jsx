@@ -33,23 +33,23 @@ export default function Header({ user, signOut }) {
             <li class="nav-item">
               <Link href="/">
                 <a class="nav-link active" aria-current="page">
-                  Home
+                  Hem
                 </a>
               </Link>
             </li>
             <li class="nav-item">
               <Link href="/drills">
-                <a class="nav-link">Drills</a>
+                <a class="nav-link">Övningar</a>
               </Link>
             </li>
             <li class="nav-item">
               <Link href="/about">
-                <a class="nav-link">About</a>
+                <a class="nav-link">Om</a>
               </Link>
             </li>
             <li class="nav-item">
               <Link href="/contact">
-                <a class="nav-link disabled">Contact</a>
+                <a class="nav-link">Kontakt</a>
               </Link>
             </li>
             {user ? (
