@@ -43,7 +43,7 @@ export default function User(data) {
   console.log(data);
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <Head>
         <title>{data.user.name} | Fotbollsträning.se</title>
         <meta
@@ -98,7 +98,7 @@ export default function User(data) {
           </Masonry>
         </div>
       </section>
-    </>
+    </Suspense>
   );
 }
 
