@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 export default function Header({ user, signOut }) {
+  console.log(user);
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container px-5">
@@ -63,6 +64,22 @@ export default function Header({ user, signOut }) {
                 <Link href="/login">
                   <a class="nav-link">Login</a>
                 </Link>
+              </li>
+            )}
+
+            {user && user.role === "admin" && (
+              <li class="nav-item">
+                <Link href="/admin">
+                  <a class="nav-link">Admin</a>
+                </Link>
+              </li>
+            )}
+
+            {user && (
+              <li class="nav-item">
+                <a class="nav-link" onClick={signOut}>
+                  Logga ut
+                </a>
               </li>
             )}
           </ul>

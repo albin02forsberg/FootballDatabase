@@ -15,6 +15,16 @@ export const getDrill = async(id) => {
     return await getDoc(doc(collection(db, "drills"), id));
 };
 
+export const getAllDrills = async() => {
+    return await getDocs(collection(db, "drills"));
+};
+
+export const getAllUsers = async() => {
+    return await getDocs(collection(db, "users"));
+};
+
+
+
 export const getDrills = async(pageParam = null) => {
     if (pageParam) {
         const q = query(
@@ -71,4 +81,10 @@ export const getUserDrills = async(uid) => {
     );
     const drills = await getDocs(drillQ);
     return drills.docs;
+};
+
+export const getUserImage = async(uid) => {
+    const user = await getDoc(doc(collection(db, "users"), uid));
+    console.log(user.data().image);
+    return user.data().photo;
 };

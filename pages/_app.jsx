@@ -94,6 +94,10 @@ function MyApp({ Component, pageProps }) {
               content="Här kan du hitta massor av fotbollsträningar för alla åldrar och nivåer. Du kan även skapa egna träningar och spara dem i din profil."
             />
             <link rel="icon" href="/logo.jpeg" />
+            <link
+              rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+            ></link>
           </Head>
           <Script
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5245364068743927"
@@ -103,10 +107,12 @@ function MyApp({ Component, pageProps }) {
           <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" />
 
           <Header user={user} signOut={signOut} />
-          <div class="d-flex flex-column h-100" style={{ minHeight: "90vh" }}>
-            <Load />
-            <Component {...pageProps} />
-          </div>
+          <body class="d-flex flex-column h-100">
+            <main class="flex-shrink-0">
+              <Load />
+              <Component {...pageProps} />
+            </main>
+          </body>
           <Footer />
           {/* <Nav /> */}
           <ReactQueryDevtools />
