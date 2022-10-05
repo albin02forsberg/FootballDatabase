@@ -16,6 +16,11 @@ export default function Home() {
     <>
       <Head>
         <title>Hem | Fotbollsträning</title>
+        <meta
+          name="description"
+          content="Välkommen till fotbollsträning.se! Sidan för dej
+        som vill utveckla framtidens fotbollsspelare."
+        />
       </Head>
       <header class="bg-dark py-5">
         <div class="container px-5">
