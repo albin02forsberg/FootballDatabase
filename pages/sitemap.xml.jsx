@@ -18,42 +18,35 @@ export const getServerSideProps = async ({ res }) => {
         <url>
         <loc>https://www.xn--fotbollstrning-fib.se/</loc>
         <lastmod>2022-10-05T07:30:19+00:00</lastmod>
-        <changefreq>weekly</changefreq>
         <priority>1.00</priority>
         </url>
         <url>
         <loc>https://www.xn--fotbollstrning-fib.se/drills</loc>
         <lastmod>2022-10-05T07:30:19+00:00</lastmod>
-        <changefreq>dayly</changefreq>
         <priority>0.80</priority>
         </url>
         <url>
         <loc>https://www.xn--fotbollstrning-fib.se/about</loc>
         <lastmod>2022-10-05T07:30:19+00:00</lastmod>
-        <changefreq>monthly</changefreq>
         <priority>0.80</priority>
         </url>
         <url>
         <loc>https://www.xn--fotbollstrning-fib.se/contact</loc>
         <lastmod>2022-10-05T07:30:19+00:00</lastmod>
-        <changefreq>monthly</changefreq>
         <priority>0.80</priority>
         </url>
         <url>
         <loc>https://www.xn--fotbollstrning-fib.se/login</loc>
         <lastmod>2022-10-05T07:30:19+00:00</lastmod>
-        <changefreq>monthly</changefreq>
         <priority>0.80</priority>
         </url>
         <url>
         <loc>https://www.xn--fotbollstrning-fib.se/privacy</loc>
         <lastmod>2022-10-05T07:30:19+00:00</lastmod>
-        <changefreq>monthly</changefreq>
         <priority>0.80</priority>
         </url>
         <url>
         <loc>https://www.xn--fotbollstrning-fib.se/terms</loc>
-        <changefreq>monthly</changefreq>
         <lastmod>2022-10-05T07:30:19+00:00</lastmod>
         <priority>0.80</priority>
         </url>
@@ -64,7 +57,6 @@ export const getServerSideProps = async ({ res }) => {
               <loc>
                 ${BASE_URL}/drills/${drill.id}
               </loc>
-              <changefreq>weekly</changefreq>
               <lastmod>${new Date().toISOString()}</lastmod>
               <priority>0.9</priority>
             </url>
@@ -76,7 +68,6 @@ export const getServerSideProps = async ({ res }) => {
                 <loc>
                     ${BASE_URL}/user/${user.id}
                 </loc>
-                <changefreq>weekly</changefreq>
                 <lastmod>${new Date().toISOString()}</lastmod>
                 <priority>0.9</priority>
             </url>
