@@ -88,3 +88,7 @@ export const getUserImage = async(uid) => {
     console.log(user.data().image);
     return user.data().photo;
 };
+export const getPosts = async(n = 10) => {
+    const q = query(collection(db, "posts"));
+    return await getDocs(q).docs;
+};

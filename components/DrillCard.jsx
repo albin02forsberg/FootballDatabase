@@ -32,25 +32,27 @@ export default function DrillCard({ drill, id, showCreator }) {
         </div>
       </Link>
       <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-        <div class="d-flex align-items-end justify-content-between">
-          <div class="d-flex align-items-center">
-            <img
-              class="rounded-circle me-3"
-              src={data}
-              alt="..."
-              width={50}
-              height={50}
-            />
-            <Link href={`/user/${drill.uid}`}>
-              <div class="small">
-                <div class="fw-bold">{drill.uname}</div>
-                <div class="text-muted">
-                  {calculateTime(drill.created.seconds)}
+        {showCreator && (
+          <div class="d-flex align-items-end justify-content-between">
+            <div class="d-flex align-items-center">
+              <img
+                class="rounded-circle me-3"
+                src={data}
+                alt="..."
+                width={50}
+                height={50}
+              />
+              <Link href={`/user/${drill.uid}`}>
+                <div class="small">
+                  <div class="fw-bold">{drill.uname}</div>
+                  <div class="text-muted">
+                    {calculateTime(drill.created.seconds)}
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
