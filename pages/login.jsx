@@ -52,7 +52,7 @@ export default function Login({ setIsAuth }) {
           joined: result.user.metadata.creationTime,
           lastSignInTime: result.user.metadata.lastSignInTime
             ? result.user.metadata.lastSignInTime
-            : result.user.metadata.creationTime,
+            : null,
           provider: result.user.providerData,
           // if user is admin set role to admin
           // role:
