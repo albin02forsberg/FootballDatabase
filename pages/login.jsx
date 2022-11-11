@@ -50,7 +50,9 @@ export default function Login({ setIsAuth }) {
           email: result.user.email,
           photo: result.user.photoURL,
           joined: result.user.metadata.creationTime,
-          lastSignInTime: result.user.metadata.lastSignInTime,
+          lastSignInTime: result.user.metadata.lastSignInTime
+            ? result.user.metadata.lastSignInTime
+            : result.user.metadata.creationTime,
           provider: result.user.providerData,
           // if user is admin set role to admin
           // role:
